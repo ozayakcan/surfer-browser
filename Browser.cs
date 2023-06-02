@@ -1,4 +1,6 @@
-﻿using CefSharp.WinForms;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using Surfer.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,10 @@ namespace Surfer
     {
         public Browser()
         {
+            CefSettings cefSettings = new CefSettings();
+            cefSettings.CachePath = Paths.AppData("Cache");
+            if (!Cef.IsInitialized)
+                Cef.Initialize(cefSettings);
             InitializeComponent();
         }
 
