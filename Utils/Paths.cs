@@ -25,5 +25,9 @@ namespace Surfer.Utils
         {
             return (string.IsNullOrEmpty(file) || string.IsNullOrWhiteSpace(file)) ? AppDataPath : Path.Combine(AppDataPath, file);
         }
+        public static string GetNameFromUrl(string url)
+        {
+            return url.Replace("/", "").Replace("https", "").Replace("http", "").Replace(":", "");
+        }
     }
 }
