@@ -141,6 +141,9 @@
     <Compile Include="Utils\MyBrowserSettings.cs" />
     <Compile Include="Utils\MyExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
+    <EmbeddedResource Include="AppContainer.resx">
+      <DependentUpon>AppContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
     </EmbeddedResource>

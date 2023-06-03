@@ -21,15 +21,13 @@ namespace Surfer
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Browser());
             AppContainer appContainer = new AppContainer();
-            TitleBarTab titleBarTab = new EasyTabs.TitleBarTab(appContainer)
+            TitleBarTab titlebarTab = new EasyTabs.TitleBarTab(appContainer);
+            titlebarTab.Content = new Browser(titlebarTab)
             {
-                Content = new Browser
-                {
-                    Text = "New Tab",
-                    StartUrl = MyBrowserSettings.HomePage,
-                }
+                Text = "New Tab",
+                StartUrl = MyBrowserSettings.HomePage,
             };
-            appContainer.Tabs.Add(titleBarTab);
+            appContainer.Tabs.Add(titlebarTab);
             appContainer.SelectedTabIndex = 0;
             TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
             applicationContext.Start(appContainer);

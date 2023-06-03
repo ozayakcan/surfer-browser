@@ -17,24 +17,19 @@ namespace Surfer
         public AppContainer()
         {
             InitializeComponent();
-            this.ClientSize = new Size(800, 450);
-            this.WindowState = FormWindowState.Normal;
-            this.MinimumSize = new Size(400, 400);
             AeroPeekEnabled = true;
             TabRenderer = new ChromeTabRenderer(this);
-            this.BackColor = Color.Black;
-            this.ForeColor = Color.White;
         }
 
         public override TitleBarTab CreateTab()
         {
-            return new TitleBarTab(this)
+            TitleBarTab titlebarTab = new TitleBarTab(this);
+            titlebarTab.Content = new Browser(titlebarTab)
             {
-                Content = new Browser {
-                    Text = "New Tab",
-                    StartUrl = MyBrowserSettings.HomePage,
-                }
+                Text = "New Tab",
+                StartUrl = MyBrowserSettings.HomePage,
             };
+            return titlebarTab;
         }
     }
 }

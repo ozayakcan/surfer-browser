@@ -1,10 +1,12 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
+using EasyTabs;
 using Surfer.Utils;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Windows.Forms;
 
 namespace Surfer
@@ -14,13 +16,25 @@ namespace Surfer
         public string StartUrl {get; set;}
         public Icon OriginalIcon = Properties.Resources.tab_icon;
         public Icon SiteIcon;
-        public string CurrentUrl;
-        public Browser()
+        private TitleBarTab _tab;
+        public TitleBarTab Tab
+        {
+            get
+            {
+                return _tab;
+            }
+            set
+            {
+                _tab = value;
+            }
+        }
+        public Browser(TitleBarTab titlebarTab)
         {
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.AppData("Cache");
             if (!Cef.IsInitialized)
                 Cef.Initialize(cefSettings);
+            Tab = titlebarTab;
             InitializeComponent();
         }
 
@@ -41,7 +55,13 @@ namespace Surfer
         {
             chBrowser.Load(url);
         }
-
+        public void SetIcon(Icon icon)
+        {
+            InvokeAction(new Action(() => {
+                Icon = Tab.Icon = SiteIcon = icon;
+                Tab.Parent.UpdateThumbnailPreviewIcon(Tab, icon);
+            }));
+        }
         ChromiumWebBrowser chBrowser;
         private void Browser_Load(object sender, EventArgs e)
         {
@@ -57,7 +77,7 @@ namespace Surfer
 
         private void ChBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
-            if (e.IsLoading)
+            /*if (e.IsLoading)
             {
                 InvokeAction(new Action(() =>
                 {
@@ -66,46 +86,61 @@ namespace Surfer
             }
             else
             {
-                chBrowser.GetSourceAsync().ContinueWith(taskHtml =>
-                {
-                    var html = taskHtml.Result;
-                    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                    doc.LoadHtml(html);
-                    string iconPath = "";
-                    if (CurrentUrl != null)
-                    {
-                        string url = new Uri(CurrentUrl).GetLeftPart(UriPartial.Authority);
-                        // From Meta
-                        iconPath = FindIcon(url, doc, "meta", "itemprop", new string[] { "image" }, "content");
-                        // From link
-                        iconPath = FindIcon(url, doc, "link", "rel", new string[] { "icon" }, "href", iconPath);
-                        iconPath = FindIcon(url, doc, "link", "rel", new string[] { "shortcut icon" }, "href", iconPath);
-                        if (iconPath != "")
-                        {
-                            using (WebClient client = new WebClient())
-                            {
-                                WebClient wc = new WebClient();
-                                byte[] originalData = wc.DownloadData(iconPath);
-                                MemoryStream stream = new MemoryStream(originalData);
-                                Bitmap bmp = new Bitmap(stream);
-                                var thumb = (Bitmap)bmp.GetThumbnailImage(32, 32, null, IntPtr.Zero);
-                                thumb.MakeTransparent();
-                                Icon ıcon = Icon.FromHandle(thumb.GetHicon());
-                                InvokeAction(new Action(() => {
-                                    Icon = SiteIcon = ıcon;
-                                }));
-                            }
-                        }
-                    }
-                });
-            }
+                
+            }*/
         }
 
         private void ChBrowser_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             InvokeAction(new Action(() => {
-                tbUrl.Text = CurrentUrl = e.Address;
+                tbUrl.Text = e.Address;
             }));
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    using (HttpResponseMessage httpResponse = httpClient.GetAsync(e.Address).Result)
+                    {
+                        using (HttpContent httpContent = httpResponse.Content)
+                        {
+                            string html = httpContent.ReadAsStringAsync().Result;
+                            //var html = taskHtml.Result;
+                            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                            doc.LoadHtml(html);
+                            string iconPath = "";
+                            string url = new Uri(e.Address).GetLeftPart(UriPartial.Authority);
+                            // From Meta
+                            iconPath = FindIcon(url, doc, "meta", "itemprop", new string[] { "image" }, "content");
+                            // From link
+                            iconPath = FindIcon(url, doc, "link", "rel", new string[] { "icon" }, "href", iconPath);
+                            iconPath = FindIcon(url, doc, "link", "rel", new string[] { "shortcut icon" }, "href", iconPath);
+                            if (iconPath != "")
+                            {
+                                using (WebClient client = new WebClient())
+                                {
+
+                                    WebClient wc = new WebClient();
+                                    byte[] originalData = wc.DownloadData(iconPath);
+                                    MemoryStream stream = new MemoryStream(originalData);
+                                    Bitmap bmp = new Bitmap(stream);
+                                    var thumb = (Bitmap)bmp.GetThumbnailImage(32, 32, null, IntPtr.Zero);
+                                    thumb.MakeTransparent();
+                                    Icon icon = Icon.FromHandle(thumb.GetHicon());
+                                    SetIcon(icon);
+                                }
+                            }
+                            else
+                            {
+                                SetIcon(OriginalIcon);
+                            }
+                        }
+                    }
+                }
+            }catch(Exception exception)
+            {
+                SetIcon(OriginalIcon);
+            }
+            
         }
 
         private void ChBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
