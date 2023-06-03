@@ -16,18 +16,7 @@ namespace Surfer
         public string StartUrl {get; set;}
         public Icon OriginalIcon = Properties.Resources.tab_icon;
         public Icon SiteIcon;
-        private TitleBarTab _tab;
-        public TitleBarTab Tab
-        {
-            get
-            {
-                return _tab;
-            }
-            set
-            {
-                _tab = value;
-            }
-        }
+        public TitleBarTab Tab { get; set; }
         public Browser(TitleBarTab titlebarTab)
         {
             CefSettings cefSettings = new CefSettings();
@@ -71,23 +60,20 @@ namespace Surfer
             chBrowser.AddressChanged += ChBrowser_AddressChanged;
             chBrowser.TitleChanged += ChBrowser_TitleChanged;
             pnlBrowser.Controls.Add(chBrowser);
+            SetGoBackButtonStatus(chBrowser.CanGoBack);
+            SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
         }
 
         private void ChBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
-            /*if (e.IsLoading)
+            if (!e.IsLoading)
             {
-                InvokeAction(new Action(() =>
-                {
-                    Icon = OriginalIcon;
-                }));
+                SetGoBackButtonStatus(e.CanGoBack);
+                SetGoForwardButtonStatus(e.CanGoForward);
             }
-            else
-            {
-                
-            }*/
+            SetRefreshButtonStatus(e.IsLoading);
         }
 
         private void ChBrowser_AddressChanged(object sender, AddressChangedEventArgs e)
@@ -136,7 +122,7 @@ namespace Surfer
                         }
                     }
                 }
-            }catch(Exception exception)
+            }catch
             {
                 SetIcon(OriginalIcon);
             }
@@ -188,28 +174,66 @@ namespace Surfer
         {
             if (chBrowser.CanGoBack)
             {
+                SetGoBackButtonStatus(false);
                 chBrowser.Back();
             }
         }
-
+        private void SetGoBackButtonStatus(bool status)
+        {
+            InvokeAction(new Action(() =>
+            {
+                btnBack.Enabled = status;
+            }));
+        }
         private void btnForward_Click(object sender, EventArgs e)
         {
 
             if (chBrowser.CanGoForward)
             {
+                SetGoForwardButtonStatus(false);
                 chBrowser.Forward();
             }
         }
 
+        private void SetGoForwardButtonStatus(bool status)
+        {
+            InvokeAction(new Action(() =>
+            {
+                btnForward.Visible = btnForward.Enabled = status;
+            }));
+        }
         private void btnHome_Click(object sender, EventArgs e)
         {
             LoadUrl(MyBrowserSettings.HomePage);
         }
-
+   
+        private void SetGoHomeButtonStatus(bool status)
+        {
+            InvokeAction(new Action(() =>
+            {
+                btnHome.Enabled = status;
+            }));
+        }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             chBrowser.Reload();
         }
+
+        private void SetRefreshButtonStatus(bool status)
+        {
+            InvokeAction(new Action(() =>
+            {
+                if (status)
+                {
+                    btnRefresh.IconChar = FontAwesome.Sharp.IconChar.Close;
+                }
+                else
+                {
+                    btnRefresh.IconChar = FontAwesome.Sharp.IconChar.Refresh;
+                }
+            }));
+        }
+
         private bool tbUrlEntered = false;
 
         private void tbUrl_Enter(object sender, EventArgs e)
