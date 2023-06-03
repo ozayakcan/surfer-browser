@@ -20,7 +20,6 @@ namespace Surfer
             TitleBarTab titlebarTab = new EasyTabs.TitleBarTab(appContainer);
             titlebarTab.Content = new Browser(appContainer, titlebarTab)
             {
-                Text = "New Tab",
                 StartUrl = MyBrowserSettings.HomePage,
             };
             appContainer.Tabs.Add(titlebarTab);

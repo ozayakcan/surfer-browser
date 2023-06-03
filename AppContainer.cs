@@ -17,7 +17,6 @@ namespace Surfer
             TitleBarTab titlebarTab = new TitleBarTab(this);
             titlebarTab.Content = new Browser(this, titlebarTab)
             {
-                Text = "New Tab",
                 StartUrl = MyBrowserSettings.HomePage,
             };
             return titlebarTab;

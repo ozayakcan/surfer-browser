@@ -174,7 +174,7 @@
             this.Icon = global::Surfer.Properties.Resources.tab_icon;
             this.Name = "Browser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Browser";
+            this.Text = "New Tab";
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
