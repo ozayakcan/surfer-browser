@@ -15,7 +15,7 @@ namespace Surfer
         public override TitleBarTab CreateTab()
         {
             TitleBarTab titlebarTab = new TitleBarTab(this);
-            titlebarTab.Content = new Browser(titlebarTab)
+            titlebarTab.Content = new Browser(this, titlebarTab)
             {
                 Text = "New Tab",
                 StartUrl = MyBrowserSettings.HomePage,

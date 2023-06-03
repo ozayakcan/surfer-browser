@@ -17,13 +17,15 @@ namespace Surfer
         public string StartUrl {get; set;}
         public Icon OriginalIcon = Properties.Resources.tab_icon;
         public Icon SiteIcon;
+        public AppContainer Container { get; set; }
         public TitleBarTab Tab { get; set; }
-        public Browser(TitleBarTab titlebarTab)
+        public Browser(AppContainer titlebarTabs, TitleBarTab titlebarTab)
         {
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.AppData("Cache");
             if (!Cef.IsInitialized)
                 Cef.Initialize(cefSettings);
+            Container = titlebarTabs;
             Tab = titlebarTab;
             InitializeComponent();
         }
@@ -53,12 +55,30 @@ namespace Surfer
             chBrowser.Dock = DockStyle.Fill;
             chBrowser.LoadingStateChanged += ChBrowser_LoadingStateChanged;
             chBrowser.DisplayHandler = new MyDisplayHandler(this);
+            chBrowser.RequestHandler = new MyRequestHandler(this);
             pnlBrowser.Controls.Add(chBrowser);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
         }
+
+        internal void OpenInNewTab(string targetUrl)
+        {
+            InvokeAction(() =>
+            {
+                TitleBarTab titleBarTab = new TitleBarTab(Container);
+                titleBarTab.Content = new Browser(Container, titleBarTab)
+                {
+                    StartUrl = targetUrl
+                };
+                int index = Container.SelectedTabIndex;
+                Container.Tabs.Insert(index + 1, titleBarTab);
+                Container.SelectedTabIndex = index + 1;
+                Container.SelectedTabIndex = index;
+            });
+        }
+
         public void OnAddressChanged(AddressChangedEventArgs addressChangedArgs)
         {
             InvokeAction(new Action(() => {

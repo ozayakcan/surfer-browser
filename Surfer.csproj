@@ -137,6 +137,7 @@
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
     <Compile Include="BrowserSettings\MyDisplayHandler.cs" />
+    <Compile Include="BrowserSettings\MyRequestHandler.cs" />
     <Compile Include="Controls\MyIconButton.cs">
       <SubType>Component</SubType>
     </Compile>
