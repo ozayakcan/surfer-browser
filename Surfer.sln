@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTabs", "EasyTabs\EasyTabs.csproj", "{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -28,6 +30,14 @@ Global
 		{F2162B23-28DB-4FEC-8D9D-60019CEBCB19}.Release|x64.Build.0 = Release|x64
 		{F2162B23-28DB-4FEC-8D9D-60019CEBCB19}.Release|x86.ActiveCfg = Release|x86
 		{F2162B23-28DB-4FEC-8D9D-60019CEBCB19}.Release|x86.Build.0 = Release|x86
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Debug|x64.ActiveCfg = Debug|x64
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Debug|x64.Build.0 = Debug|x64
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Debug|x86.ActiveCfg = Debug|x86
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Debug|x86.Build.0 = Debug|x86
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Release|x64.ActiveCfg = Release|x64
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Release|x64.Build.0 = Release|x64
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Release|x86.ActiveCfg = Release|x86
+		{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
