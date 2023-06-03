@@ -31,13 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.pnlNav = new System.Windows.Forms.Panel();
             this.tbUrl = new System.Windows.Forms.TextBox();
+            this.pnlBrowser = new System.Windows.Forms.Panel();
+            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlProgress = new System.Windows.Forms.Panel();
+            this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.btnRefresh = new Surfer.Controls.MyIconButton();
             this.btnHome = new Surfer.Controls.MyIconButton();
             this.btnForward = new Surfer.Controls.MyIconButton();
             this.btnBack = new Surfer.Controls.MyIconButton();
-            this.pnlBrowser = new System.Windows.Forms.Panel();
-            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlNav.SuspendLayout();
+            this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlNav
@@ -64,6 +67,32 @@
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
             this.tbUrl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUrl_KeyPress);
+            // 
+            // pnlBrowser
+            // 
+            this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBrowser.Location = new System.Drawing.Point(0, 25);
+            this.pnlBrowser.Name = "pnlBrowser";
+            this.pnlBrowser.Size = new System.Drawing.Size(800, 425);
+            this.pnlBrowser.TabIndex = 1;
+            // 
+            // pnlProgress
+            // 
+            this.pnlProgress.Controls.Add(this.pbLoading);
+            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProgress.Location = new System.Drawing.Point(0, 20);
+            this.pnlProgress.Name = "pnlProgress";
+            this.pnlProgress.Size = new System.Drawing.Size(800, 5);
+            this.pnlProgress.TabIndex = 2;
+            this.pnlProgress.Visible = false;
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoading.Location = new System.Drawing.Point(0, 0);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(800, 5);
+            this.pbLoading.TabIndex = 0;
             // 
             // btnRefresh
             // 
@@ -134,20 +163,13 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // pnlBrowser
-            // 
-            this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBrowser.Location = new System.Drawing.Point(0, 20);
-            this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(800, 430);
-            this.pnlBrowser.TabIndex = 1;
-            // 
             // Browser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pnlBrowser);
+            this.Controls.Add(this.pnlProgress);
             this.Controls.Add(this.pnlNav);
             this.Icon = global::Surfer.Properties.Resources.tab_icon;
             this.Name = "Browser";
@@ -156,6 +178,7 @@
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
+            this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -170,5 +193,7 @@
         private Surfer.Controls.MyIconButton btnBack;
         private Surfer.Controls.MyIconButton btnRefresh;
         private System.Windows.Forms.ToolTip ttNav;
+        private System.Windows.Forms.Panel pnlProgress;
+        private System.Windows.Forms.ProgressBar pbLoading;
     }
 }

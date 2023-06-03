@@ -1,4 +1,4 @@
-﻿namespace Surfer.Utils
+﻿namespace Surfer.BrowserSettings
 {
     public class MyBrowserSettings
     {
