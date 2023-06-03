@@ -1,6 +1,6 @@
 ﻿namespace Surfer
 {
-    partial class AppContainer
+    partial class MyAppContainer
     {
         /// <summary>
         /// Required designer variable.

@@ -16,7 +16,7 @@ namespace Surfer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Browser());
-            AppContainer appContainer = new AppContainer();
+            MyAppContainer appContainer = new MyAppContainer();
             TitleBarTab titlebarTab = new EasyTabs.TitleBarTab(appContainer);
             titlebarTab.Content = new Browser(appContainer, titlebarTab)
             {

@@ -3,9 +3,9 @@ using Surfer.BrowserSettings;
 
 namespace Surfer
 {
-    public partial class AppContainer : TitleBarTabs
+    public partial class MyAppContainer : TitleBarTabs
     {
-        public AppContainer()
+        public MyAppContainer()
         {
             InitializeComponent();
             AeroPeekEnabled = true;

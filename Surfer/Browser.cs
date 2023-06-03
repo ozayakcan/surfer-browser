@@ -17,15 +17,15 @@ namespace Surfer
         public string StartUrl {get; set;}
         public Icon OriginalIcon = Properties.Resources.tab_icon;
         public Icon SiteIcon;
-        public AppContainer Container { get; set; }
+        public MyAppContainer AppContainer { get; set; }
         public TitleBarTab Tab { get; set; }
-        public Browser(AppContainer titlebarTabs, TitleBarTab titlebarTab)
+        public Browser(MyAppContainer appContainer, TitleBarTab titlebarTab)
         {
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.AppData("Cache");
             if (!Cef.IsInitialized)
                 Cef.Initialize(cefSettings);
-            Container = titlebarTabs;
+            AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
         }
@@ -67,15 +67,15 @@ namespace Surfer
         {
             InvokeAction(() =>
             {
-                TitleBarTab titleBarTab = new TitleBarTab(Container);
-                titleBarTab.Content = new Browser(Container, titleBarTab)
+                TitleBarTab titleBarTab = new TitleBarTab(AppContainer);
+                titleBarTab.Content = new Browser(AppContainer, titleBarTab)
                 {
                     StartUrl = targetUrl
                 };
-                int index = Container.SelectedTabIndex;
-                Container.Tabs.Insert(index + 1, titleBarTab);
-                Container.SelectedTabIndex = index + 1;
-                Container.SelectedTabIndex = index;
+                int index = AppContainer.SelectedTabIndex;
+                AppContainer.Tabs.Insert(index + 1, titleBarTab);
+                AppContainer.SelectedTabIndex = index + 1;
+                AppContainer.SelectedTabIndex = index;
             });
         }
 

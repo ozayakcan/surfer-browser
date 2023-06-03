@@ -124,11 +124,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppContainer.cs">
+    <Compile Include="MyAppContainer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AppContainer.Designer.cs">
-      <DependentUpon>AppContainer.cs</DependentUpon>
+    <Compile Include="MyAppContainer.Designer.cs">
+      <DependentUpon>MyAppContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="Browser.cs">
       <SubType>Form</SubType>
@@ -146,8 +146,8 @@
     <Compile Include="BrowserSettings\MyBrowserSettings.cs" />
     <Compile Include="Utils\MyExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
-    <EmbeddedResource Include="AppContainer.resx">
-      <DependentUpon>AppContainer.cs</DependentUpon>
+    <EmbeddedResource Include="MyAppContainer.resx">
+      <DependentUpon>MyAppContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
