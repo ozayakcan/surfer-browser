@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.33529.398
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surfer", "Surfer.csproj", "{F2162B23-28DB-4FEC-8D9D-60019CEBCB19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surfer", "Surfer\Surfer.csproj", "{F2162B23-28DB-4FEC-8D9D-60019CEBCB19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2581B2A7-063E-4E6B-A991-72CB5B4B72BE}"
 	ProjectSection(SolutionItems) = preProject
