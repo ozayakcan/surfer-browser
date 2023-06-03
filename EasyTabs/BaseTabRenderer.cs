@@ -401,7 +401,7 @@ namespace EasyTabs
 								  AddButtonMarginRight
 								: 0);
 
-			_parentWindow.MinimumSize = new Size(minimumWidth, 0);
+			_parentWindow.MinimumSize = new Size(500, 0);
 		}
 
 		/// <summary>
