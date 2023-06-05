@@ -81,9 +81,9 @@ namespace Surfer
 
         public void OnAddressChanged(AddressChangedEventArgs addressChangedArgs)
         {
-            InvokeAction(new Action(() => {
+            InvokeAction(() => {
                 tbUrl.Text = addressChangedArgs.Address;
-            }));
+            });
         }
         
         public void SetIcon(string url)
@@ -110,36 +110,36 @@ namespace Surfer
         }
         private void _setIcon(Icon icon)
         {
-            InvokeAction(new Action(() => {
+            InvokeAction(() => {
                 Icon = Tab.Icon = SiteIcon = icon;
                 Tab.Parent.UpdateThumbnailPreviewIcon(Tab, icon);
-            }));
+            });
         }
 
         internal void TitleChanged(TitleChangedEventArgs titleChangedArgs)
         {
-            InvokeAction(new Action(() => {
+            InvokeAction(() => {
                 Text = titleChangedArgs.Title;
-            }));
+            });
         }
         public void ShowLoading(int progress)
         {
-            InvokeAction(new Action(() =>
+            InvokeAction(() =>
             {
                 pnlProgress.Visible = true;
                 pbLoading.Value = progress;
                 SetRefreshButtonStatus(false);
-            }));
+            });
         }
 
         public void HideLoading()
         {
-            InvokeAction(new Action(() =>
+            InvokeAction(() =>
             {
                 SetRefreshButtonStatus(true);
                 pbLoading.Value = 0;
                 pnlProgress.Visible = true;
-            }));
+            });
         }
         private void ChBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
@@ -172,10 +172,10 @@ namespace Surfer
         }
         private void SetGoBackButtonStatus(bool status)
         {
-            InvokeAction(new Action(() =>
+            InvokeAction(() =>
             {
                 btnBack.Enabled = status;
-            }));
+            });
         }
         private void btnForward_Click(object sender, EventArgs e)
         {
@@ -189,10 +189,10 @@ namespace Surfer
 
         private void SetGoForwardButtonStatus(bool status)
         {
-            InvokeAction(new Action(() =>
+            InvokeAction(() =>
             {
                 btnForward.Visible = btnForward.Enabled = status;
-            }));
+            });
         }
         private void btnHome_Click(object sender, EventArgs e)
         {
@@ -201,10 +201,10 @@ namespace Surfer
    
         private void SetGoHomeButtonStatus(bool status)
         {
-            InvokeAction(new Action(() =>
+            InvokeAction(() =>
             {
                 btnHome.Enabled = status;
-            }));
+            });
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -213,7 +213,7 @@ namespace Surfer
 
         private void SetRefreshButtonStatus(bool status)
         {
-            InvokeAction(new Action(() =>
+            InvokeAction(() =>
             {
                 if (status)
                 {
@@ -223,7 +223,7 @@ namespace Surfer
                 {
                     btnRefresh.IconChar = FontAwesome.Sharp.IconChar.Refresh;
                 }
-            }));
+            });
         }
 
         private bool tbUrlEntered = false;
