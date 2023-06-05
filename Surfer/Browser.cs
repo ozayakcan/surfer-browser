@@ -54,13 +54,6 @@ namespace Surfer
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
-            // Url Auto Complete
-            AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
-            autoCompleteString.Add("www.twitter.com");
-            autoCompleteString.Add("www.youtube.com");
-            autoCompleteString.Add("www.facebook.com");
-            autoCompleteString.Add("www.instagram.com");
-            tbUrl.AutoCompleteCustomSource = autoCompleteString;
         }
 
         internal void OpenInNewTab(string targetUrl)
@@ -239,6 +232,14 @@ namespace Surfer
                 tbUrl.SelectAll();
                 tbUrlEntered = true;
             }
+
+            // Url Auto Complete
+            AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
+            autoCompleteString.Add("www.twitter.com");
+            autoCompleteString.Add("www.youtube.com");
+            autoCompleteString.Add("www.facebook.com");
+            autoCompleteString.Add("www.instagram.com");
+            tbUrl.AutoCompleteCustomSource = autoCompleteString;
         }
 
         private void tbUrl_Click(object sender, EventArgs e)
@@ -254,7 +255,17 @@ namespace Surfer
         {
             if (e.KeyCode == Keys.Enter)
             {
-                LoadUrl(tbUrl.Text);
+                string url = tbUrl.Text;
+                Uri uriResult;
+                bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult);
+                if(uriResult == null)
+                {
+                    LoadUrl("https://www.google.com/search?q=" + tbUrl.Text);
+                }
+                else
+                {
+                    LoadUrl(tbUrl.Text);
+                }
             }
         }
     }
