@@ -30,14 +30,6 @@ namespace Surfer
             InitializeComponent();
         }
 
-        private void tbUrl_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if(e.KeyChar == (char)13)
-            {
-                LoadUrl(tbUrl.Text);
-            }
-        }
-
         private void btnGo_Click(object sender, EventArgs e)
         {
             LoadUrl(tbUrl.Text);
@@ -51,6 +43,7 @@ namespace Surfer
         ChromiumWebBrowser chBrowser;
         private void Browser_Load(object sender, EventArgs e)
         {
+            // Browser
             chBrowser = new ChromiumWebBrowser(tbUrl.Text);
             chBrowser.Dock = DockStyle.Fill;
             chBrowser.LoadingStateChanged += ChBrowser_LoadingStateChanged;
@@ -61,6 +54,13 @@ namespace Surfer
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
+            // Url Auto Complete
+            AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
+            autoCompleteString.Add("www.twitter.com");
+            autoCompleteString.Add("www.youtube.com");
+            autoCompleteString.Add("www.facebook.com");
+            autoCompleteString.Add("www.instagram.com");
+            tbUrl.AutoCompleteCustomSource = autoCompleteString;
         }
 
         internal void OpenInNewTab(string targetUrl)
@@ -143,6 +143,10 @@ namespace Surfer
         }
         private void ChBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
+            InvokeAction(() =>
+            {
+                chBrowser.Focus();
+            });
             if (!e.IsLoading)
             {
                 SetGoBackButtonStatus(e.CanGoBack);
@@ -230,8 +234,11 @@ namespace Surfer
 
         private void tbUrl_Enter(object sender, EventArgs e)
         {
-            tbUrl.SelectAll();
-            tbUrlEntered = true;
+            if (!tbUrlEntered)
+            {
+                tbUrl.SelectAll();
+                tbUrlEntered = true;
+            }
         }
 
         private void tbUrl_Click(object sender, EventArgs e)
@@ -242,6 +249,13 @@ namespace Surfer
             }
 
             tbUrlEntered = false;
+        }
+        private void tbUrl_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                LoadUrl(tbUrl.Text);
+            }
         }
     }
 }

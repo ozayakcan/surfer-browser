@@ -59,6 +59,8 @@
             // 
             // tbUrl
             // 
+            this.tbUrl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbUrl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbUrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbUrl.Location = new System.Drawing.Point(80, 0);
             this.tbUrl.Name = "tbUrl";
@@ -66,7 +68,7 @@
             this.tbUrl.TabIndex = 0;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
-            this.tbUrl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUrl_KeyPress);
+            this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
             // 
             // pnlBrowser
             // 
