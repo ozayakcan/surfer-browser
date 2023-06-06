@@ -41,7 +41,7 @@ namespace Surfer.BrowserSettings
         {
             foreach (var url in urls)
             {
-                MyBrowser.OnFavIconUrlChanged(url);
+                MyBrowser.OnFavIconUrlChanged(chromiumWebBrowser.Address, url);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Surfer.BrowserSettings
 
         public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)
         {
-            MyBrowser.TitleChanged(titleChangedArgs);
+            MyBrowser.TitleChanged(chromiumWebBrowser.Address, titleChangedArgs);
         }
 
         public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text)

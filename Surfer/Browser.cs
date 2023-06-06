@@ -4,12 +4,11 @@ using EasyTabs;
 using Surfer.BrowserSettings;
 using Surfer.Utils;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Windows.Forms;
 
 namespace Surfer
@@ -24,12 +23,14 @@ namespace Surfer
         public Browser(MyAppContainer appContainer, TitleBarTab titlebarTab)
         {
             CefSettings cefSettings = new CefSettings();
-            cefSettings.CachePath = Paths.AppData("Cache");
+            cefSettings.CachePath = Paths.BrowserCache();
             cefSettings.PersistSessionCookies = true;
             cefSettings.PersistUserPreferences = true;
             cefSettings.CefCommandLineArgs.Add("persist_session_cookies", "1");
             if (!Cef.IsInitialized)
                 Cef.Initialize(cefSettings);
+            if(!HistoryManager.IsInitialized)
+                HistoryManager.Initialize();
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
@@ -91,22 +92,45 @@ namespace Surfer
         {
             InvokeAction(() => {
                 tbUrl.Text = addressChangedArgs.Address;
-                OnFavIconUrlChanged();
+                HistoryManager.Save(
+                    addressChangedArgs.Address,
+                    increaseVisited: true,
+                    onSaved: ()=> {
+                        UpdateAutoCompletion();
+                    });
+                OnFavIconUrlChanged(addressChangedArgs.Address);
             });
         }
-        
-        public void OnFavIconUrlChanged(string url = "")
-        {
-            if(!string.IsNullOrEmpty(url) && !string.IsNullOrWhiteSpace(url))
-            {
 
+        // Url Auto Complete
+        private void UpdateAutoCompletion()
+        {
+            InvokeAction(() =>
+            {
+                AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
+                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.fullUrl).ToArray());
+                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.baseUrl).ToArray());
+                tbUrl.AutoCompleteCustomSource = autoCompleteString;
+            });
+        }
+
+        public void OnFavIconUrlChanged(string url, string faviconUrl = "")
+        {
+            HistoryManager.Save(
+                url,
+                favicon: faviconUrl/*,
+                onSaved: () => {
+                    UpdateAutoCompletion();
+                }*/);
+            if (!string.IsNullOrEmpty(faviconUrl) && !string.IsNullOrWhiteSpace(faviconUrl))
+            {
                 try
                 {
                     using (WebClient client = new WebClient())
                     {
 
                         WebClient wc = new WebClient();
-                        byte[] originalData = wc.DownloadData(url);
+                        byte[] originalData = wc.DownloadData(faviconUrl);
                         MemoryStream stream = new MemoryStream(originalData);
                         Bitmap bmp = new Bitmap(stream);
                         var thumb = (Bitmap)bmp.GetThumbnailImage(32, 32, null, IntPtr.Zero);
@@ -133,10 +157,16 @@ namespace Surfer
             });
         }
 
-        internal void TitleChanged(TitleChangedEventArgs titleChangedArgs)
+        internal void TitleChanged(string url, TitleChangedEventArgs titleChangedArgs)
         {
             InvokeAction(() => {
                 Text = titleChangedArgs.Title;
+                HistoryManager.Save(
+                    url,
+                    title: titleChangedArgs.Title/*,
+                    onSaved: () => {
+                        UpdateAutoCompletion();
+                    }*/);
             });
         }
         public void ShowLoading(int progress)
@@ -257,13 +287,7 @@ namespace Surfer
                 tbUrlEntered = true;
             }
 
-            // Url Auto Complete
-            AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
-            autoCompleteString.Add("www.twitter.com");
-            autoCompleteString.Add("www.youtube.com");
-            autoCompleteString.Add("www.facebook.com");
-            autoCompleteString.Add("www.instagram.com");
-            tbUrl.AutoCompleteCustomSource = autoCompleteString;
+            UpdateAutoCompletion();
         }
 
         private void tbUrl_Click(object sender, EventArgs e)

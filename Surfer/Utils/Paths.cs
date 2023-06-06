@@ -29,5 +29,9 @@ namespace Surfer.Utils
         {
             return url.Replace("/", "").Replace("https", "").Replace("http", "").Replace(":", "");
         }
+        public static string BrowserCache(string file = "")
+        {
+            return Path.Combine(AppData("Cache"), file);
+        }
     }
 }
