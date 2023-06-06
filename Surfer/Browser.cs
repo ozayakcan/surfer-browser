@@ -201,7 +201,7 @@ namespace Surfer
 
         public void InvokeAction(Action action)
         {
-            if (!IsDisposed)
+            if (!chBrowser.IsDisposed)
             {
                 Invoke(new Action(() => {
                     action();
