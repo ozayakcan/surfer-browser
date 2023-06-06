@@ -97,6 +97,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserSettings\MyNavigationEntryVisitor.cs" />
     <Compile Include="MyAppContainer.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -4,6 +4,8 @@ using EasyTabs;
 using Surfer.BrowserSettings;
 using Surfer.Utils;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -34,7 +36,6 @@ namespace Surfer
             if(StartUrl != null)
                 tbUrl.Text = StartUrl;
         }
-
         private void btnGo_Click(object sender, EventArgs e)
         {
             LoadUrl(tbUrl.Text);
@@ -54,11 +55,20 @@ namespace Surfer
             chBrowser.LoadingStateChanged += ChBrowser_LoadingStateChanged;
             chBrowser.DisplayHandler = new MyDisplayHandler(this);
             chBrowser.RequestHandler = new MyRequestHandler(this);
+            chBrowser.IsBrowserInitializedChanged += ChBrowser_IsBrowserInitializedChanged;
             pnlBrowser.Controls.Add(chBrowser);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
+        }
+
+        private void ChBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
+        {
+            InvokeAction(() =>
+            {
+                chBrowser.Focus();
+            });
         }
 
         internal void OpenInNewTab(string targetUrl)
