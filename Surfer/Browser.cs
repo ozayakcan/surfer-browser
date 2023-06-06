@@ -171,13 +171,16 @@ namespace Surfer
 
         public void InvokeAction(Action action)
         {
-            Invoke(new Action(() => {
-                action();
-                this.Invalidate();
-                this.Update();
-                this.Refresh();
-                Application.DoEvents();
-            }));
+            if (!IsDisposed)
+            {
+                Invoke(new Action(() => {
+                    action();
+                    this.Invalidate();
+                    this.Update();
+                    this.Refresh();
+                    Application.DoEvents();
+                }));
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
