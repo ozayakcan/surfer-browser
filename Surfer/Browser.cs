@@ -28,6 +28,8 @@ namespace Surfer
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
+            if(StartUrl != null)
+                tbUrl.Text = StartUrl;
         }
 
         private void btnGo_Click(object sender, EventArgs e)
@@ -76,32 +78,41 @@ namespace Surfer
         {
             InvokeAction(() => {
                 tbUrl.Text = addressChangedArgs.Address;
+                OnFavIconUrlChanged();
             });
         }
         
-        public void SetIcon(string url)
+        public void OnFavIconUrlChanged(string url = "")
         {
-            try
+            if(!string.IsNullOrEmpty(url) && !string.IsNullOrWhiteSpace(url))
             {
-                using (WebClient client = new WebClient())
-                {
 
-                    WebClient wc = new WebClient();
-                    byte[] originalData = wc.DownloadData(url);
-                    MemoryStream stream = new MemoryStream(originalData);
-                    Bitmap bmp = new Bitmap(stream);
-                    var thumb = (Bitmap)bmp.GetThumbnailImage(32, 32, null, IntPtr.Zero);
-                    thumb.MakeTransparent();
-                    Icon icon = Icon.FromHandle(thumb.GetHicon());
-                    _setIcon(icon);
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+
+                        WebClient wc = new WebClient();
+                        byte[] originalData = wc.DownloadData(url);
+                        MemoryStream stream = new MemoryStream(originalData);
+                        Bitmap bmp = new Bitmap(stream);
+                        var thumb = (Bitmap)bmp.GetThumbnailImage(32, 32, null, IntPtr.Zero);
+                        thumb.MakeTransparent();
+                        Icon icon = Icon.FromHandle(thumb.GetHicon());
+                        SetIcon(icon);
+                    }
+                }
+                catch
+                {
+                    SetIcon(OriginalIcon);
                 }
             }
-            catch
+            else
             {
-                _setIcon(OriginalIcon);
+                SetIcon(OriginalIcon);
             }
         }
-        private void _setIcon(Icon icon)
+        private void SetIcon(Icon icon)
         {
             InvokeAction(() => {
                 Icon = Tab.Icon = SiteIcon = icon;
@@ -136,10 +147,7 @@ namespace Surfer
         }
         private void ChBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
-            InvokeAction(() =>
-            {
-                chBrowser.Focus();
-            });
+            
             if (!e.IsLoading)
             {
                 SetGoBackButtonStatus(e.CanGoBack);

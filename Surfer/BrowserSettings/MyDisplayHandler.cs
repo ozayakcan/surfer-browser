@@ -41,7 +41,7 @@ namespace Surfer.BrowserSettings
         {
             foreach (var url in urls)
             {
-                MyBrowser.SetIcon(url);
+                MyBrowser.OnFavIconUrlChanged(url);
             }
         }
 
