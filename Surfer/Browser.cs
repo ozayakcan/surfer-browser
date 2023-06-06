@@ -23,6 +23,9 @@ namespace Surfer
         {
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.AppData("Cache");
+            cefSettings.PersistSessionCookies = true;
+            cefSettings.PersistUserPreferences = true;
+            cefSettings.CefCommandLineArgs.Add("persist_session_cookies", "1");
             if (!Cef.IsInitialized)
                 Cef.Initialize(cefSettings);
             AppContainer = appContainer;
