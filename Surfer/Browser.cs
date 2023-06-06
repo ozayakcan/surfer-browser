@@ -257,7 +257,7 @@ namespace Surfer
             {
                 string url = tbUrl.Text;
                 Uri uriResult;
-                bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult);
+                bool result = Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uriResult);
                 if(uriResult == null)
                 {
                     LoadUrl("https://www.google.com/search?q=" + tbUrl.Text);
