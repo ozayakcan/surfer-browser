@@ -23,5 +23,34 @@ namespace Surfer.Utils
         {
             return JObject.FromObject(jObject).ToObject<Dictionary<B, T>>();
         }
+        // Uri
+        public static string GetUrlWithoutSubdomain(this Uri uri)
+        {
+            if (uri.HostNameType == UriHostNameType.Dns)
+            {
+
+                string host = uri.Host;
+
+                var nodes = host.Split('.');
+                int startNode = 0;
+                if (nodes[0] == "www") startNode = 1;
+                string url = "";
+                for (int i = startNode; i < nodes.Length; i++)
+                {
+                    if (i == startNode)
+                        url += nodes[i];
+                    else
+                        url += "." + nodes[i];
+                }
+                int start = uri.AbsoluteUri.LastIndexOf(url) + url.Length;
+                return url+ uri.AbsoluteUri.Substring(start);
+            }
+            return uri.AbsoluteUri;
+        }
+        // string
+        public static string GetSearchUrl(this string text)
+        {
+            return "https://www.google.com/search?q=" + text;
+        }
     }
 }

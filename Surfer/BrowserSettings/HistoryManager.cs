@@ -44,12 +44,8 @@ namespace Surfer.BrowserSettings
                 {
                     history = new History();
                     history.fullUrl = url;
-                    string baseUrl = url.Replace("https://", "").Replace("http://", "");
-                    if (baseUrl.StartsWith("www."))
-                    {
-                        baseUrl = baseUrl.Substring(4);
-                    }
-                    history.baseUrl = baseUrl;
+                    Uri baseUri = new Uri(url);
+                    history.baseUrl = baseUri.GetUrlWithoutSubdomain();
                 }
                 if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
                     history.title = title;

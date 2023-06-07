@@ -41,9 +41,10 @@ namespace Surfer
         {
             LoadUrl(tbUrl.Text);
         }
-
+        private string lastUrl = "";
         public void LoadUrl(string url)
         {
+            lastUrl = url;
             chBrowser.Load(url);
         }
 
@@ -56,6 +57,7 @@ namespace Surfer
             chBrowser.LoadingStateChanged += ChBrowser_LoadingStateChanged;
             chBrowser.DisplayHandler = new MyDisplayHandler(this);
             chBrowser.RequestHandler = new MyRequestHandler(this);
+            chBrowser.LoadError += ChBrowser_LoadError;
             chBrowser.IsBrowserInitializedChanged += ChBrowser_IsBrowserInitializedChanged;
             pnlBrowser.Controls.Add(chBrowser);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
@@ -72,6 +74,11 @@ namespace Surfer
             });
         }
 
+        private void ChBrowser_LoadError(object sender, LoadErrorEventArgs e)
+        {
+            if (e.ErrorText == ErrorTexts.NameNotResolved)
+                LoadUrl(lastUrl.GetSearchUrl());
+        }
         internal void OpenInNewTab(string targetUrl)
         {
             InvokeAction(() =>
@@ -308,7 +315,7 @@ namespace Surfer
                 bool result = Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uriResult);
                 if(uriResult == null)
                 {
-                    LoadUrl("https://www.google.com/search?q=" + tbUrl.Text);
+                    LoadUrl(tbUrl.Text.GetSearchUrl());
                 }
                 else
                 {
