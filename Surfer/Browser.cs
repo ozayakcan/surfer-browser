@@ -36,6 +36,7 @@ namespace Surfer
             InitializeComponent();
             if(StartUrl != null)
                 tbUrl.Text = StartUrl;
+            
         }
         private void btnGo_Click(object sender, EventArgs e)
         {
@@ -48,25 +49,18 @@ namespace Surfer
             chBrowser.Load(url);
         }
 
-        ChromiumWebBrowser chBrowser;
         private void Browser_Load(object sender, EventArgs e)
         {
             // Browser
-            chBrowser = new ChromiumWebBrowser(tbUrl.Text);
-            chBrowser.Dock = DockStyle.Fill;
-            chBrowser.LoadingStateChanged += ChBrowser_LoadingStateChanged;
             chBrowser.DisplayHandler = new MyDisplayHandler(this);
             chBrowser.RequestHandler = new MyRequestHandler(this);
-            chBrowser.LoadError += ChBrowser_LoadError;
-            chBrowser.IsBrowserInitializedChanged += ChBrowser_IsBrowserInitializedChanged;
-            pnlBrowser.Controls.Add(chBrowser);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
         }
 
-        private void ChBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
+        private void chBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
             InvokeAction(() =>
             {
@@ -74,7 +68,7 @@ namespace Surfer
             });
         }
 
-        private void ChBrowser_LoadError(object sender, LoadErrorEventArgs e)
+        private void chBrowser_LoadError(object sender, LoadErrorEventArgs e)
         {
             if (e.ErrorText == ErrorTexts.NameNotResolved)
                 LoadUrl(lastUrl.GetSearchUrl());
@@ -195,7 +189,7 @@ namespace Surfer
                 pnlProgress.Visible = true;
             });
         }
-        private void ChBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        private void chBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
             
             if (!e.IsLoading)
