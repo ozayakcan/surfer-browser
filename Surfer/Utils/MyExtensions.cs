@@ -24,7 +24,7 @@ namespace Surfer.Utils
             return JObject.FromObject(jObject).ToObject<Dictionary<B, T>>();
         }
         // Uri
-        public static string GetUrlWithoutSubdomain(this Uri uri)
+        public static string GetUrlWithoutWWW(this Uri uri)
         {
             if (uri.HostNameType == UriHostNameType.Dns)
             {

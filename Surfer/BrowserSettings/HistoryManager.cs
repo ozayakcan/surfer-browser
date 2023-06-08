@@ -45,7 +45,7 @@ namespace Surfer.BrowserSettings
                     history = new History();
                     history.fullUrl = url;
                     Uri baseUri = new Uri(url);
-                    history.baseUrl = baseUri.GetUrlWithoutSubdomain();
+                    history.baseUrl = baseUri.GetUrlWithoutWWW();
                 }
                 if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
                     history.title = title;
