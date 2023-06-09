@@ -38,7 +38,12 @@ namespace Surfer
             InitializeComponent();
             pnlUrlBorderColor = pnlUrl.BorderColor;
             if (StartUrl != null)
+            {
                 tbUrl.Text = StartUrl;
+                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(StartUrl));
+            }
+            else
+                SiteInformationButtonStatus(false);
             
         }
         private void btnGo_Click(object sender, EventArgs e)
@@ -96,6 +101,7 @@ namespace Surfer
         {
             InvokeAction(() => {
                 tbUrl.Text = addressChangedArgs.Address;
+                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(addressChangedArgs.Address));
                 HistoryManager.Save(
                     addressChangedArgs.Address,
                     increaseVisited: true,
@@ -285,7 +291,7 @@ namespace Surfer
 
         private void tbUrl_Enter(object sender, EventArgs e)
         {
-            pnlUrl.BorderColor = Color.Black;
+            pnlUrl.BorderColor = Color.DeepSkyBlue;
             if (!tbUrlEntered)
             {
                 tbUrl.SelectAll();
@@ -313,6 +319,7 @@ namespace Surfer
         }
         private void tbUrl_KeyUp(object sender, KeyEventArgs e)
         {
+            SiteInformationButtonStatus(false);
             if (e.KeyCode == Keys.Enter)
             {
                 string url = tbUrl.Text;
@@ -326,6 +333,25 @@ namespace Surfer
                 {
                     LoadUrl(tbUrl.Text);
                 }
+            }
+        }
+        private void SiteInformationButtonStatus(bool enabled, bool locked = false)
+        {
+            btnUrl.VisualDisabled = !enabled;
+            if (enabled)
+            {
+                btnUrl.IconColor = Color.Black;
+                if (locked)
+                    btnUrl.IconChar = FontAwesome.Sharp.IconChar.Lock;
+                else
+                    btnUrl.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+                ttNav.SetToolTip(this.btnUrl, "Show Site Information");
+            }
+            else
+            {
+                ttNav.SetToolTip(this.btnUrl, "");
+                btnUrl.IconColor = Color.DeepSkyBlue;
+                btnUrl.IconChar = FontAwesome.Sharp.IconChar.Search;
             }
         }
     }

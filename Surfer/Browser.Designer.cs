@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pnlNav = new System.Windows.Forms.Panel();
             this.pnlUrl = new Surfer.Controls.MyPanel();
+            this.btnUrl = new Surfer.Controls.MyIconButton();
             this.tbUrl = new System.Windows.Forms.TextBox();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.btnRefresh = new Surfer.Controls.MyIconButton();
@@ -69,12 +70,30 @@
             this.pnlUrl.BorderColor = System.Drawing.Color.White;
             this.pnlUrl.BorderRadius = 25;
             this.pnlUrl.BorderThickness = 3F;
+            this.pnlUrl.Controls.Add(this.btnUrl);
             this.pnlUrl.Controls.Add(this.tbUrl);
             this.pnlUrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUrl.Location = new System.Drawing.Point(120, 0);
             this.pnlUrl.Name = "pnlUrl";
             this.pnlUrl.Size = new System.Drawing.Size(669, 30);
             this.pnlUrl.TabIndex = 1;
+            // 
+            // btnUrl
+            // 
+            this.btnUrl.BackColor = System.Drawing.Color.Transparent;
+            this.btnUrl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnUrl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUrl.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.btnUrl.IconColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnUrl.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnUrl.IconSize = 15;
+            this.btnUrl.Location = new System.Drawing.Point(10, 5);
+            this.btnUrl.Name = "btnUrl";
+            this.btnUrl.Size = new System.Drawing.Size(20, 20);
+            this.btnUrl.TabIndex = 4;
+            this.btnUrl.UseVisualStyleBackColor = false;
+            this.btnUrl.VisualDisabled = true;
             // 
             // tbUrl
             // 
@@ -84,10 +103,10 @@
             this.tbUrl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.tbUrl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbUrl.Location = new System.Drawing.Point(12, 9);
+            this.tbUrl.Location = new System.Drawing.Point(33, 9);
             this.tbUrl.Margin = new System.Windows.Forms.Padding(0);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(641, 13);
+            this.tbUrl.Size = new System.Drawing.Size(622, 13);
             this.tbUrl.TabIndex = 0;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
@@ -247,5 +266,6 @@
         private CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private System.Windows.Forms.Panel pnlNavMarginRight;
         private Controls.MyPanel pnlUrl;
+        private Controls.MyIconButton btnUrl;
     }
 }

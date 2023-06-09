@@ -9,5 +9,9 @@
                 return "https://www.google.com/";
             }
         }
+        public static bool IsSecureUrl(string url)
+        {
+            return url.StartsWith("https://");
+        }
     }
 }
