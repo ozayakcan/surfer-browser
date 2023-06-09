@@ -20,6 +20,8 @@ namespace Surfer
         public Icon SiteIcon;
         public MyAppContainer AppContainer { get; set; }
         public TitleBarTab Tab { get; set; }
+
+        Color pnlUrlBorderColor;
         public Browser(MyAppContainer appContainer, TitleBarTab titlebarTab)
         {
             CefSettings cefSettings = new CefSettings();
@@ -34,7 +36,8 @@ namespace Surfer
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
-            if(StartUrl != null)
+            pnlUrlBorderColor = pnlUrl.BorderColor;
+            if (StartUrl != null)
                 tbUrl.Text = StartUrl;
             
         }
@@ -282,6 +285,7 @@ namespace Surfer
 
         private void tbUrl_Enter(object sender, EventArgs e)
         {
+            pnlUrl.BorderColor = Color.Black;
             if (!tbUrlEntered)
             {
                 tbUrl.SelectAll();
@@ -289,6 +293,13 @@ namespace Surfer
             }
 
             UpdateAutoCompletion();
+        }
+
+        private void tbUrl_Leave(object sender, EventArgs e)
+        {
+            tbUrlEntered = false;
+            if (pnlUrlBorderColor != null)
+                pnlUrl.BorderColor = pnlUrlBorderColor;
         }
 
         private void tbUrl_Click(object sender, EventArgs e)
