@@ -2,6 +2,7 @@
 using CefSharp.WinForms;
 using EasyTabs;
 using Surfer.BrowserSettings;
+using Surfer.Controls;
 using Surfer.Utils;
 using System;
 using System.Diagnostics;
@@ -44,7 +45,9 @@ namespace Surfer
             }
             else
                 SiteInformationButtonStatus(false);
-            
+            tsNav.Renderer = new MyRenderer();
+            tsUrl.Renderer = new MyRenderer(); 
+
         }
         private void btnGo_Click(object sender, EventArgs e)
         {
@@ -345,13 +348,13 @@ namespace Surfer
                     btnUrl.IconChar = FontAwesome.Sharp.IconChar.Lock;
                 else
                     btnUrl.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
-                ttNav.SetToolTip(this.btnUrl, "Show Site Information");
+                this.btnUrl.ToolTipText = "Show Site Information";
             }
             else
             {
-                ttNav.SetToolTip(this.btnUrl, "");
                 btnUrl.IconColor = Color.DeepSkyBlue;
                 btnUrl.IconChar = FontAwesome.Sharp.IconChar.Search;
+                this.btnUrl.ToolTipText = "";
             }
         }
     }

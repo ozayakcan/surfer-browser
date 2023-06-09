@@ -112,6 +112,10 @@
     <Compile Include="Controls\MyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\MyRenderer.cs" />
+    <Compile Include="Controls\MyToolStripSpringTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MyAppContainer.cs">
       <SubType>Form</SubType>
     </Compile>

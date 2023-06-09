@@ -1,6 +1,7 @@
 ﻿using FontAwesome.Sharp;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace Surfer.Controls
 {
@@ -43,9 +44,66 @@ namespace Surfer.Controls
             FlatAppearance.BorderSize = 0;
             DefaultMouseDownBackColor = FlatAppearance.MouseDownBackColor;
             DefaultMouseOverBackColor = FlatAppearance.MouseOverBackColor;
-            BackColor  = Color.White;
+            BackColor  = Color.Transparent;
             FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             SetStyle(ControlStyles.Selectable, false);
+        }
+    }
+    public partial class MyIconDropdownButton : IconDropDownButton
+    {
+        private Color DefaultMouseDownBackColor;
+        private Color DefaultMouseOverBackColor;
+        public bool VisualDisabled { get; set; } = false;
+        private bool ShouldSerializeVisualDisabled()
+        {
+            return VisualDisabled;
+        }
+        private void ResetVisualDisabled()
+        {
+            VisualDisabled = false;
+        }
+
+        public MyIconDropdownButton() : base()
+        {
+            BackColor = Color.Transparent;
+        }
+    }
+    public partial class MyIconSplitButton : IconSplitButton
+    {
+        private Color DefaultMouseDownBackColor;
+        private Color DefaultMouseOverBackColor;
+        public bool VisualDisabled { get; set; } = false;
+        private bool ShouldSerializeVisualDisabled()
+        {
+            return VisualDisabled;
+        }
+        private void ResetVisualDisabled()
+        {
+            VisualDisabled = false;
+        }
+
+        public MyIconSplitButton() : base()
+        {
+            BackColor = Color.Transparent;
+        }
+    }
+    public partial class MyIconToolStripButton : IconToolStripButton
+    {
+        private Color DefaultMouseDownBackColor;
+        private Color DefaultMouseOverBackColor;
+        public bool VisualDisabled { get; set; } = false;
+        private bool ShouldSerializeVisualDisabled()
+        {
+            return VisualDisabled;
+        }
+        private void ResetVisualDisabled()
+        {
+            VisualDisabled = false;
+        }
+
+        public MyIconToolStripButton() : base()
+        {
+            BackColor = Color.Transparent;
         }
     }
 }
