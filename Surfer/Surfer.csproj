@@ -109,6 +109,9 @@
   <ItemGroup>
     <Compile Include="BrowserSettings\ErrorTexts.cs" />
     <Compile Include="BrowserSettings\HistoryManager.cs" />
+    <Compile Include="Controls\MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MyAppContainer.cs">
       <SubType>Form</SubType>
     </Compile>
