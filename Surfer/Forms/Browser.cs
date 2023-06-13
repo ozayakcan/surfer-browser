@@ -123,8 +123,7 @@ namespace Surfer.Forms
             InvokeAction(() =>
             {
                 AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
-                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.fullUrl).ToArray());
-                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.baseUrl).ToArray());
+                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.url).ToArray());
                 tbUrl.AutoCompleteCustomSource = autoCompleteString;
             });
         }

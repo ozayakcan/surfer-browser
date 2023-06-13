@@ -37,16 +37,15 @@ namespace Surfer.BrowserSettings
             if (IsInitialized)
             {
                 Uri uri = new Uri(url);
-                url = uri.GetUrlWithoutHTTP();
-                int historyIndex = Get.FindIndex(h => h.fullUrl == url || h.baseUrl == url);
+                url = uri.GetUrlWithoutWWW();
+                int historyIndex = Get.FindIndex(h => h.url == url);
                 History history;
                 if (historyIndex >= 0)
                     history = Get[historyIndex];
                 else
                 {
                     history = new History();
-                    history.fullUrl = url;
-                    history.baseUrl = uri.GetUrlWithoutWWW();
+                    history.url = url;
                 }
                 if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
                     history.title = title;
@@ -68,8 +67,7 @@ namespace Surfer.BrowserSettings
     }
     public class History
     {
-        public string fullUrl;
-        public string baseUrl;
+        public string url;
         public string title;
         public string favicon;
         public int visited = 0;
