@@ -362,17 +362,13 @@ namespace Surfer.Forms
         {
             if (popupForm == null)
             {
-                Panel panel = new Panel();
-                panel.Size = new Size(200, 200);
-                Label label = new Label();
-                label.Text = "Test";
-                panel.Controls.Add(label);
+                Uri url = new Uri(chBrowser.Address);
                 popupForm = new PopupForm()
                 {
                     Owner = this,
                     OwnerControl = pnlUrl,
-                    Content = panel,
-                    Title = "Test Title",
+                    Content = new SiteInformation(url, Icon),
+                    Title = "About " + url.Host,
                     WhenClosed = () => { popupForm = null; },
                     PopupFormStyle = PopupFormStyle.Left,
                 };

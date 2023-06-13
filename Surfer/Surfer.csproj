@@ -109,6 +109,12 @@
   <ItemGroup>
     <Compile Include="BrowserSettings\ErrorTexts.cs" />
     <Compile Include="BrowserSettings\HistoryManager.cs" />
+    <Compile Include="Controls\SiteInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SiteInformation.Designer.cs">
+      <DependentUpon>SiteInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     <Compile Include="Utils\MyExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
     <Compile Include="Utils\StringCipher.cs" />
+    <EmbeddedResource Include="Controls\SiteInformation.resx">
+      <DependentUpon>SiteInformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MyAppContainer.resx">
       <DependentUpon>MyAppContainer.cs</DependentUpon>
     </EmbeddedResource>
