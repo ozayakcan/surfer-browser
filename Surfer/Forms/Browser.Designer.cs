@@ -29,29 +29,83 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.pnlBrowser = new System.Windows.Forms.Panel();
+            this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
+            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlProgress = new System.Windows.Forms.Panel();
+            this.pbLoading = new System.Windows.Forms.ProgressBar();
+            this.pnlNav = new Surfer.Controls.MyPanel();
             this.pnlUrl = new Surfer.Controls.MyPanel();
             this.tsUrl = new System.Windows.Forms.ToolStrip();
-            this.btnUrl = new Surfer.Controls.MyIconToolStripButton();
+            this.btnSearch = new Surfer.Controls.MyIconToolStripButton();
+            this.btnSecure = new Surfer.Controls.MyIconToolStripButton();
             this.tbUrl = new Surfer.Controls.MyToolStripSpringTextBox();
-            this.pnlBrowser = new System.Windows.Forms.Panel();
-            this.pnlNav = new Surfer.Controls.MyPanel();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.tsNav = new System.Windows.Forms.ToolStrip();
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
             this.btnHome = new Surfer.Controls.MyIconToolStripButton();
             this.btnRefresh = new Surfer.Controls.MyIconToolStripButton();
-            this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
-            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
-            this.pnlProgress = new System.Windows.Forms.Panel();
-            this.pbLoading = new System.Windows.Forms.ProgressBar();
+            this.pnlBrowser.SuspendLayout();
+            this.pnlProgress.SuspendLayout();
+            this.pnlNav.SuspendLayout();
             this.pnlUrl.SuspendLayout();
             this.tsUrl.SuspendLayout();
-            this.pnlBrowser.SuspendLayout();
-            this.pnlNav.SuspendLayout();
             this.tsNav.SuspendLayout();
-            this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pnlBrowser
+            // 
+            this.pnlBrowser.Controls.Add(this.pnlNav);
+            this.pnlBrowser.Controls.Add(this.chBrowser);
+            this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
+            this.pnlBrowser.Name = "pnlBrowser";
+            this.pnlBrowser.Size = new System.Drawing.Size(800, 445);
+            this.pnlBrowser.TabIndex = 0;
+            // 
+            // chBrowser
+            // 
+            this.chBrowser.ActivateBrowserOnCreation = false;
+            this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chBrowser.Location = new System.Drawing.Point(0, 0);
+            this.chBrowser.Name = "chBrowser";
+            this.chBrowser.Size = new System.Drawing.Size(800, 445);
+            this.chBrowser.TabIndex = 0;
+            this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
+            this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
+            this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
+            // 
+            // pnlProgress
+            // 
+            this.pnlProgress.Controls.Add(this.pbLoading);
+            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
+            this.pnlProgress.Name = "pnlProgress";
+            this.pnlProgress.Size = new System.Drawing.Size(800, 5);
+            this.pnlProgress.TabIndex = 2;
+            this.pnlProgress.Visible = false;
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoading.Location = new System.Drawing.Point(0, 0);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(800, 5);
+            this.pbLoading.TabIndex = 0;
+            // 
+            // pnlNav
+            // 
+            this.pnlNav.Controls.Add(this.pnlUrl);
+            this.pnlNav.Controls.Add(this.pnlNavMarginRight);
+            this.pnlNav.Controls.Add(this.tsNav);
+            this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlNav.Location = new System.Drawing.Point(0, 0);
+            this.pnlNav.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlNav.Name = "pnlNav";
+            this.pnlNav.Padding = new System.Windows.Forms.Padding(5);
+            this.pnlNav.Size = new System.Drawing.Size(800, 40);
+            this.pnlNav.TabIndex = 1;
             // 
             // pnlUrl
             // 
@@ -75,7 +129,8 @@
             this.tsUrl.GripMargin = new System.Windows.Forms.Padding(0);
             this.tsUrl.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsUrl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnUrl,
+            this.btnSearch,
+            this.btnSecure,
             this.tbUrl});
             this.tsUrl.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.tsUrl.Location = new System.Drawing.Point(10, 3);
@@ -86,18 +141,31 @@
             this.tsUrl.Stretch = true;
             this.tsUrl.TabIndex = 1;
             // 
-            // btnUrl
+            // btnSearch
             // 
-            this.btnUrl.BackColor = System.Drawing.Color.Transparent;
-            this.btnUrl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnUrl.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.btnUrl.IconColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnUrl.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnUrl.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUrl.Name = "btnUrl";
-            this.btnUrl.Size = new System.Drawing.Size(23, 20);
-            this.btnUrl.Text = "myIconToolStripButton1";
-            this.btnUrl.Click += new System.EventHandler(this.btnUrl_Click);
+            this.btnSearch.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.btnSearch.IconColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(23, 20);
+            this.btnSearch.VisualDisabled = true;
+            // 
+            // btnSecure
+            // 
+            this.btnSecure.BackColor = System.Drawing.Color.Transparent;
+            this.btnSecure.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSecure.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            this.btnSecure.IconColor = System.Drawing.Color.Black;
+            this.btnSecure.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSecure.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSecure.Name = "btnSecure";
+            this.btnSecure.Size = new System.Drawing.Size(23, 20);
+            this.btnSecure.ToolTipText = "Show Site Information";
+            this.btnSecure.Visible = false;
+            this.btnSecure.Click += new System.EventHandler(this.btnSecure_Click);
             // 
             // tbUrl
             // 
@@ -113,29 +181,6 @@
             this.tbUrl.Leave += new System.EventHandler(this.tbUrl_Leave);
             this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
-            // 
-            // pnlBrowser
-            // 
-            this.pnlBrowser.Controls.Add(this.pnlNav);
-            this.pnlBrowser.Controls.Add(this.chBrowser);
-            this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
-            this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(800, 445);
-            this.pnlBrowser.TabIndex = 0;
-            // 
-            // pnlNav
-            // 
-            this.pnlNav.Controls.Add(this.pnlUrl);
-            this.pnlNav.Controls.Add(this.pnlNavMarginRight);
-            this.pnlNav.Controls.Add(this.tsNav);
-            this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlNav.Location = new System.Drawing.Point(0, 0);
-            this.pnlNav.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlNav.Name = "pnlNav";
-            this.pnlNav.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlNav.Size = new System.Drawing.Size(800, 40);
-            this.pnlNav.TabIndex = 1;
             // 
             // pnlNavMarginRight
             // 
@@ -228,36 +273,6 @@
             this.btnRefresh.ToolTipText = "Refresh";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // chBrowser
-            // 
-            this.chBrowser.ActivateBrowserOnCreation = false;
-            this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBrowser.Location = new System.Drawing.Point(0, 0);
-            this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(800, 445);
-            this.chBrowser.TabIndex = 0;
-            this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
-            this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
-            this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
-            // 
-            // pnlProgress
-            // 
-            this.pnlProgress.Controls.Add(this.pbLoading);
-            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
-            this.pnlProgress.Name = "pnlProgress";
-            this.pnlProgress.Size = new System.Drawing.Size(800, 5);
-            this.pnlProgress.TabIndex = 2;
-            this.pnlProgress.Visible = false;
-            // 
-            // pbLoading
-            // 
-            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLoading.Location = new System.Drawing.Point(0, 0);
-            this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(800, 5);
-            this.pbLoading.TabIndex = 0;
-            // 
             // Browser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,16 +285,16 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Tab";
             this.Load += new System.EventHandler(this.Browser_Load);
+            this.pnlBrowser.ResumeLayout(false);
+            this.pnlProgress.ResumeLayout(false);
+            this.pnlNav.ResumeLayout(false);
+            this.pnlNav.PerformLayout();
             this.pnlUrl.ResumeLayout(false);
             this.pnlUrl.PerformLayout();
             this.tsUrl.ResumeLayout(false);
             this.tsUrl.PerformLayout();
-            this.pnlBrowser.ResumeLayout(false);
-            this.pnlNav.ResumeLayout(false);
-            this.pnlNav.PerformLayout();
             this.tsNav.ResumeLayout(false);
             this.tsNav.PerformLayout();
-            this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -299,7 +314,8 @@
         private Controls.MyIconToolStripButton btnRefresh;
         private System.Windows.Forms.Panel pnlNavMarginRight;
         private System.Windows.Forms.ToolStrip tsUrl;
-        private Controls.MyIconToolStripButton btnUrl;
+        private Controls.MyIconToolStripButton btnSecure;
         private Surfer.Controls.MyToolStripSpringTextBox tbUrl;
+        private Controls.MyIconToolStripButton btnSearch;
     }
 }

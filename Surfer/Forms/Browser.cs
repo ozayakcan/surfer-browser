@@ -340,25 +340,23 @@ namespace Surfer.Forms
         }
         private void SiteInformationButtonStatus(bool enabled, bool locked = false)
         {
-            btnUrl.VisualDisabled = !enabled;
             if (enabled)
             {
-                btnUrl.IconColor = Color.Black;
                 if (locked)
-                    btnUrl.IconChar = FontAwesome.Sharp.IconChar.Lock;
+                    btnSecure.IconChar = FontAwesome.Sharp.IconChar.Lock;
                 else
-                    btnUrl.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
-                this.btnUrl.ToolTipText = "Show Site Information";
+                    btnSecure.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+                btnSearch.Visible = false;
+                btnSecure.Visible = true;
             }
             else
             {
-                btnUrl.IconColor = Color.DeepSkyBlue;
-                btnUrl.IconChar = FontAwesome.Sharp.IconChar.Search;
-                this.btnUrl.ToolTipText = "";
+                btnSecure.Visible = false;
+                btnSearch.Visible = true;
             }
         }
         private PopupForm popupForm;
-        private void btnUrl_Click(object sender, EventArgs e)
+        private void btnSecure_Click(object sender, EventArgs e)
         {
             if (popupForm == null)
             {
