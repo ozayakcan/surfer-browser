@@ -116,16 +116,16 @@
     <Compile Include="Controls\MyToolStripSpringTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MyAppContainer.cs">
+    <Compile Include="Forms\MyAppContainer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyAppContainer.Designer.cs">
+    <Compile Include="Forms\MyAppContainer.Designer.cs">
       <DependentUpon>MyAppContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Browser.cs">
+    <Compile Include="Forms\Browser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Browser.Designer.cs">
+    <Compile Include="Forms\Browser.Designer.cs">
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
     <Compile Include="BrowserSettings\MyDisplayHandler.cs" />
@@ -142,10 +142,10 @@
     <Compile Include="Utils\MyExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
     <Compile Include="Utils\StringCipher.cs" />
-    <EmbeddedResource Include="MyAppContainer.resx">
+    <EmbeddedResource Include="Forms\MyAppContainer.resx">
       <DependentUpon>MyAppContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Browser.resx">
+    <EmbeddedResource Include="Forms\Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

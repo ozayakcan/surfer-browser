@@ -1,5 +1,6 @@
 ﻿using EasyTabs;
 using Surfer.BrowserSettings;
+using Surfer.Forms;
 using System;
 using System.Windows.Forms;
 

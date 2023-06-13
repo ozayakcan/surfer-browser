@@ -1,7 +1,7 @@
 ﻿using EasyTabs;
 using Surfer.BrowserSettings;
 
-namespace Surfer
+namespace Surfer.Forms
 {
     public partial class MyAppContainer : TitleBarTabs
     {

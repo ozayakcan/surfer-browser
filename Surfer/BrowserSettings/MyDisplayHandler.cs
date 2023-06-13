@@ -1,11 +1,9 @@
 ﻿using CefSharp;
 using CefSharp.Enums;
 using CefSharp.Structs;
+using Surfer.Forms;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Net;
 
 namespace Surfer.BrowserSettings
 {

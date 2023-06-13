@@ -1,4 +1,4 @@
-﻿namespace Surfer
+﻿namespace Surfer.Forms
 {
     partial class Browser
     {

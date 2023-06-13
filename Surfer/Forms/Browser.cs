@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
-namespace Surfer
+namespace Surfer.Forms
 {
     public partial class Browser : Form
     {
