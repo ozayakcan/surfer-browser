@@ -43,7 +43,7 @@ namespace Surfer.Forms
             }
 
         }
-
+        private Size FullSize = new Size(0, 0);
         private Control _content;
         public Control Content
         {
@@ -57,7 +57,8 @@ namespace Surfer.Forms
                 if (value != null)
                 {
                     pnlContent.Controls.Clear();
-                    Size = new Size(value.Size.Width, value.Size.Height + pnlHeader.Size.Height);
+                    FullSize = new Size(value.Size.Width, value.Size.Height + pnlHeader.Size.Height);
+                    Size = new Size(FullSize.Width, 0);
                     pnlContent.Controls.Add(value);
                 }
             }
@@ -98,6 +99,9 @@ namespace Surfer.Forms
         public PopupForm()
         {
             InitializeComponent();
+            Size = new Size(Size.Width, 0);
+            if(FullSize.Width == 0)
+                FullSize = new Size(Size.Width, 0);
             StartPosition = FormStartPosition.Manual;
             ShowInTaskbar = false;
         }
@@ -145,6 +149,25 @@ namespace Surfer.Forms
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private int timerInterval = 40;
+
+        private int curShowHeight = 0;
+        private void tmrShow_Tick(object sender, EventArgs e)
+        {
+            curShowHeight = curShowHeight + timerInterval;
+            if ((curShowHeight + timerInterval) >= FullSize.Height)
+            {
+                curShowHeight = FullSize.Height;
+                tmrShow.Stop();
+            }
+            Size = new Size(FullSize.Width, curShowHeight);
+        }
+
+        private void PopupForm_Load(object sender, EventArgs e)
+        {
+            tmrShow.Start();
         }
     }
     public enum PopupFormStyle

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.tmrShow = new System.Windows.Forms.Timer(this.components);
             this.pnlContent = new Surfer.Controls.MyPanel();
             this.pnlHeader = new Surfer.Controls.MyPanel();
             this.btnClose = new Surfer.Controls.MyIconButton();
@@ -35,13 +37,18 @@
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
+            // tmrShow
+            // 
+            this.tmrShow.Interval = 1;
+            this.tmrShow.Tick += new System.EventHandler(this.tmrShow_Tick);
+            // 
             // pnlContent
             // 
             this.pnlContent.BackColor = System.Drawing.Color.White;
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 40);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(400, 360);
+            this.pnlContent.Size = new System.Drawing.Size(0, 0);
             this.pnlContent.TabIndex = 1;
             // 
             // pnlHeader
@@ -52,7 +59,7 @@
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.pnlHeader.Size = new System.Drawing.Size(400, 40);
+            this.pnlHeader.Size = new System.Drawing.Size(0, 40);
             this.pnlHeader.TabIndex = 0;
             // 
             // btnClose
@@ -65,7 +72,7 @@
             this.btnClose.IconColor = System.Drawing.Color.Black;
             this.btnClose.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnClose.IconSize = 40;
-            this.btnClose.Location = new System.Drawing.Point(350, 0);
+            this.btnClose.Location = new System.Drawing.Point(-50, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 40);
             this.btnClose.TabIndex = 1;
@@ -85,12 +92,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 400);
+            this.ClientSize = new System.Drawing.Size(0, 0);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PopupForm";
             this.Text = "PopupForm";
+            this.Load += new System.EventHandler(this.PopupForm_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.ResumeLayout(false);
@@ -103,5 +111,6 @@
         private Controls.MyIconButton btnClose;
         private System.Windows.Forms.Label lblTitle;
         private Controls.MyPanel pnlContent;
+        private System.Windows.Forms.Timer tmrShow;
     }
 }
