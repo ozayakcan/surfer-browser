@@ -13,5 +13,9 @@
         {
             return url.StartsWith("https://");
         }
+        public static bool IsUrl(string url)
+        {
+            return url.StartsWith("http://") || url.StartsWith("https://");
+        }
     }
 }

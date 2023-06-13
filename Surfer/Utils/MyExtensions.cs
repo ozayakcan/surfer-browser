@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Surfer.BrowserSettings;
 using System;
 using System.Collections.Generic;
 
@@ -28,8 +29,7 @@ namespace Surfer.Utils
         {
             if (uri.HostNameType == UriHostNameType.Dns)
             {
-
-                string host = uri.Host;
+                string host = uri.GetUrlWithoutHTTP();
 
                 var nodes = host.Split('.');
                 int startNode = 0;
@@ -47,6 +47,15 @@ namespace Surfer.Utils
             }
             return uri.AbsoluteUri;
         }
+        public static string GetUrlWithoutHTTP(this Uri uri)
+        {
+            string text = uri.AbsoluteUri;
+            if (MyBrowserSettings.IsUrl(text))
+                return text.Substring(text.LastIndexOf(new Uri(text).Host));
+            else
+                return text;
+        }
+        
         // string
         public static string GetSearchUrl(this string text)
         {

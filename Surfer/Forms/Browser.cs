@@ -386,5 +386,18 @@ namespace Surfer.Forms
             if (popupForm != null)
                 popupForm.UpdateLocation();
         }
+
+        private void tbUrl_TextChanged(object sender, EventArgs e)
+        {
+            string text = tbUrl.Text;
+            try
+            {
+                tbUrl.Text = new Uri(text).GetUrlWithoutHTTP();
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

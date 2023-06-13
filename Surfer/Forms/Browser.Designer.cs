@@ -151,6 +151,7 @@
             this.tbUrl.Leave += new System.EventHandler(this.tbUrl_Leave);
             this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
+            this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
             // 
             // pnlNavMarginRight
             // 

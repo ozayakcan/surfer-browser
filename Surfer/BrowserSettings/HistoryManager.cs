@@ -36,6 +36,8 @@ namespace Surfer.BrowserSettings
         {
             if (IsInitialized)
             {
+                Uri uri = new Uri(url);
+                url = uri.GetUrlWithoutHTTP();
                 int historyIndex = Get.FindIndex(h => h.fullUrl == url || h.baseUrl == url);
                 History history;
                 if (historyIndex >= 0)
@@ -44,8 +46,7 @@ namespace Surfer.BrowserSettings
                 {
                     history = new History();
                     history.fullUrl = url;
-                    Uri baseUri = new Uri(url);
-                    history.baseUrl = baseUri.GetUrlWithoutWWW();
+                    history.baseUrl = uri.GetUrlWithoutWWW();
                 }
                 if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
                     history.title = title;
