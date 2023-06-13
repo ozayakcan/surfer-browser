@@ -46,9 +46,11 @@ namespace Surfer.Forms
             else
                 SiteInformationButtonStatus(false);
             tsNav.Renderer = new MyRenderer();
-            tsUrl.Renderer = new MyRenderer(); 
+            tsUrl.Renderer = new MyRenderer();
+            AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
 
         }
+
         private void btnGo_Click(object sender, EventArgs e)
         {
             LoadUrl(tbUrl.Text);
@@ -365,7 +367,15 @@ namespace Surfer.Forms
                 Label label = new Label();
                 label.Text = "Test";
                 panel.Controls.Add(label);
-                popupForm = new PopupForm(this, pnlUrl, panel, () => { popupForm = null; }, PopupFormStyle.Left);
+                popupForm = new PopupForm()
+                {
+                    Owner = this,
+                    OwnerControl = pnlUrl,
+                    Content = panel,
+                    Title = "Test Title",
+                    WhenClosed = () => { popupForm = null; },
+                    PopupFormStyle = PopupFormStyle.Left,
+                };
                 popupForm.Show();
             }
             else
@@ -373,6 +383,12 @@ namespace Surfer.Forms
                 popupForm.Close();
                 popupForm = null;
             }
+        }
+
+        private void AppContainer_LocationChanged(object sender, EventArgs e)
+        {
+            if (popupForm != null)
+                popupForm.UpdateLocation();
         }
     }
 }
