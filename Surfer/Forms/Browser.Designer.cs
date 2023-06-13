@@ -97,6 +97,7 @@
             this.btnUrl.Name = "btnUrl";
             this.btnUrl.Size = new System.Drawing.Size(23, 20);
             this.btnUrl.Text = "myIconToolStripButton1";
+            this.btnUrl.Click += new System.EventHandler(this.btnUrl_Click);
             // 
             // tbUrl
             // 

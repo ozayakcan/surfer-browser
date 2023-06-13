@@ -357,5 +357,24 @@ namespace Surfer.Forms
                 this.btnUrl.ToolTipText = "";
             }
         }
+        private PopupForm popupForm;
+        private void btnUrl_Click(object sender, EventArgs e)
+        {
+            if (popupForm == null)
+            {
+                Panel panel = new Panel();
+                panel.Size = new Size(200, 200);
+                Label label = new Label();
+                label.Text = "Test";
+                panel.Controls.Add(label);
+                popupForm = new PopupForm(this, pnlUrl, panel, () => { popupForm = null; }, PopupFormStyle.Left);
+                popupForm.Show();
+            }
+            else
+            {
+                popupForm.Close();
+                popupForm = null;
+            }
+        }
     }
 }
