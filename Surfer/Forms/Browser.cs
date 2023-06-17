@@ -356,34 +356,34 @@ namespace Surfer.Forms
                 btnSearch.Visible = true;
             }
         }
-        private PopupForm popupForm;
+        private PopupForm siteInfoPopupForm;
         private void btnSecure_Click(object sender, EventArgs e)
         {
-            if (popupForm == null)
+            if (siteInfoPopupForm == null)
             {
                 Uri url = new Uri(chBrowser.Address);
-                popupForm = new PopupForm()
+                siteInfoPopupForm = new PopupForm()
                 {
                     Owner = this,
                     OwnerControl = pnlUrl,
                     Content = new SiteInformation(url, Icon),
                     Title = "About " + url.Host,
-                    WhenClosed = () => { popupForm = null; },
+                    WhenClosed = () => { siteInfoPopupForm = null; },
                     PopupFormStyle = PopupFormStyle.Left,
                 };
-                popupForm.Show();
+                siteInfoPopupForm.Show();
             }
             else
             {
-                popupForm.Close();
-                popupForm = null;
+                siteInfoPopupForm.Close();
+                siteInfoPopupForm = null;
             }
         }
 
         private void AppContainer_LocationChanged(object sender, EventArgs e)
         {
-            if (popupForm != null)
-                popupForm.UpdateLocation();
+            if (siteInfoPopupForm != null)
+                siteInfoPopupForm.UpdateLocation();
         }
 
         private void tbUrl_TextChanged(object sender, EventArgs e)
