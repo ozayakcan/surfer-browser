@@ -6,6 +6,8 @@ namespace Surfer.Forms
 {
     public partial class PopupForm : Form
     {
+        public bool AnimationEnabled { get; set; } = true;
+
         private Control _ownerControl;
         public Control OwnerControl
         {
@@ -167,7 +169,10 @@ namespace Surfer.Forms
 
         private void PopupForm_Load(object sender, EventArgs e)
         {
-            tmrShow.Start();
+            if (AnimationEnabled)
+                tmrShow.Start();
+            else
+                Size = new Size(FullSize.Width, FullSize.Height);
         }
     }
     public enum PopupFormStyle
