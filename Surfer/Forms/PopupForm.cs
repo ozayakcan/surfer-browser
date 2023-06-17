@@ -38,16 +38,16 @@ namespace Surfer.Forms
                         switch (PopupFormStyle)
                         {
                             case PopupFormStyle.Left:
-                                xLocation = loc.X + AdditionalXLocation;
+                                xLocation = loc.X;
                                 break;
                             case PopupFormStyle.Center:
-                                xLocation = loc.X - (Size.Width / 2) + AdditionalXLocation;
+                                xLocation = loc.X + (OwnerControl.Size.Width / 2) - (Size.Width / 2);
                                 break;
                             case PopupFormStyle.Right:
-                                xLocation = loc.X - Size.Width + AdditionalXLocation;
+                                xLocation = loc.X + OwnerControl.Size.Width - Size.Width;
                                 break;
                         }
-                        Location = new Point(xLocation, loc.Y + ownerControl.Size.Height);
+                        Location = new Point(xLocation + MarginX, loc.Y + ownerControl.Size.Height + MarginY);
                     }
                 }));
         }
@@ -85,7 +85,12 @@ namespace Surfer.Forms
             set;
         } = PopupFormStyle.Left;
 
-        public int AdditionalXLocation
+        public int MarginX
+        {
+            get;
+            set;
+        } = 0;
+        public int MarginY
         {
             get;
             set;
