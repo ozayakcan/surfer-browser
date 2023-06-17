@@ -126,21 +126,15 @@ namespace Surfer.Forms
             }
             base.OnMouseCaptureChanged(e);
         }*/
+        const uint WM_NCACTIVATE = 0x0086;
         protected override void WndProc(ref Message m)
         {
-            if (CloseOnClickOutSide)
-            {
-                const uint WM_NCACTIVATE = 0x0086;
+            /*if (CloseOnClickOutSide)
                 if (m.Msg == WM_NCACTIVATE && m.WParam.ToInt32() == 0)
-                {
                     Close();
-                }
                 else
-                {
                     base.WndProc(ref m);
-                }
-            }
-            else
+            else*/
                 base.WndProc(ref m);
         }
 
@@ -172,6 +166,12 @@ namespace Surfer.Forms
                 tmrShow.Start();
             else
                 Size = new Size(FullSize.Width, FullSize.Height);
+        }
+
+        private void PopupForm_Deactivate(object sender, EventArgs e)
+        {
+            if (CloseOnClickOutSide)
+                Close();
         }
     }
     public enum PopupFormStyle

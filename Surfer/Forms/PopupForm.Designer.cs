@@ -45,6 +45,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PopupForm";
             this.Text = "PopupForm";
+            this.Deactivate += new System.EventHandler(this.PopupForm_Deactivate);
             this.Load += new System.EventHandler(this.PopupForm_Load);
             this.ResumeLayout(false);
 

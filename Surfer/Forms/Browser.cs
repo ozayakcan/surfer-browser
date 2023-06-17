@@ -370,6 +370,7 @@ namespace Surfer.Forms
                     WhenClosed = () => { siteInfoPopupForm = null; },
                     PopupFormStyle = PopupFormStyle.Left,
                     MarginY = pnlNav.Padding.Vertical,
+                    CloseOnClickOutSide = false,
                 };
                 siteInfoPopupForm.Content = new SiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm};
                 siteInfoPopupForm.Show();
@@ -379,6 +380,16 @@ namespace Surfer.Forms
                 siteInfoPopupForm.Close();
                 siteInfoPopupForm = null;
             }
+        }
+        private void btnSecure_MouseHover(object sender, EventArgs e)
+        {
+            if (siteInfoPopupForm != null)
+                siteInfoPopupForm.CloseOnClickOutSide = false;
+        }
+        private void btnSecure_MouseLeave(object sender, EventArgs e)
+        {
+            if (siteInfoPopupForm != null)
+                siteInfoPopupForm.CloseOnClickOutSide = true;
         }
 
         private void AppContainer_LocationChanged(object sender, EventArgs e)
