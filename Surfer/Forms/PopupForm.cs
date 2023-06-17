@@ -6,6 +6,7 @@ namespace Surfer.Forms
 {
     public partial class PopupForm : Form
     {
+        private bool _loaded = false;
         public bool AnimationEnabled { get; set; } = true;
 
         public bool CloseOnClickOutSide { get; set; } = true;
@@ -25,27 +26,30 @@ namespace Surfer.Forms
         }
         public void UpdateLocation(Control ownerControl = null)
         {
-            if (ownerControl == null)
-                ownerControl = OwnerControl;
-            if (ownerControl != null)
-            {
-                Point loc = Owner.PointToScreen(ownerControl.Location);
-                int xLocation = loc.X;
-                switch (PopupFormStyle)
+            if (_loaded)
+                Invoke(new Action(() =>
                 {
-                    case PopupFormStyle.Left:
-                        xLocation = loc.X + AdditionalXLocation;
-                        break;
-                    case PopupFormStyle.Center:
-                        xLocation = loc.X - (Size.Width / 2) + AdditionalXLocation;
-                        break;
-                    case PopupFormStyle.Right:
-                        xLocation = loc.X - Size.Width + AdditionalXLocation;
-                        break;
-                }
-                Location = new Point(xLocation, loc.Y + ownerControl.Size.Height);
-            }
-
+                    if (ownerControl == null)
+                        ownerControl = OwnerControl;
+                    if (ownerControl != null)
+                    {
+                        Point loc = Owner.PointToScreen(ownerControl.Location);
+                        int xLocation = loc.X;
+                        switch (PopupFormStyle)
+                        {
+                            case PopupFormStyle.Left:
+                                xLocation = loc.X + AdditionalXLocation;
+                                break;
+                            case PopupFormStyle.Center:
+                                xLocation = loc.X - (Size.Width / 2) + AdditionalXLocation;
+                                break;
+                            case PopupFormStyle.Right:
+                                xLocation = loc.X - Size.Width + AdditionalXLocation;
+                                break;
+                        }
+                        Location = new Point(xLocation, loc.Y + ownerControl.Size.Height);
+                    }
+                }));
         }
         private Size FullSize = new Size(0, 0);
         private Control _content;
@@ -60,10 +64,11 @@ namespace Surfer.Forms
                 _content = value;
                 if (value != null)
                 {
-                    pnlContent.Controls.Clear();
+                    Controls.Clear();
                     FullSize = new Size(value.Size.Width, value.Size.Height);
                     Size = new Size(FullSize.Width, 0);
-                    pnlContent.Controls.Add(value);
+                    Controls.Add(value);
+                    BackColor = value.BackColor;
                 }
             }
         }
@@ -156,6 +161,8 @@ namespace Surfer.Forms
 
         private void PopupForm_Load(object sender, EventArgs e)
         {
+            _loaded = true;
+            UpdateLocation(OwnerControl);
             if (AnimationEnabled)
                 tmrShow.Start();
             else

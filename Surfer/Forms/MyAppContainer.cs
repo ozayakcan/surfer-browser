@@ -10,6 +10,17 @@ namespace Surfer.Forms
             InitializeComponent();
             AeroPeekEnabled = true;
             TabRenderer = new ChromeTabRenderer(this);
+            TabSelected += MyAppContainer_TabSelected;
+        }
+
+        private void MyAppContainer_TabSelected(object sender, TitleBarTabEventArgs e)
+        {
+            foreach (var tab in Tabs)
+            {
+                Browser browser = (tab.Content as Browser);
+                if (browser.searchPopupForm != null)
+                    browser.searchPopupForm.Visible = tab.Active;
+            }
         }
 
         public override TitleBarTab CreateTab()

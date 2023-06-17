@@ -66,6 +66,8 @@ namespace Surfer.Forms
             // Browser
             chBrowser.DisplayHandler = new MyDisplayHandler(this);
             chBrowser.RequestHandler = new MyRequestHandler(this);
+            chBrowser.FindHandler = new MyFindHandler(this);
+            chBrowser.KeyboardHandler = new MyKeyboardHandler(this);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
@@ -382,6 +384,8 @@ namespace Surfer.Forms
         {
             if (siteInfoPopupForm != null)
                 siteInfoPopupForm.UpdateLocation();
+            if (searchPopupForm != null)
+                searchPopupForm.UpdateLocation();
         }
 
         private void tbUrl_TextChanged(object sender, EventArgs e)
@@ -395,6 +399,32 @@ namespace Surfer.Forms
             {
 
             }
+        }
+        public PopupForm searchPopupForm;
+        public void ShowSearch()
+        {
+            InvokeAction(() =>
+            {
+                if (searchPopupForm == null)
+                {
+                    Uri url = new Uri(chBrowser.Address);
+                    searchPopupForm = new PopupForm()
+                    {
+                        Owner = this,
+                        OwnerControl = pnlNavMarginRight,
+                        WhenClosed = () => { searchPopupForm = null;},
+                        PopupFormStyle = PopupFormStyle.Right,
+                        AnimationEnabled = false,
+                        CloseOnClickOutSide = false,
+                    };
+                    searchPopupForm.Content = new Search(this) { OwnerForm = searchPopupForm };
+                    searchPopupForm.Show();
+                }
+                else
+                {
+                    searchPopupForm.Show();
+                }
+            });
         }
     }
 }

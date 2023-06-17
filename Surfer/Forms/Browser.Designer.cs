@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlBrowser = new System.Windows.Forms.Panel();
+            this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.pnlNav = new Surfer.Controls.MyPanel();
             this.pnlUrl = new Surfer.Controls.MyPanel();
             this.tsUrl = new System.Windows.Forms.ToolStrip();
@@ -42,7 +43,6 @@
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
             this.btnHome = new Surfer.Controls.MyIconToolStripButton();
             this.btnRefresh = new Surfer.Controls.MyIconToolStripButton();
-            this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.pbLoading = new System.Windows.Forms.ProgressBar();
@@ -56,13 +56,25 @@
             // 
             // pnlBrowser
             // 
-            this.pnlBrowser.Controls.Add(this.pnlNav);
             this.pnlBrowser.Controls.Add(this.chBrowser);
+            this.pnlBrowser.Controls.Add(this.pnlNav);
             this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
             this.pnlBrowser.Name = "pnlBrowser";
             this.pnlBrowser.Size = new System.Drawing.Size(800, 445);
             this.pnlBrowser.TabIndex = 0;
+            // 
+            // chBrowser
+            // 
+            this.chBrowser.ActivateBrowserOnCreation = false;
+            this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chBrowser.Location = new System.Drawing.Point(0, 40);
+            this.chBrowser.Name = "chBrowser";
+            this.chBrowser.Size = new System.Drawing.Size(800, 405);
+            this.chBrowser.TabIndex = 0;
+            this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
+            this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
+            this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
             // 
             // pnlNav
             // 
@@ -244,18 +256,6 @@
             this.btnRefresh.ToolTipText = "Refresh";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // chBrowser
-            // 
-            this.chBrowser.ActivateBrowserOnCreation = false;
-            this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBrowser.Location = new System.Drawing.Point(0, 0);
-            this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(800, 445);
-            this.chBrowser.TabIndex = 0;
-            this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
-            this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
-            this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
-            // 
             // pnlProgress
             // 
             this.pnlProgress.Controls.Add(this.pbLoading);
@@ -305,7 +305,6 @@
         private System.Windows.Forms.ToolTip ttNav;
         private System.Windows.Forms.Panel pnlProgress;
         private System.Windows.Forms.ProgressBar pbLoading;
-        private CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private Controls.MyPanel pnlUrl;
         private Controls.MyPanel pnlNav;
         private System.Windows.Forms.ToolStrip tsNav;
@@ -318,5 +317,6 @@
         private Controls.MyIconToolStripButton btnSecure;
         private Surfer.Controls.MyToolStripSpringTextBox tbUrl;
         private Controls.MyIconToolStripButton btnSearch;
+        public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
     }
 }

@@ -109,6 +109,14 @@
   <ItemGroup>
     <Compile Include="BrowserSettings\ErrorTexts.cs" />
     <Compile Include="BrowserSettings\HistoryManager.cs" />
+    <Compile Include="BrowserSettings\MyFindHandler.cs" />
+    <Compile Include="BrowserSettings\MyKeyboardHandler.cs" />
+    <Compile Include="Controls\Search.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Search.Designer.cs">
+      <DependentUpon>Search.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SiteInformation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,6 +162,9 @@
     <Compile Include="Utils\MyExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
     <Compile Include="Utils\StringCipher.cs" />
+    <EmbeddedResource Include="Controls\Search.resx">
+      <DependentUpon>Search.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SiteInformation.resx">
       <DependentUpon>SiteInformation.cs</DependentUpon>
     </EmbeddedResource>
