@@ -369,6 +369,7 @@ namespace Surfer.Forms
                     OwnerControl = pnlUrl,
                     WhenClosed = () => { siteInfoPopupForm = null; },
                     PopupFormStyle = PopupFormStyle.Left,
+                    MarginY = pnlNav.Padding.Vertical,
                 };
                 siteInfoPopupForm.Content = new SiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm};
                 siteInfoPopupForm.Show();
@@ -411,9 +412,10 @@ namespace Surfer.Forms
                     searchPopupForm = new PopupForm()
                     {
                         Owner = this,
-                        OwnerControl = pnlNavMarginRight,
+                        OwnerControl = pnlUrl,
                         WhenClosed = () => { searchPopupForm = null;},
                         PopupFormStyle = PopupFormStyle.Right,
+                        MarginY = pnlNav.Padding.Vertical,
                         AnimationEnabled = false,
                         CloseOnClickOutSide = false,
                     };
