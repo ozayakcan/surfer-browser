@@ -59,24 +59,10 @@ namespace Surfer.Forms
                 if (value != null)
                 {
                     pnlContent.Controls.Clear();
-                    FullSize = new Size(value.Size.Width, value.Size.Height + pnlHeader.Size.Height);
+                    FullSize = new Size(value.Size.Width, value.Size.Height);
                     Size = new Size(FullSize.Width, 0);
                     pnlContent.Controls.Add(value);
                 }
-            }
-        }
-
-        private string _title = "";
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                _title = value;
-                lblTitle.Text = value;
             }
         }
 
@@ -146,11 +132,6 @@ namespace Surfer.Forms
         {
             WhenClosed?.Invoke();
             base.OnClosed(e);
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private int timerInterval = 40;

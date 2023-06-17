@@ -5,7 +5,6 @@ using Surfer.BrowserSettings;
 using Surfer.Controls;
 using Surfer.Utils;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -366,11 +365,10 @@ namespace Surfer.Forms
                 {
                     Owner = this,
                     OwnerControl = pnlUrl,
-                    Content = new SiteInformation(url, Icon),
-                    Title = "About " + url.Host,
                     WhenClosed = () => { siteInfoPopupForm = null; },
                     PopupFormStyle = PopupFormStyle.Left,
                 };
+                siteInfoPopupForm.Content = new SiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm};
                 siteInfoPopupForm.Show();
             }
             else
