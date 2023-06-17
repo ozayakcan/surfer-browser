@@ -8,6 +8,8 @@ namespace Surfer.Forms
     {
         public bool AnimationEnabled { get; set; } = true;
 
+        public bool CloseOnClickOutSide { get; set; } = true;
+
         private Control _ownerControl;
         public Control OwnerControl
         {
@@ -116,16 +118,20 @@ namespace Surfer.Forms
         }*/
         protected override void WndProc(ref Message m)
         {
-            const UInt32 WM_NCACTIVATE = 0x0086;
-
-            if (m.Msg == WM_NCACTIVATE && m.WParam.ToInt32() == 0)
+            if (CloseOnClickOutSide)
             {
-                Close();
+                const uint WM_NCACTIVATE = 0x0086;
+                if (m.Msg == WM_NCACTIVATE && m.WParam.ToInt32() == 0)
+                {
+                    Close();
+                }
+                else
+                {
+                    base.WndProc(ref m);
+                }
             }
             else
-            {
                 base.WndProc(ref m);
-            }
         }
 
         protected override void OnClosed(EventArgs e)
