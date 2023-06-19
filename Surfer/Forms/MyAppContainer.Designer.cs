@@ -38,7 +38,8 @@
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 400);
-            this.Name = "MyAppContainer";
+            this.Name = this.ProductName;
+            this.Text = this.ProductName;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
