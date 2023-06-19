@@ -1,9 +1,12 @@
 ﻿using CefSharp;
 using CefSharp.Enums;
 using CefSharp.Structs;
+using CefSharp.WinForms;
 using Surfer.Forms;
+using Surfer.Utils;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Surfer.BrowserSettings
 {
@@ -42,10 +45,9 @@ namespace Surfer.BrowserSettings
                 MyBrowser.OnFavIconUrlChanged(chromiumWebBrowser.Address, url);
             }
         }
-
         public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
         {
-            
+            MyBrowser.SetFullscreen((ChromiumWebBrowser)chromiumWebBrowser, fullscreen);
         }
 
         public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)

@@ -47,7 +47,12 @@ namespace Surfer.Forms
                                 xLocation = loc.X + OwnerControl.Size.Width - Size.Width;
                                 break;
                         }
-                        Location = new Point(xLocation + MarginX, loc.Y + ownerControl.Size.Height + MarginY);
+                        int yLocation = loc.Y + ownerControl.Size.Height + MarginY;
+                        if (Fullscreen)
+                        {
+                            yLocation = 0;
+                        }
+                        Location = new Point(xLocation + MarginX, yLocation);
                     }
                 }));
         }
@@ -96,6 +101,8 @@ namespace Surfer.Forms
             set;
         } = 0;
 
+        public bool Fullscreen { get; set; } = false;
+
         public PopupForm()
         {
             InitializeComponent();
@@ -104,6 +111,8 @@ namespace Surfer.Forms
                 FullSize = new Size(Size.Width, 0);
             StartPosition = FormStartPosition.Manual;
             ShowInTaskbar = false;
+            ShowIcon = false;
+            TopMost = true;
         }
 
         /*protected override void OnShown(EventArgs e)

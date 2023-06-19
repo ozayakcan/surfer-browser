@@ -107,6 +107,8 @@ namespace Surfer.Forms
         {
             InvokeAction(() => {
                 tbUrl.Text = addressChangedArgs.Address;
+                if (fullScreenForm != null)
+                    fullScreenForm.Text = addressChangedArgs.Address;
                 SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(addressChangedArgs.Address));
                 HistoryManager.Save(
                     addressChangedArgs.Address,
@@ -168,7 +170,10 @@ namespace Surfer.Forms
         {
             InvokeAction(() => {
                 Icon = Tab.Icon = SiteIcon = icon;
+                if (fullScreenForm != null)
+                    fullScreenForm.Icon = icon;
                 Tab.Parent.UpdateThumbnailPreviewIcon(Tab, icon);
+
             });
         }
 
@@ -360,6 +365,10 @@ namespace Surfer.Forms
         private PopupForm siteInfoPopupForm;
         private void btnSecure_Click(object sender, EventArgs e)
         {
+            ShowSiteInfo();
+        }
+        public void ShowSiteInfo()
+        {
             if (siteInfoPopupForm == null)
             {
                 Uri url = new Uri(chBrowser.Address);
@@ -371,8 +380,9 @@ namespace Surfer.Forms
                     PopupFormStyle = PopupFormStyle.Left,
                     MarginY = pnlNav.Padding.Vertical,
                     CloseOnClickOutSide = false,
+                    Fullscreen = Fullscreen,
                 };
-                siteInfoPopupForm.Content = new SiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm};
+                siteInfoPopupForm.Content = new SiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm };
                 siteInfoPopupForm.Show();
             }
             else
@@ -380,6 +390,11 @@ namespace Surfer.Forms
                 siteInfoPopupForm.Close();
                 siteInfoPopupForm = null;
             }
+        }
+        public void CloseSiteInfo()
+        {
+            if(siteInfoPopupForm != null)
+                siteInfoPopupForm.Close();
         }
         private void btnSecure_MouseHover(object sender, EventArgs e)
         {
@@ -424,11 +439,12 @@ namespace Surfer.Forms
                     {
                         Owner = this,
                         OwnerControl = pnlUrl,
-                        WhenClosed = () => { searchPopupForm = null;},
+                        WhenClosed = () => { searchPopupForm = null; },
                         PopupFormStyle = PopupFormStyle.Right,
                         MarginY = pnlNav.Padding.Vertical,
                         AnimationEnabled = false,
                         CloseOnClickOutSide = false,
+                        Fullscreen = Fullscreen,
                     };
                     searchPopupForm.Content = new Search(this) { OwnerForm = searchPopupForm };
                     searchPopupForm.Show();
@@ -436,6 +452,60 @@ namespace Surfer.Forms
                 else
                 {
                     searchPopupForm.Show();
+                }
+            });
+        }
+        public void CloseSearch()
+        {
+            if (searchPopupForm != null)
+                searchPopupForm.Close();
+        }
+ 
+        public bool Fullscreen = false;
+        private Control parentControl;
+        private Form fullScreenForm;
+        private FormWindowState lastWindowState;
+        public void SetFullscreen(ChromiumWebBrowser chromiumWebBrowser, bool status)
+        {
+            chromiumWebBrowser.InvokeOnUiThreadIfRequired(() =>
+            {
+                if (status)
+                {
+                    lastWindowState = AppContainer.WindowState;
+                    AppContainer.WindowState = FormWindowState.Maximized;
+                    parentControl = chromiumWebBrowser.Parent;
+                    parentControl.Controls.Remove(chromiumWebBrowser);
+                    fullScreenForm = new Form();
+                    fullScreenForm.Icon = Icon;
+                    fullScreenForm.Text = Text;
+                    fullScreenForm.FormBorderStyle = FormBorderStyle.None;
+                    fullScreenForm.WindowState = FormWindowState.Maximized;
+                    fullScreenForm.Controls.Add(chromiumWebBrowser);
+                    fullScreenForm.ShowDialog(parentControl.FindForm());
+                }
+                else
+                {
+                    AppContainer.WindowState = lastWindowState;
+                    fullScreenForm.Controls.Remove(chromiumWebBrowser);
+                    parentControl.Controls.Add(chromiumWebBrowser);
+                    fullScreenForm.Close();
+                    fullScreenForm.Dispose();
+                    fullScreenForm = null;
+                }
+            });
+            Fullscreen = status;
+            SetPopupFullScreen(status);
+        }
+
+        private void SetPopupFullScreen(bool status)
+        {
+            InvokeAction(() =>
+            {
+                CloseSiteInfo();
+                if(searchPopupForm != null)
+                {
+                    searchPopupForm.Fullscreen = status;
+                    searchPopupForm.UpdateLocation();
                 }
             });
         }

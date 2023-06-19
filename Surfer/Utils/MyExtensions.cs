@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CefSharp.WinForms;
+using Newtonsoft.Json.Linq;
 using Surfer.BrowserSettings;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Surfer.Utils
 {
@@ -56,6 +58,18 @@ namespace Surfer.Utils
                 return text;
         }
         
+        public static void InvokeOnUiThreadIfRequired(this ChromiumWebBrowser chromiumWebBrowser, Action action)
+        {
+            if (chromiumWebBrowser.InvokeRequired)
+            {
+                chromiumWebBrowser.BeginInvoke((MethodInvoker)delegate {
+                    action?.Invoke();
+                });
+            }
+            else
+                action?.Invoke();
+        }
+
         // string
         public static string GetSearchUrl(this string text)
         {
