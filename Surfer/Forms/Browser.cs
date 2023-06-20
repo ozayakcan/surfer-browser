@@ -534,6 +534,31 @@ namespace Surfer.Forms
                 chBrowser.Reload();
                 return true;
             }
+            else if (
+                key == Keys.F12 
+                || (modifiers == (CefEventFlags.ControlDown | CefEventFlags.AltDown) && key == Keys.I) 
+                || (key == (Keys.Control | Keys.Alt | Keys.I))
+            )
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    if (DevTools == null)
+                    {
+                        pnlRight.Controls.Clear();
+                        DevTools = chBrowser.ShowDevToolsDocked(pnlRight, dockStyle: DockStyle.Right);
+                        if(pnlRight.Controls.Count == 0)
+                            pnlRight.Controls.Add(DevTools);
+                        pnlRight.BackColor = DevTools.BackColor;
+                    }
+                    else
+                    {
+                        //chBrowser.CloseDevTools();
+                        pnlRight.Controls.Remove(DevTools);
+                        DevTools = null;
+                    }
+                });
+                return true;
+            }
             /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
@@ -543,6 +568,26 @@ namespace Surfer.Forms
                 return true;
             }*/
             return resp;
+        }
+        Control DevTools;
+        private void pnlRight_ControlAdded(object sender, ControlEventArgs e)
+        {
+            SetPnlRightSize();
+        }
+
+        private void pnlRight_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            SetPnlRightSize();
+        }
+
+        private void SetPnlRightSize()
+        {
+            int width = 0;
+            foreach (Control cntrl in pnlRight.Controls)
+            {
+                width += cntrl.Size.Width;
+            }
+            pnlRight.Size = new Size(width, pnlRight.Size.Height);
         }
     }
 }
