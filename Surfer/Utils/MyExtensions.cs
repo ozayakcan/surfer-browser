@@ -57,12 +57,12 @@ namespace Surfer.Utils
             else
                 return text;
         }
-        
-        public static void InvokeOnUiThreadIfRequired(this ChromiumWebBrowser chromiumWebBrowser, Action action)
+        // Invoke
+        public static void InvokeOnUiThreadIfRequired(this Control control, Action action)
         {
-            if (chromiumWebBrowser.InvokeRequired)
+            if (control.InvokeRequired)
             {
-                chromiumWebBrowser.BeginInvoke((MethodInvoker)delegate {
+                control.Invoke((MethodInvoker)delegate {
                     action?.Invoke();
                 });
             }

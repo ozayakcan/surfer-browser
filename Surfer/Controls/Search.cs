@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Surfer.Forms;
 using CefSharp;
 using System.Drawing;
+using Surfer.Utils;
 
 namespace Surfer.Controls
 {
@@ -55,11 +56,11 @@ namespace Surfer.Controls
         }
         public void SetNumbers(int current, int total)
         {
-            Invoke(new Action(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 lblCur.Text = current.ToString();
                 lblTotal.Text = total.ToString();
-            }));
+            });
         }
     }
 }

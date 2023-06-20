@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Surfer.Utils;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -27,7 +28,7 @@ namespace Surfer.Forms
         public void UpdateLocation(Control ownerControl = null)
         {
             if (_loaded)
-                Invoke(new Action(() =>
+                this.InvokeOnUiThreadIfRequired(() =>
                 {
                     if (ownerControl == null)
                         ownerControl = OwnerControl;
@@ -54,7 +55,7 @@ namespace Surfer.Forms
                         }
                         Location = new Point(xLocation + MarginX, yLocation);
                     }
-                }));
+                });
         }
         private Size FullSize = new Size(0, 0);
         private Control _content;

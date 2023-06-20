@@ -76,7 +76,7 @@ namespace Surfer.Forms
 
         private void chBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 chBrowser.Focus();
             });
@@ -89,7 +89,7 @@ namespace Surfer.Forms
         }
         internal void OpenInNewTab(string targetUrl)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 TitleBarTab titleBarTab = new TitleBarTab(AppContainer);
                 titleBarTab.Content = new Browser(AppContainer, titleBarTab)
@@ -105,7 +105,7 @@ namespace Surfer.Forms
 
         public void OnAddressChanged(AddressChangedEventArgs addressChangedArgs)
         {
-            InvokeAction(() => {
+            this.InvokeOnUiThreadIfRequired(() => {
                 tbUrl.Text = chBrowser.Address;
                 if (fullScreenForm != null)
                     fullScreenForm.Text = chBrowser.Address;
@@ -123,7 +123,7 @@ namespace Surfer.Forms
         // Url Auto Complete
         private void UpdateAutoCompletion()
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
                 autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.url).ToArray());
@@ -168,7 +168,7 @@ namespace Surfer.Forms
         }
         private void SetIcon(Icon icon)
         {
-            InvokeAction(() => {
+            this.InvokeOnUiThreadIfRequired(() => {
                 Icon = Tab.Icon = SiteIcon = icon;
                 if (fullScreenForm != null)
                     fullScreenForm.Icon = icon;
@@ -180,7 +180,7 @@ namespace Surfer.Forms
         internal void TitleChanged(string url, TitleChangedEventArgs titleChangedArgs)
         {
             if(titleChangedArgs.Title != "DevTools")
-                InvokeAction(() => {
+                this.InvokeOnUiThreadIfRequired(() => {
                     Text = titleChangedArgs.Title;
                     HistoryManager.Save(
                         url,
@@ -192,7 +192,7 @@ namespace Surfer.Forms
         }
         public void ShowLoading(int progress)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 pnlProgress.Visible = true;
                 pbLoading.Value = progress;
@@ -202,7 +202,7 @@ namespace Surfer.Forms
 
         public void HideLoading()
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 SetRefreshButtonStatus(true);
                 pbLoading.Value = 0;
@@ -222,16 +222,14 @@ namespace Surfer.Forms
 
         public void InvokeAction(Action action)
         {
-            if (!chBrowser.IsDisposed)
-            {
-                Invoke(new Action(() => {
-                    action();
-                    this.Invalidate();
-                    this.Update();
-                    this.Refresh();
-                    Application.DoEvents();
-                }));
-            }
+            this.InvokeOnUiThreadIfRequired(action);
+            /*this.InvokeOnUiThreadIfRequired(() => {
+                action();
+                Invalidate();
+                Update();
+                Refresh();
+                Application.DoEvents();
+            });*/
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -244,7 +242,7 @@ namespace Surfer.Forms
         }
         private void SetGoBackButtonStatus(bool status)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 btnBack.Enabled = status;
             });
@@ -261,7 +259,7 @@ namespace Surfer.Forms
 
         private void SetGoForwardButtonStatus(bool status)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 btnForward.Visible = btnForward.Enabled = status;
             });
@@ -273,7 +271,7 @@ namespace Surfer.Forms
    
         private void SetGoHomeButtonStatus(bool status)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 btnHome.Enabled = status;
             });
@@ -285,7 +283,7 @@ namespace Surfer.Forms
 
         private void SetRefreshButtonStatus(bool status)
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 if (status)
                 {
@@ -431,7 +429,7 @@ namespace Surfer.Forms
         public PopupForm searchPopupForm;
         public void ShowSearch()
         {
-            InvokeAction(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 if (searchPopupForm == null)
                 {
@@ -515,7 +513,7 @@ namespace Surfer.Forms
         {
             if (key == Keys.F2)
             {
-                InvokeAction(()=> {
+                this.InvokeOnUiThreadIfRequired(()=> {
                     tbUrl.Focus();
                 });
                 return true;
@@ -541,7 +539,7 @@ namespace Surfer.Forms
                 || (key == (Keys.Control | Keys.Alt | Keys.I))
             )
             {
-                Invoke((MethodInvoker)delegate
+                this.InvokeOnUiThreadIfRequired(() =>
                 {
                     if (devToolsPanel.Visible)
                     {
