@@ -519,7 +519,7 @@ namespace Surfer.Forms
                 });
                 return true;
             }
-            if (key == Keys.F3)
+            else if (key == Keys.F3)
             {
                 ShowSearch();
                 return true;
@@ -527,6 +527,16 @@ namespace Surfer.Forms
             else if ((modifiers == CefEventFlags.ControlDown && key == Keys.F) || (key == (Keys.Control | Keys.F)))
             {
                 ShowSearch();
+                return true;
+            }
+            else if ((modifiers == CefEventFlags.ControlDown && key == Keys.F5) || (key == (Keys.Control | Keys.F5)))
+            {
+                chBrowser.Reload(true);
+                return true;
+            }
+            else if (key == Keys.F5)
+            {
+                chBrowser.Reload();
                 return true;
             }
             /*else if (key == Keys.Escape)
