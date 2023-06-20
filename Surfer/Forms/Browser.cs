@@ -519,12 +519,7 @@ namespace Surfer.Forms
                 });
                 return true;
             }
-            else if (key == Keys.F3)
-            {
-                ShowSearch();
-                return true;
-            }
-            else if ((modifiers == CefEventFlags.ControlDown && key == Keys.F) || (key == (Keys.Control | Keys.F)))
+            else if (key == Keys.F3 || (modifiers == CefEventFlags.ControlDown && key == Keys.F) || (key == (Keys.Control | Keys.F)))
             {
                 ShowSearch();
                 return true;
