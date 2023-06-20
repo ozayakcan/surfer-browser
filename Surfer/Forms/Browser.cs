@@ -179,15 +179,16 @@ namespace Surfer.Forms
 
         internal void TitleChanged(string url, TitleChangedEventArgs titleChangedArgs)
         {
-            InvokeAction(() => {
-                Text = titleChangedArgs.Title;
-                HistoryManager.Save(
-                    url,
-                    title: titleChangedArgs.Title/*,
-                    onSaved: () => {
-                        UpdateAutoCompletion();
-                    }*/);
-            });
+            if(titleChangedArgs.Title != "DevTools")
+                InvokeAction(() => {
+                    Text = titleChangedArgs.Title;
+                    HistoryManager.Save(
+                        url,
+                        title: titleChangedArgs.Title/*,
+                        onSaved: () => {
+                            UpdateAutoCompletion();
+                        }*/);
+                });
         }
         public void ShowLoading(int progress)
         {
