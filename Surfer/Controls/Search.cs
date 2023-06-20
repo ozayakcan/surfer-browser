@@ -35,13 +35,22 @@ namespace Surfer.Controls
 
         private void tbSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            if (tbSearch.Text.Length <= 0)
+            if(e.KeyCode == Keys.Escape)
             {
                 Browser.chBrowser.StopFinding(true);
+                if (OwnerForm != null)
+                    OwnerForm.Close();
             }
             else
             {
-                Browser.chBrowser.Find(tbSearch.Text, true, false, e.KeyCode == Keys.Enter);
+                if (tbSearch.Text.Length <= 0)
+                {
+                    Browser.chBrowser.StopFinding(true);
+                }
+                else
+                {
+                    Browser.chBrowser.Find(tbSearch.Text, true, false, e.KeyCode == Keys.Enter);
+                }
             }
         }
 
