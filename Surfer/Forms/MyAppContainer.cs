@@ -1,4 +1,6 @@
-﻿using EasyTabs;
+﻿using System.Windows.Forms;
+using CefSharp;
+using EasyTabs;
 using Surfer.BrowserSettings;
 
 namespace Surfer.Forms
@@ -31,6 +33,11 @@ namespace Surfer.Forms
                 StartUrl = MyBrowserSettings.HomePage,
             };
             return titlebarTab;
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            Browser myBrowser = (Browser)SelectedTab.Content;
+            return myBrowser.KeyEvents(myBrowser.chBrowser, CefEventFlags.None, keyData, base.ProcessCmdKey(ref msg, keyData));
         }
     }
 }

@@ -512,5 +512,35 @@ namespace Surfer.Forms
                 }
             });
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {  
+            return KeyEvents(chBrowser, CefEventFlags.None, keyData, base.ProcessCmdKey(ref msg, keyData));
+        }
+        public bool KeyEvents(ChromiumWebBrowser chromiumWebBrowser, CefEventFlags modifiers, Keys key, bool resp = true)
+        {
+            if (key == Keys.F3)
+            {
+                ShowSearch();
+                return true;
+            }
+            else if ((modifiers == CefEventFlags.ControlDown && key == Keys.F) || (key == (Keys.Control | Keys.F)))
+            {
+                ShowSearch();
+                return true;
+            }
+            else if (key == Keys.Escape)
+            {
+                chBrowser.Invoke((MethodInvoker)delegate
+                {
+                    //bool fullScreen = Screen.FromControl(chBrowser).Bounds.Size == chBrowser.Size;
+                    if (Fullscreen)
+                    {
+                        chromiumWebBrowser.DisplayHandler.OnFullscreenModeChange(chromiumWebBrowser, null, false);
+                    }
+                });
+                return true;
+            }
+            return resp;
+        }
     }
 }

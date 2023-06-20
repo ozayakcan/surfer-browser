@@ -19,32 +19,14 @@ namespace Surfer.BrowserSettings
         {
             Debug.WriteLine("Key Codes: " + windowsKeyCode.ToString() + ", " + nativeKeyCode.ToString());
             var chBrowser = (ChromiumWebBrowser)chromiumWebBrowser;
-
-            //MessageBox.Show("F3 Key: "+ ((int)Keys.F3).ToString());
-            if (windowsKeyCode == (int)Keys.F3)
-            {
-                MyBrowser.ShowSearch();
-            }
-            else if (modifiers == CefEventFlags.ControlDown && windowsKeyCode == (int)Keys.F)
-            {
-                MyBrowser.ShowSearch();
-            }
-            else if(windowsKeyCode == (int)Keys.Escape)
-            {
-                chBrowser.Invoke((MethodInvoker)delegate
-                {
-                    //bool fullScreen = Screen.FromControl(chBrowser).Bounds.Size == chBrowser.Size;
-                    if (MyBrowser.Fullscreen)
-                    {
-                        chromiumWebBrowser.DisplayHandler.OnFullscreenModeChange(chromiumWebBrowser, browser, false);
-                    }
-                });
-            }
+            
+            
             return false;
         }
 
         public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
         {
+            MyBrowser.KeyEvents((ChromiumWebBrowser)chromiumWebBrowser, modifiers, (Keys)windowsKeyCode);
             return false;
         }
     }
