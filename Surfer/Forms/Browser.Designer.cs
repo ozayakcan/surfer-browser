@@ -32,7 +32,7 @@
             this.pnlBrowser = new System.Windows.Forms.Panel();
             this.pnlChBrowser = new Surfer.Controls.MyPanel();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
-            this.pnlRight = new Surfer.Controls.MyPanel();
+            this.devToolsPanel = new Surfer.Controls.MyPanel();
             this.pnlNav = new Surfer.Controls.MyPanel();
             this.pnlUrl = new Surfer.Controls.MyPanel();
             this.tsUrl = new System.Windows.Forms.ToolStrip();
@@ -70,7 +70,7 @@
             // pnlChBrowser
             // 
             this.pnlChBrowser.Controls.Add(this.chBrowser);
-            this.pnlChBrowser.Controls.Add(this.pnlRight);
+            this.pnlChBrowser.Controls.Add(this.devToolsPanel);
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChBrowser.Location = new System.Drawing.Point(0, 40);
             this.pnlChBrowser.Name = "pnlChBrowser";
@@ -89,15 +89,14 @@
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
             this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
             // 
-            // pnlRight
+            // devToolsPanel
             // 
-            this.pnlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlRight.Location = new System.Drawing.Point(800, 0);
-            this.pnlRight.Name = "pnlRight";
-            this.pnlRight.Size = new System.Drawing.Size(0, 405);
-            this.pnlRight.TabIndex = 1;
-            this.pnlRight.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlRight_ControlAdded);
-            this.pnlRight.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlRight_ControlRemoved);
+            this.devToolsPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.devToolsPanel.Location = new System.Drawing.Point(800, 0);
+            this.devToolsPanel.Name = "devToolsPanel";
+            this.devToolsPanel.Size = new System.Drawing.Size(0, 405);
+            this.devToolsPanel.TabIndex = 1;
+            this.devToolsPanel.Visible = false;
             // 
             // pnlNav
             // 
@@ -345,6 +344,6 @@
         private Controls.MyIconToolStripButton btnSearch;
         public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private Controls.MyPanel pnlChBrowser;
-        private Controls.MyPanel pnlRight;
+        private Controls.MyPanel devToolsPanel;
     }
 }

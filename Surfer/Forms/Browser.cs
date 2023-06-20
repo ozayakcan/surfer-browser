@@ -542,19 +542,22 @@ namespace Surfer.Forms
             {
                 Invoke((MethodInvoker)delegate
                 {
-                    if (DevTools == null)
+                    if (devToolsPanel.Visible)
                     {
-                        pnlRight.Controls.Clear();
-                        DevTools = chBrowser.ShowDevToolsDocked(pnlRight, dockStyle: DockStyle.Right);
-                        if(pnlRight.Controls.Count == 0)
-                            pnlRight.Controls.Add(DevTools);
-                        pnlRight.BackColor = DevTools.BackColor;
+                        devToolsPanel.Visible = false;
                     }
                     else
                     {
+                        if(DevTools == null)
+                            DevTools = chBrowser.ShowDevToolsDocked(devToolsPanel, dockStyle: DockStyle.Right);
+                        if(devToolsPanel.Size.Width != DevTools.Size.Width)
+                            devToolsPanel.Size = new Size(DevTools.Size.Width, devToolsPanel.Size.Height);
+                        if (devToolsPanel.Controls.Count == 0)
+                            devToolsPanel.Controls.Add(DevTools);
+                        if(devToolsPanel.BackColor != DevTools.BackColor)
+                            devToolsPanel.BackColor = DevTools.BackColor;
+                        devToolsPanel.Visible = true;
                         //chBrowser.CloseDevTools();
-                        pnlRight.Controls.Remove(DevTools);
-                        DevTools = null;
                     }
                 });
                 return true;
@@ -583,11 +586,11 @@ namespace Surfer.Forms
         private void SetPnlRightSize()
         {
             int width = 0;
-            foreach (Control cntrl in pnlRight.Controls)
+            foreach (Control cntrl in devToolsPanel.Controls)
             {
                 width += cntrl.Size.Width;
             }
-            pnlRight.Size = new Size(width, pnlRight.Size.Height);
+            devToolsPanel.Size = new Size(width, devToolsPanel.Size.Height);
         }
     }
 }
