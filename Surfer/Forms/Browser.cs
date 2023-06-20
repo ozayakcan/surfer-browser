@@ -24,15 +24,6 @@ namespace Surfer.Forms
         Color pnlUrlBorderColor;
         public Browser(MyAppContainer appContainer, TitleBarTab titlebarTab)
         {
-            CefSettings cefSettings = new CefSettings();
-            cefSettings.CachePath = Paths.BrowserCache();
-            cefSettings.PersistSessionCookies = true;
-            cefSettings.PersistUserPreferences = true;
-            cefSettings.CefCommandLineArgs.Add("persist_session_cookies", "1");
-            if (!Cef.IsInitialized)
-                Cef.Initialize(cefSettings);
-            if(!HistoryManager.IsInitialized)
-                HistoryManager.Initialize();
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();

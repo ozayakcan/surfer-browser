@@ -1,7 +1,9 @@
 ﻿using System.Windows.Forms;
 using CefSharp;
+using CefSharp.WinForms;
 using EasyTabs;
 using Surfer.BrowserSettings;
+using Surfer.Utils;
 
 namespace Surfer.Forms
 {
@@ -9,6 +11,15 @@ namespace Surfer.Forms
     {
         public MyAppContainer()
         {
+            CefSettings cefSettings = new CefSettings();
+            cefSettings.CachePath = Paths.BrowserCache();
+            cefSettings.PersistSessionCookies = true;
+            cefSettings.PersistUserPreferences = true;
+            cefSettings.CefCommandLineArgs.Add("persist_session_cookies", "1");
+            if (!Cef.IsInitialized)
+                Cef.Initialize(cefSettings);
+            if (!HistoryManager.IsInitialized)
+                HistoryManager.Initialize();
             InitializeComponent();
             Application.AddMessageFilter(this);
             this.FormClosed += (s, e) => Application.RemoveMessageFilter(this);
