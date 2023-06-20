@@ -41,7 +41,7 @@ namespace Surfer.Controls
             }
             else
             {
-                Browser.chBrowser.Find(tbSearch.Text, true, false, false);
+                Browser.chBrowser.Find(tbSearch.Text, true, false, e.KeyCode == Keys.Enter);
             }
         }
 
