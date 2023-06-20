@@ -5,11 +5,13 @@ using Surfer.BrowserSettings;
 
 namespace Surfer.Forms
 {
-    public partial class MyAppContainer : TitleBarTabs
+    public partial class MyAppContainer : TitleBarTabs, IMessageFilter
     {
         public MyAppContainer()
         {
             InitializeComponent();
+            Application.AddMessageFilter(this);
+            this.FormClosed += (s, e) => Application.RemoveMessageFilter(this);
             AeroPeekEnabled = true;
             TabRenderer = new ChromeTabRenderer(this);
             TabSelected += MyAppContainer_TabSelected;
@@ -34,10 +36,22 @@ namespace Surfer.Forms
             };
             return titlebarTab;
         }
+        bool mRepeating;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            Browser myBrowser = (Browser)SelectedTab.Content;
-            return myBrowser.KeyEvents(myBrowser.chBrowser, CefEventFlags.None, keyData, base.ProcessCmdKey(ref msg, keyData));
+            if (!mRepeating)
+            {
+                mRepeating = true;
+                Browser myBrowser = (Browser)SelectedTab.Content;
+                return myBrowser.KeyEvents(myBrowser.chBrowser, CefEventFlags.None, keyData, base.ProcessCmdKey(ref msg, keyData));
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == 0x101) mRepeating = false;
+            return false;
         }
     }
 }
