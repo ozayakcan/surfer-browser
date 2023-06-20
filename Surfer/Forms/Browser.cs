@@ -467,34 +467,37 @@ namespace Surfer.Forms
         private FormWindowState lastWindowState;
         public void SetFullscreen(ChromiumWebBrowser chromiumWebBrowser, bool status)
         {
-            chromiumWebBrowser.InvokeOnUiThreadIfRequired(() =>
+            if(Fullscreen != status)
             {
-                if (status)
+                chromiumWebBrowser.InvokeOnUiThreadIfRequired(() =>
                 {
-                    lastWindowState = AppContainer.WindowState;
-                    AppContainer.WindowState = FormWindowState.Maximized;
-                    parentControl = chromiumWebBrowser.Parent;
-                    parentControl.Controls.Remove(chromiumWebBrowser);
-                    fullScreenForm = new Form();
-                    fullScreenForm.Icon = Icon;
-                    fullScreenForm.Text = Text;
-                    fullScreenForm.FormBorderStyle = FormBorderStyle.None;
-                    fullScreenForm.WindowState = FormWindowState.Maximized;
-                    fullScreenForm.Controls.Add(chromiumWebBrowser);
-                    fullScreenForm.ShowDialog(parentControl.FindForm());
-                }
-                else
-                {
-                    AppContainer.WindowState = lastWindowState;
-                    fullScreenForm.Controls.Remove(chromiumWebBrowser);
-                    parentControl.Controls.Add(chromiumWebBrowser);
-                    fullScreenForm.Close();
-                    fullScreenForm.Dispose();
-                    fullScreenForm = null;
-                }
-            });
-            Fullscreen = status;
-            SetPopupFullScreen(status);
+                    if (status)
+                    {
+                        lastWindowState = AppContainer.WindowState;
+                        AppContainer.WindowState = FormWindowState.Maximized;
+                        parentControl = chromiumWebBrowser.Parent;
+                        parentControl.Controls.Remove(chromiumWebBrowser);
+                        fullScreenForm = new Form();
+                        fullScreenForm.Icon = Icon;
+                        fullScreenForm.Text = Text;
+                        fullScreenForm.FormBorderStyle = FormBorderStyle.None;
+                        fullScreenForm.WindowState = FormWindowState.Maximized;
+                        fullScreenForm.Controls.Add(chromiumWebBrowser);
+                        fullScreenForm.ShowDialog(parentControl.FindForm());
+                    }
+                    else
+                    {
+                        AppContainer.WindowState = lastWindowState;
+                        fullScreenForm.Controls.Remove(chromiumWebBrowser);
+                        parentControl.Controls.Add(chromiumWebBrowser);
+                        fullScreenForm.Close();
+                        fullScreenForm.Dispose();
+                        fullScreenForm = null;
+                    }
+                });
+                Fullscreen = status;
+                SetPopupFullScreen(status);
+            }
         }
 
         private void SetPopupFullScreen(bool status)

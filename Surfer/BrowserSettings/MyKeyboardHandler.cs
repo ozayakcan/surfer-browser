@@ -33,8 +33,8 @@ namespace Surfer.BrowserSettings
             {
                 chBrowser.Invoke((MethodInvoker)delegate
                 {
-                    bool fullScreen = Screen.FromControl(chBrowser).Bounds.Size == chBrowser.Size;
-                    if (fullScreen)
+                    //bool fullScreen = Screen.FromControl(chBrowser).Bounds.Size == chBrowser.Size;
+                    if (MyBrowser.Fullscreen)
                     {
                         chromiumWebBrowser.DisplayHandler.OnFullscreenModeChange(chromiumWebBrowser, browser, false);
                     }
