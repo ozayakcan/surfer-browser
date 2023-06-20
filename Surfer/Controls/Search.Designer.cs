@@ -154,13 +154,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tbSearch;
         private MyIconButton btnClose;
         private MyIconButton btnFindPrev;
         private MyIconButton btnFindNext;
         private System.Windows.Forms.Label lblCurrent;
         private System.Windows.Forms.Label lblCur;
         private System.Windows.Forms.Label lblTotal;
+        public System.Windows.Forms.TextBox tbSearch;
     }
 }

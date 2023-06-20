@@ -453,6 +453,8 @@ namespace Surfer.Forms
                 {
                     searchPopupForm.Show();
                 }
+                Search search = (Search)searchPopupForm.Content;
+                search.tbSearch.Focus();
             });
         }
         public void CloseSearch()
