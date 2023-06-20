@@ -529,14 +529,14 @@ namespace Surfer.Forms
                 ShowSearch();
                 return true;
             }
-            else if (key == Keys.Escape)
+            /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
                 {
                     SetFullscreen(chromiumWebBrowser, false);
                 }
                 return true;
-            }
+            }*/
             return resp;
         }
     }
