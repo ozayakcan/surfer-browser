@@ -469,50 +469,42 @@ namespace Surfer.Forms
         private FormWindowState lastWindowState;
         public void SetFullscreen(ChromiumWebBrowser chromiumWebBrowser, bool status)
         {
-            if(Fullscreen != status)
+            chromiumWebBrowser.InvokeOnUiThreadIfRequired(() =>
             {
-                chromiumWebBrowser.InvokeOnUiThreadIfRequired(() =>
+                if (status)
                 {
-                    if (status)
-                    {
-                        lastWindowState = AppContainer.WindowState;
-                        AppContainer.WindowState = FormWindowState.Maximized;
-                        parentControl = chromiumWebBrowser.Parent;
-                        parentControl.Controls.Remove(chromiumWebBrowser);
-                        fullScreenForm = new Form();
-                        fullScreenForm.Icon = Icon;
-                        fullScreenForm.Text = Text;
-                        fullScreenForm.FormBorderStyle = FormBorderStyle.None;
-                        fullScreenForm.WindowState = FormWindowState.Maximized;
-                        fullScreenForm.Controls.Add(chromiumWebBrowser);
-                        fullScreenForm.ShowDialog(parentControl.FindForm());
-                    }
-                    else
+                    lastWindowState = AppContainer.WindowState;
+                    AppContainer.WindowState = FormWindowState.Maximized;
+                    //parentControl = chromiumWebBrowser.Parent;
+                    pnlBrowser.Controls.Remove(chromiumWebBrowser);
+                    fullScreenForm = new Form();
+                    fullScreenForm.Icon = Icon;
+                    fullScreenForm.Text = Text;
+                    fullScreenForm.FormBorderStyle = FormBorderStyle.None;
+                    fullScreenForm.WindowState = FormWindowState.Maximized;
+                    fullScreenForm.Controls.Add(chromiumWebBrowser);
+                    fullScreenForm.ShowDialog(this);
+                }
+                else
+                {
+                    if(fullScreenForm != null)
                     {
                         AppContainer.WindowState = lastWindowState;
                         fullScreenForm.Controls.Remove(chromiumWebBrowser);
-                        parentControl.Controls.Add(chromiumWebBrowser);
+                        pnlBrowser.Controls.Add(chromiumWebBrowser);
                         fullScreenForm.Close();
                         fullScreenForm.Dispose();
                         fullScreenForm = null;
                     }
-                });
-                Fullscreen = status;
-                SetPopupFullScreen(status);
-            }
-        }
-
-        private void SetPopupFullScreen(bool status)
-        {
-            InvokeAction(() =>
-            {
+                }
                 CloseSiteInfo();
-                if(searchPopupForm != null)
+                if (searchPopupForm != null)
                 {
                     searchPopupForm.Fullscreen = status;
                     searchPopupForm.UpdateLocation();
                 }
             });
+            Fullscreen = status;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {  
@@ -539,14 +531,10 @@ namespace Surfer.Forms
             }
             else if (key == Keys.Escape)
             {
-                chBrowser.Invoke((MethodInvoker)delegate
+                if (Fullscreen)
                 {
-                    //bool fullScreen = Screen.FromControl(chBrowser).Bounds.Size == chBrowser.Size;
-                    if (Fullscreen)
-                    {
-                        chromiumWebBrowser.DisplayHandler.OnFullscreenModeChange(chromiumWebBrowser, null, false);
-                    }
-                });
+                    SetFullscreen(chromiumWebBrowser, false);
+                }
                 return true;
             }
             return resp;
