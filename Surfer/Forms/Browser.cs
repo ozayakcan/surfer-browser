@@ -106,17 +106,17 @@ namespace Surfer.Forms
         public void OnAddressChanged(AddressChangedEventArgs addressChangedArgs)
         {
             InvokeAction(() => {
-                tbUrl.Text = addressChangedArgs.Address;
+                tbUrl.Text = chBrowser.Address;
                 if (fullScreenForm != null)
-                    fullScreenForm.Text = addressChangedArgs.Address;
-                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(addressChangedArgs.Address));
+                    fullScreenForm.Text = chBrowser.Address;
+                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(chBrowser.Address));
                 HistoryManager.Save(
-                    addressChangedArgs.Address,
+                    chBrowser.Address,
                     increaseVisited: true,
                     onSaved: ()=> {
                         UpdateAutoCompletion();
                     });
-                OnFavIconUrlChanged(addressChangedArgs.Address);
+                OnFavIconUrlChanged(chBrowser.Address);
             });
         }
 
