@@ -468,14 +468,14 @@ namespace Surfer.Forms
         private FormWindowState lastWindowState;
         public void SetFullscreen(ChromiumWebBrowser chromiumWebBrowser, bool status)
         {
-            chromiumWebBrowser.InvokeOnUiThreadIfRequired(() =>
+            this.InvokeOnUiThreadIfRequired(() =>
             {
                 if (status)
                 {
                     lastWindowState = AppContainer.WindowState;
                     AppContainer.WindowState = FormWindowState.Maximized;
-                    //parentControl = chromiumWebBrowser.Parent;
-                    pnlBrowser.Controls.Remove(chromiumWebBrowser);
+                    parentControl = chromiumWebBrowser.Parent;
+                    parentControl.Controls.Remove(chromiumWebBrowser);
                     fullScreenForm = new Form();
                     fullScreenForm.Icon = Icon;
                     fullScreenForm.Text = Text;
@@ -490,7 +490,8 @@ namespace Surfer.Forms
                     {
                         AppContainer.WindowState = lastWindowState;
                         fullScreenForm.Controls.Remove(chromiumWebBrowser);
-                        pnlBrowser.Controls.Add(chromiumWebBrowser);
+                        parentControl.Controls.Add(chromiumWebBrowser);
+                        chromiumWebBrowser.BringToFront();
                         fullScreenForm.Close();
                         fullScreenForm.Dispose();
                         fullScreenForm = null;
@@ -502,8 +503,8 @@ namespace Surfer.Forms
                     searchPopupForm.Fullscreen = status;
                     searchPopupForm.UpdateLocation();
                 }
+                Fullscreen = status;
             });
-            Fullscreen = status;
         }
         /*protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {  
