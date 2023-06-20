@@ -520,6 +520,13 @@ namespace Surfer.Forms
         }
         public bool KeyEvents(ChromiumWebBrowser chromiumWebBrowser, CefEventFlags modifiers, Keys key, bool resp = true)
         {
+            if (key == Keys.F2)
+            {
+                InvokeAction(()=> {
+                    tbUrl.Focus();
+                });
+                return true;
+            }
             if (key == Keys.F3)
             {
                 ShowSearch();
