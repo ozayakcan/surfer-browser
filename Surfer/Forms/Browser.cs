@@ -506,10 +506,10 @@ namespace Surfer.Forms
             });
             Fullscreen = status;
         }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        /*protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {  
             return KeyEvents(chBrowser, CefEventFlags.None, keyData, base.ProcessCmdKey(ref msg, keyData));
-        }
+        }*/
         public bool KeyEvents(ChromiumWebBrowser chromiumWebBrowser, CefEventFlags modifiers, Keys key, bool resp = true)
         {
             if (key == Keys.F2)
