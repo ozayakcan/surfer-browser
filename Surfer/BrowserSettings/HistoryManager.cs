@@ -1,66 +1,59 @@
-﻿using Surfer.Utils;
+﻿using CefSharp;
+using Surfer.Forms;
+using Surfer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Surfer.BrowserSettings
 {
     public class HistoryManager
     {
-        private static bool _enabled = false;
         public static bool IsInitialized = false;
         private readonly static string filePath = Paths.BrowserCache("History.sf");
 
-        public static List<History> Get { get; private set; } = new List<History>();
+        public static List<NavigationEntry> Get { get; set; } = new List<NavigationEntry>();
 
         public static void Initialize()
         {
-            if (_enabled)
+            if (!IsInitialized)
             {
-                if (!IsInitialized)
+                try
                 {
-                    try
-                    {
-                        Get = JSON.readFile<List<History>>(filePath/*, Keys.EncryptKey*/);
-                    }
-                    catch
-                    {
-                        Get = new List<History>();
-                    }
-                    IsInitialized = true;
+                    Get = JSON.readFile<List<NavigationEntry>>(filePath/*, Keys.EncryptKey*/) ?? new List<NavigationEntry>();
                 }
-                else
+                catch
                 {
-                    throw new Exception(typeof(HistoryManager).ToString() + " is already initialized!");
+                    Get = new List<NavigationEntry>();
                 }
+                IsInitialized = true;
+            }
+            else
+            {
+                throw new Exception(typeof(HistoryManager).ToString() + " is already initialized!");
             }
         }
-        public static void Save(string url, bool increaseVisited = false, string title = "", string favicon = "", Action onSaved = null)
+        public static void Save(NavigationEntry history, Action onSaved = null)
         {
-            if (_enabled)
+            if (IsInitialized)
             {
-                if (IsInitialized)
+                if(history.HttpStatusCode == 200)
                 {
-                    Uri uri = new Uri(url);
-                    url = uri.GetUrlWithoutWWW();
-                    int historyIndex = Get.FindIndex(h => h.url == url);
-                    History history;
-                    if (historyIndex >= 0)
-                        history = Get[historyIndex];
-                    else
-                    {
-                        history = new History();
-                        history.url = url;
-                    }
-                    if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
-                        history.title = title;
-                    if (!string.IsNullOrEmpty(favicon) && !string.IsNullOrWhiteSpace(favicon))
-                        history.favicon = favicon;
-                    if (increaseVisited)
-                    {
-                        history.visited += 1;
-                        history.lastVisited = DateTime.Now;
-                    }
+                    history = new NavigationEntry(
+                        history.IsCurrent,
+                        history.CompletionTime,
+                        new Uri(history.DisplayUrl).GetUrlWithoutWWW(),
+                        history.HttpStatusCode,
+                        history.OriginalUrl,
+                        history.Title,
+                        history.TransitionType,
+                        history.Url,
+                        history.HasPostData,
+                        history.IsValid,
+                        history.SslStatus
+                    );
+                    int historyIndex = Get.FindIndex(h => h.DisplayUrl == history.DisplayUrl);
                     if (historyIndex >= 0)
                         Get[historyIndex] = history;
                     else
@@ -71,16 +64,25 @@ namespace Surfer.BrowserSettings
             }
         }
     }
-    public class History
+    public class MyNavigationEntryVisitor : INavigationEntryVisitor
     {
-        public string url;
-        public string title;
-        public string favicon;
-        public int visited = 0;
-        public DateTime lastVisited;
-        public History()
-        {
+        private Browser MyBrowser;
 
+        public MyNavigationEntryVisitor(Browser browser)
+        {
+            MyBrowser = browser;
+        }
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public bool Visit(NavigationEntry entry, bool current, int index, int total)
+        {
+            HistoryManager.Save(entry, onSaved: ()=> {
+                MyBrowser.UpdateAutoCompletion();
+            });
+            return true;
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Surfer.Forms
         public MyAppContainer AppContainer { get; set; }
         public TitleBarTab Tab { get; set; }
 
+        MyNavigationEntryVisitor myNavigationEntryVisitor;
+
         Color pnlUrlBorderColor;
         public Browser(MyAppContainer appContainer, TitleBarTab titlebarTab)
         {
@@ -38,7 +40,6 @@ namespace Surfer.Forms
             tsNav.Renderer = new MyRenderer();
             tsUrl.Renderer = new MyRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
-
         }
 
         private void btnGo_Click(object sender, EventArgs e)
@@ -61,6 +62,7 @@ namespace Surfer.Forms
             chBrowser.KeyboardHandler = new MyKeyboardHandler(this);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
+            myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
         }
@@ -101,35 +103,30 @@ namespace Surfer.Forms
                 if (fullScreenForm != null)
                     fullScreenForm.Text = chBrowser.Address;
                 SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(chBrowser.Address));
-                HistoryManager.Save(
-                    chBrowser.Address,
-                    increaseVisited: true,
-                    onSaved: ()=> {
-                        UpdateAutoCompletion();
-                    });
                 OnFavIconUrlChanged(chBrowser.Address);
             });
         }
 
         // Url Auto Complete
-        private void UpdateAutoCompletion()
+        public void UpdateAutoCompletion()
         {
             this.InvokeOnUiThreadIfRequired(() =>
             {
                 AutoCompleteStringCollection autoCompleteString = new AutoCompleteStringCollection();
-                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.url).ToArray());
+                autoCompleteString.AddRange(HistoryManager.Get.Select(h => h.DisplayUrl).ToArray());
                 tbUrl.AutoCompleteCustomSource = autoCompleteString;
             });
         }
 
         public void OnFavIconUrlChanged(string url, string faviconUrl = "")
         {
-            HistoryManager.Save(
+            chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, true);
+            /*HistoryManager.Save(
                 url,
                 favicon: faviconUrl/*,
                 onSaved: () => {
                     UpdateAutoCompletion();
-                }*/);
+                }*///);
             if (!string.IsNullOrEmpty(faviconUrl) && !string.IsNullOrWhiteSpace(faviconUrl))
             {
                 try
@@ -173,12 +170,13 @@ namespace Surfer.Forms
             if(titleChangedArgs.Title != "DevTools")
                 this.InvokeOnUiThreadIfRequired(() => {
                     Text = titleChangedArgs.Title;
-                    HistoryManager.Save(
+                    chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, true);
+                    /*HistoryManager.Save(
                         url,
                         title: titleChangedArgs.Title/*,
                         onSaved: () => {
                             UpdateAutoCompletion();
-                        }*/);
+                        }*///);
                 });
         }
         public void ShowLoading(int progress)
@@ -207,6 +205,8 @@ namespace Surfer.Forms
             {
                 SetGoBackButtonStatus(e.CanGoBack);
                 SetGoForwardButtonStatus(e.CanGoForward);
+                if (myNavigationEntryVisitor != null)
+                    chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, false);
             }
             SetRefreshButtonStatus(e.IsLoading);
         }
