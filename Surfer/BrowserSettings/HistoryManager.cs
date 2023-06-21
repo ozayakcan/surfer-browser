@@ -13,7 +13,7 @@ namespace Surfer.BrowserSettings
         public static bool IsInitialized = false;
         private readonly static string filePath = Paths.BrowserCache("History.sf");
 
-        public static List<NavigationEntry> Get { get; set; } = new List<NavigationEntry>();
+        public static List<MyNavigationEntry> Get { get; set; } = new List<MyNavigationEntry>();
 
         public static void Initialize()
         {
@@ -21,11 +21,11 @@ namespace Surfer.BrowserSettings
             {
                 try
                 {
-                    Get = JSON.readFile<List<NavigationEntry>>(filePath/*, Keys.EncryptKey*/) ?? new List<NavigationEntry>();
+                    Get = JSON.readFile<List<MyNavigationEntry>>(filePath/*, Keys.EncryptKey*/) ?? new List<MyNavigationEntry>();
                 }
                 catch
                 {
-                    Get = new List<NavigationEntry>();
+                    Get = new List<MyNavigationEntry>();
                 }
                 IsInitialized = true;
             }
@@ -34,30 +34,28 @@ namespace Surfer.BrowserSettings
                 throw new Exception(typeof(HistoryManager).ToString() + " is already initialized!");
             }
         }
-        public static void Save(NavigationEntry history, Action onSaved = null)
+        public static void Save(NavigationEntry history,  Action onSaved = null)
         {
             if (IsInitialized)
             {
                 if(history.HttpStatusCode == 200)
                 {
-                    history = new NavigationEntry(
-                        history.IsCurrent,
-                        history.CompletionTime,
-                        new Uri(history.DisplayUrl).GetUrlWithoutWWW(),
-                        history.HttpStatusCode,
-                        history.OriginalUrl,
-                        history.Title,
-                        history.TransitionType,
-                        history.Url,
-                        history.HasPostData,
-                        history.IsValid,
-                        history.SslStatus
+                    MyNavigationEntry myNavigationEntry = new MyNavigationEntry(
+                            history.CompletionTime,
+                            new Uri(history.DisplayUrl).GetUrlWithoutWWW(),
+                            history.OriginalUrl,
+                            history.Url,
+                            history.Title,
+                            history.SslStatus
                     );
-                    int historyIndex = Get.FindIndex(h => h.DisplayUrl == history.DisplayUrl);
-                    if (historyIndex >= 0)
-                        Get[historyIndex] = history;
+                    int historyIndex = Get.FindIndex(h => h.DisplayUrl == myNavigationEntry.DisplayUrl);
+                    if(historyIndex >= 0)
+                    {
+                        myNavigationEntry.Visited = Get[historyIndex].Visited + 1;
+                        Get[historyIndex] = myNavigationEntry;
+                    }
                     else
-                        Get.Add(history);
+                        Get.Add(myNavigationEntry);
                     JSON.writeFile(filePath, Get/*, Keys.EncryptKey*/);
                     onSaved?.Invoke();
                 }
@@ -83,6 +81,34 @@ namespace Surfer.BrowserSettings
                 MyBrowser.UpdateAutoCompletion();
             });
             return true;
+        }
+    }
+    public class MyNavigationEntry
+    {
+        public DateTime CompletionTime;
+        public string DisplayUrl;
+        public string OriginalUrl;
+        public string Url;
+        public string Title;
+        public SslStatus SslStatus;
+        public int Visited;
+        public MyNavigationEntry(
+            DateTime CompletionTime,
+            string DisplayUrl,
+            string OriginalUrl,
+            string Url,
+            string Title,
+            SslStatus SslStatus,
+            int Visited = 1
+        )
+        {
+            this.CompletionTime = CompletionTime;
+            this.DisplayUrl = DisplayUrl;
+            this.OriginalUrl = OriginalUrl;
+            this.Url = Url;
+            this.Title = Title;
+            this.SslStatus = SslStatus;
+            this.Visited = Visited;
         }
     }
 }
