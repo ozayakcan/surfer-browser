@@ -10,8 +10,8 @@ namespace Surfer.Utils
 {
     public class JSON
     {
-        private static string empty = "{}";
-        private static void createFile(string filePath, string content = "", string password = null)
+        private const string empty = "{}";
+        private static void createFile(string filePath, string content = "", string password = null, string emptyContent = empty)
         {
             if (File.Exists(filePath) && !content.Equals(""))
             {
@@ -22,7 +22,7 @@ namespace Surfer.Utils
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 using (FileStream fs = File.Create(filePath))
                 {
-                    byte[] contentBytes = new UTF8Encoding(true).GetBytes(content.Equals("") ? (password == null ? empty : StringCipher.Encrypt(empty, password)) : (password == null ? content : StringCipher.Encrypt(content, password)));
+                    byte[] contentBytes = new UTF8Encoding(true).GetBytes(content.Equals("") ? (password == null ? emptyContent : StringCipher.Encrypt(emptyContent, password)) : (password == null ? content : StringCipher.Encrypt(content, password)));
                     fs.Write(contentBytes, 0, contentBytes.Length);
                 }
             }
@@ -70,7 +70,10 @@ namespace Surfer.Utils
         {
             try
             {
-                createFile(filePath, password: password);
+                if(typeof(T) == typeof(List<object>))
+                    createFile(filePath, password: password, emptyContent: "[]");
+                else
+                    createFile(filePath, password: password);
                 string text = File.ReadAllText(filePath, Encoding.Default);
                 return JsonConvert.DeserializeObject<T>(password == null ? text : StringCipher.Decrypt(text, password));
             }
