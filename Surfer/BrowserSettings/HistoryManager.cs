@@ -7,6 +7,7 @@ namespace Surfer.BrowserSettings
 {
     public class HistoryManager
     {
+        private static bool _enabled = false;
         public static bool IsInitialized = false;
         private readonly static string filePath = Paths.BrowserCache("History.sf");
 
@@ -14,54 +15,59 @@ namespace Surfer.BrowserSettings
 
         public static void Initialize()
         {
-            if (!IsInitialized)
+            if (_enabled)
             {
-                try
+                if (!IsInitialized)
                 {
-                    Get = JSON.readFile<List<History>>(filePath/*, Keys.EncryptKey*/);
+                    try
+                    {
+                        Get = JSON.readFile<List<History>>(filePath/*, Keys.EncryptKey*/);
+                    }
+                    catch
+                    {
+                        Get = new List<History>();
+                    }
+                    IsInitialized = true;
                 }
-                catch
+                else
                 {
-                    Get = new List<History>();
+                    throw new Exception(typeof(HistoryManager).ToString() + " is already initialized!");
                 }
-                IsInitialized = true;
             }
-            else
-            {
-                throw new Exception(typeof(HistoryManager).ToString() + " is already initialized!");
-            }
-
         }
         public static void Save(string url, bool increaseVisited = false, string title = "", string favicon = "", Action onSaved = null)
         {
-            if (IsInitialized)
+            if (_enabled)
             {
-                Uri uri = new Uri(url);
-                url = uri.GetUrlWithoutWWW();
-                int historyIndex = Get.FindIndex(h => h.url == url);
-                History history;
-                if (historyIndex >= 0)
-                    history = Get[historyIndex];
-                else
+                if (IsInitialized)
                 {
-                    history = new History();
-                    history.url = url;
+                    Uri uri = new Uri(url);
+                    url = uri.GetUrlWithoutWWW();
+                    int historyIndex = Get.FindIndex(h => h.url == url);
+                    History history;
+                    if (historyIndex >= 0)
+                        history = Get[historyIndex];
+                    else
+                    {
+                        history = new History();
+                        history.url = url;
+                    }
+                    if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
+                        history.title = title;
+                    if (!string.IsNullOrEmpty(favicon) && !string.IsNullOrWhiteSpace(favicon))
+                        history.favicon = favicon;
+                    if (increaseVisited)
+                    {
+                        history.visited += 1;
+                        history.lastVisited = DateTime.Now;
+                    }
+                    if (historyIndex >= 0)
+                        Get[historyIndex] = history;
+                    else
+                        Get.Add(history);
+                    JSON.writeFile(filePath, Get/*, Keys.EncryptKey*/);
+                    onSaved?.Invoke();
                 }
-                if (!string.IsNullOrEmpty(title) && !string.IsNullOrWhiteSpace(title))
-                    history.title = title;
-                if (!string.IsNullOrEmpty(favicon) && !string.IsNullOrWhiteSpace(favicon))
-                    history.favicon = favicon;
-                if (increaseVisited)
-                {
-                    history.visited += 1;
-                    history.lastVisited = DateTime.Now;
-                }
-                if (historyIndex >= 0)
-                    Get[historyIndex] = history;
-                else
-                    Get.Add(history);
-                JSON.writeFile(filePath, Get/*, Keys.EncryptKey*/);
-                onSaved?.Invoke();
             }
         }
     }
