@@ -82,7 +82,7 @@ namespace Surfer.Forms
             if (e.ErrorText == ErrorTexts.NameNotResolved)
                 LoadUrl(lastUrl.GetSearchUrl());
         }
-        internal void OpenInNewTab(string targetUrl)
+        internal void OpenInNewTab(string targetUrl, bool isCurrentTab = false)
         {
             this.InvokeOnUiThreadIfRequired(() =>
             {
@@ -94,7 +94,8 @@ namespace Surfer.Forms
                 int index = AppContainer.SelectedTabIndex;
                 AppContainer.Tabs.Insert(index + 1, titleBarTab);
                 AppContainer.SelectedTabIndex = index + 1;
-                AppContainer.SelectedTabIndex = index;
+                if(!isCurrentTab)
+                    AppContainer.SelectedTabIndex = index;
             });
         }
 
@@ -171,6 +172,8 @@ namespace Surfer.Forms
         {
             if(titleChangedArgs.Title != "DevTools")
                 this.InvokeOnUiThreadIfRequired(() => {
+                    if (titleChangedArgs.Title.StartsWith("view-source:"))
+                        tbUrl.Text = titleChangedArgs.Title;
                     Text = titleChangedArgs.Title;
                     chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, true);
                     /*HistoryManager.Save(
@@ -533,9 +536,15 @@ namespace Surfer.Forms
                 chBrowser.Reload();
                 return true;
             }
+            else if ((modifiers == CefEventFlags.ControlDown && key == Keys.U) || (key == (Keys.Control | Keys.U))
+            )
+            {
+                ViewSource();
+                return true;
+            }
             else if (
-                key == Keys.F12 
-                || (modifiers == (CefEventFlags.ControlDown | CefEventFlags.AltDown) && key == Keys.I) 
+                key == Keys.F12
+                || (modifiers == (CefEventFlags.ControlDown | CefEventFlags.AltDown) && key == Keys.I)
                 || (key == (Keys.Control | Keys.Alt | Keys.I))
             )
             {
@@ -587,6 +596,10 @@ namespace Surfer.Forms
         public void HideDevTools()
         {
             devToolsPanel.Visible = false;
+        }
+        public void ViewSource()
+        {
+            OpenInNewTab("view-source:" + chBrowser.Address, true);
         }
     }
 }

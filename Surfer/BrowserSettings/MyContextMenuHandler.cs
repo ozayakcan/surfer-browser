@@ -67,6 +67,7 @@ namespace Surfer.BrowserSettings
             }
             if (ItemCount > 0)
                 model.AddSeparator();
+            model.AddItem(CefMenuCommand.ViewSource, "View Source (Ctrl + U)");
             model.AddItem((CefMenuCommand)CustomCefMenuCommand.Inspect, "Inspect (Ctrl + Alt + I)");
         }
 
@@ -103,6 +104,9 @@ namespace Surfer.BrowserSettings
                     return true;
                 case CefMenuCommand.ReloadNoCache:
                     MyBrowser.chBrowser.Reload(true);
+                    return true;
+                case CefMenuCommand.ViewSource:
+                    MyBrowser.ViewSource();
                     return true;
                 case (CefMenuCommand)CustomCefMenuCommand.Inspect:
                     MyBrowser.ShowDevTools(parameters.XCoord, parameters.YCoord);
