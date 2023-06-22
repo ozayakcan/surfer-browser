@@ -115,8 +115,12 @@
   <ItemGroup>
     <Compile Include="BrowserSettings\ErrorTexts.cs" />
     <Compile Include="BrowserSettings\HistoryManager.cs" />
+    <Compile Include="BrowserSettings\MyContextMenuHandler.cs" />
     <Compile Include="BrowserSettings\MyFindHandler.cs" />
     <Compile Include="BrowserSettings\MyKeyboardHandler.cs" />
+    <Compile Include="Controls\DevToolsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\Search.cs">
       <SubType>UserControl</SubType>
     </Compile>

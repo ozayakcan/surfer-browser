@@ -79,7 +79,7 @@
             // 
             // chBrowser
             // 
-            this.chBrowser.ActivateBrowserOnCreation = false;
+            this.chBrowser.ActivateBrowserOnCreation = true;
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";

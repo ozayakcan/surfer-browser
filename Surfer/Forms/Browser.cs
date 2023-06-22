@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
+using CefSharp.WinForms.Host;
 using EasyTabs;
 using Surfer.BrowserSettings;
 using Surfer.Controls;
@@ -60,6 +61,7 @@ namespace Surfer.Forms
             chBrowser.RequestHandler = new MyRequestHandler(this);
             chBrowser.FindHandler = new MyFindHandler(this);
             chBrowser.KeyboardHandler = new MyKeyboardHandler(this);
+            chBrowser.MenuHandler = new MyContextMenuHandler(this);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);
@@ -225,6 +227,10 @@ namespace Surfer.Forms
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            GoBack();
+        }
+        public void GoBack()
+        {
             if (chBrowser.CanGoBack)
             {
                 SetGoBackButtonStatus(false);
@@ -240,14 +246,16 @@ namespace Surfer.Forms
         }
         private void btnForward_Click(object sender, EventArgs e)
         {
-
+            GoForward();
+        }
+        public void GoForward()
+        {
             if (chBrowser.CanGoForward)
             {
                 SetGoForwardButtonStatus(false);
                 chBrowser.Forward();
             }
         }
-
         private void SetGoForwardButtonStatus(bool status)
         {
             this.InvokeOnUiThreadIfRequired(() =>
@@ -531,26 +539,14 @@ namespace Surfer.Forms
                 || (key == (Keys.Control | Keys.Alt | Keys.I))
             )
             {
-                this.InvokeOnUiThreadIfRequired(() =>
+                if (devToolsPanel.Visible)
                 {
-                    if (devToolsPanel.Visible)
-                    {
-                        devToolsPanel.Visible = false;
-                    }
-                    else
-                    {
-                        if(DevTools == null)
-                            DevTools = chBrowser.ShowDevToolsDocked(devToolsPanel, dockStyle: DockStyle.Right);
-                        if(devToolsPanel.Size.Width != DevTools.Size.Width)
-                            devToolsPanel.Size = new Size(DevTools.Size.Width, devToolsPanel.Size.Height);
-                        if (devToolsPanel.Controls.Count == 0)
-                            devToolsPanel.Controls.Add(DevTools);
-                        if(devToolsPanel.BackColor != DevTools.BackColor)
-                            devToolsPanel.BackColor = DevTools.BackColor;
-                        devToolsPanel.Visible = true;
-                        //chBrowser.CloseDevTools();
-                    }
-                });
+                    HideDevTools();
+                }
+                else
+                {
+                    ShowDevTools();
+                }
                 return true;
             }
             /*else if (key == Keys.Escape)
@@ -563,25 +559,34 @@ namespace Surfer.Forms
             }*/
             return resp;
         }
-        Control DevTools;
-        private void pnlRight_ControlAdded(object sender, ControlEventArgs e)
-        {
-            SetPnlRightSize();
-        }
 
-        private void pnlRight_ControlRemoved(object sender, ControlEventArgs e)
+        DevToolsControl DevTools;
+        public void ShowDevTools(int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
-            SetPnlRightSize();
-        }
-
-        private void SetPnlRightSize()
-        {
-            int width = 0;
-            foreach (Control cntrl in devToolsPanel.Controls)
+            this.InvokeOnUiThreadIfRequired(() =>
             {
-                width += cntrl.Size.Width;
-            }
-            devToolsPanel.Size = new Size(width, devToolsPanel.Size.Height);
+                if (DevTools == null)
+                    DevTools = chBrowser.ShowDevToolsDockedCustom(
+                        devToolsPanel,
+                        dockStyle: DockStyle.Right,
+                        inspectElementAtX: inspectElementAtX,
+                        inspectElementAtY: inspectElementAtY
+                    );
+                else
+                    DevTools.UpdateElementLocation(inspectElementAtX, inspectElementAtY);
+                if (devToolsPanel.Size.Width != DevTools.Size.Width)
+                    devToolsPanel.Size = new Size(DevTools.Size.Width, devToolsPanel.Size.Height);
+                if (devToolsPanel.Controls.Count == 0)
+                    devToolsPanel.Controls.Add(DevTools);
+                if (devToolsPanel.BackColor != DevTools.BackColor)
+                    devToolsPanel.BackColor = DevTools.BackColor;
+                devToolsPanel.Visible = true;
+                //chBrowser.CloseDevTools();
+            });
+        }
+        public void HideDevTools()
+        {
+            devToolsPanel.Visible = false;
         }
     }
 }
