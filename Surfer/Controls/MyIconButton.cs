@@ -51,8 +51,6 @@ namespace Surfer.Controls
     }
     public partial class MyIconDropdownButton : IconDropDownButton
     {
-        private Color DefaultMouseDownBackColor;
-        private Color DefaultMouseOverBackColor;
         public bool VisualDisabled { get; set; } = false;
         private bool ShouldSerializeVisualDisabled()
         {
@@ -70,8 +68,6 @@ namespace Surfer.Controls
     }
     public partial class MyIconSplitButton : IconSplitButton
     {
-        private Color DefaultMouseDownBackColor;
-        private Color DefaultMouseOverBackColor;
         public bool VisualDisabled { get; set; } = false;
         private bool ShouldSerializeVisualDisabled()
         {
@@ -89,8 +85,6 @@ namespace Surfer.Controls
     }
     public partial class MyIconToolStripButton : IconToolStripButton
     {
-        private Color DefaultMouseDownBackColor;
-        private Color DefaultMouseOverBackColor;
         public bool VisualDisabled { get; set; } = false;
         private bool ShouldSerializeVisualDisabled()
         {
