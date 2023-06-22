@@ -598,7 +598,10 @@ namespace Surfer.Forms
         }
         public void HideDevTools()
         {
-            devToolsPanel.Visible = false;
+            this.InvokeOnUiThreadIfRequired(() =>
+            {
+                devToolsPanel.Visible = false;
+            });
         }
         public void ViewSource()
         {
