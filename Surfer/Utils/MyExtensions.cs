@@ -1,6 +1,8 @@
-﻿using CefSharp.WinForms;
+﻿using CefSharp;
+using CefSharp.WinForms;
 using Newtonsoft.Json.Linq;
 using Surfer.BrowserSettings;
+using Surfer.Controls;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -85,6 +87,33 @@ namespace Surfer.Utils
         public static string GetSearchUrl(this string text)
         {
             return "https://www.google.com/search?q=" + text;
+        }
+        public static DevToolsControl ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Action<DevToolsControl> addParentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
+        {
+            if (!chromiumWebBrowser.IsDisposed && addParentControl != null)
+            {
+                DevToolsControl devToolsControl = new DevToolsControl(chromiumWebBrowser)
+                {
+                    Name = controlName,
+                    Dock = dockStyle
+                };
+                devToolsControl.CreateControl();
+                addParentControl(devToolsControl);
+                devToolsControl.UpdateElementLocation(inspectElementAtX, inspectElementAtY);
+                return devToolsControl;
+            }
+            return null;
+        }
+        public static DevToolsControl ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Control parentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
+        {
+            if (!chromiumWebBrowser.IsDisposed && parentControl != null && !parentControl.IsDisposed)
+            {
+                return chromiumWebBrowser.ShowDevToolsDockedCustom(delegate (DevToolsControl ctrl)
+                {
+                    parentControl.Controls.Add(ctrl);
+                }, controlName, dockStyle, inspectElementAtX, inspectElementAtY);
+            }
+            return null;
         }
     }
 }
