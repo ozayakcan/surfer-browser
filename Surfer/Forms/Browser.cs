@@ -580,14 +580,14 @@ namespace Surfer.Forms
                 if (DevTools == null)
                     DevTools = chBrowser.ShowDevToolsDockedCustom(
                         devToolsPanel,
-                        dockStyle: DockStyle.Right,
+                        dockStyle: DockStyle.Fill,
                         inspectElementAtX: inspectElementAtX,
                         inspectElementAtY: inspectElementAtY
                     );
                 else
                     DevTools.UpdateElementLocation(inspectElementAtX, inspectElementAtY);
-                if (devToolsPanel.Size.Width != DevTools.Size.Width)
-                    devToolsPanel.Size = new Size(DevTools.Size.Width, devToolsPanel.Size.Height);
+                if (devToolsPanel.Width != DevTools.Width)
+                    devToolsPanel.Width = DevTools.Width;
                 if (devToolsPanel.Controls.Count == 0)
                     devToolsPanel.Controls.Add(DevTools);
                 if (devToolsPanel.BackColor != DevTools.BackColor)

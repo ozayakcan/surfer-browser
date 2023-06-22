@@ -83,7 +83,7 @@
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(800, 405);
+            this.chBrowser.Size = new System.Drawing.Size(540, 405);
             this.chBrowser.TabIndex = 0;
             this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
@@ -92,9 +92,10 @@
             // devToolsPanel
             // 
             this.devToolsPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.devToolsPanel.Location = new System.Drawing.Point(800, 0);
+            this.devToolsPanel.Location = new System.Drawing.Point(540, 0);
+            this.devToolsPanel.MinimumSize = new System.Drawing.Size(260, 0);
             this.devToolsPanel.Name = "devToolsPanel";
-            this.devToolsPanel.Size = new System.Drawing.Size(0, 405);
+            this.devToolsPanel.Size = new System.Drawing.Size(260, 405);
             this.devToolsPanel.TabIndex = 1;
             this.devToolsPanel.Visible = false;
             // 
