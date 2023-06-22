@@ -98,18 +98,37 @@ namespace Surfer.Forms
                     AppContainer.SelectedTabIndex = index;
             });
         }
-
+        private bool _canChangeTitle = true;
         public void OnAddressChanged(AddressChangedEventArgs addressChangedArgs)
         {
             this.InvokeOnUiThreadIfRequired(() => {
-                tbUrl.Text = chBrowser.Address;
+                bool isDevTools = addressChangedArgs.Address.StartsWith("devtools://");
+                string address = isDevTools ? chBrowser.Address : addressChangedArgs.Address;
+                _canChangeTitle = !isDevTools;
+                tbUrl.Text = address;
                 if (fullScreenForm != null)
-                    fullScreenForm.Text = chBrowser.Address;
-                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(chBrowser.Address));
-                OnFavIconUrlChanged(chBrowser.Address);
+                    fullScreenForm.Text = address;
+                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(address));
+                OnFavIconUrlChanged(address);
             });
         }
 
+        internal void TitleChanged(string url, TitleChangedEventArgs titleChangedArgs)
+        {
+            if (_canChangeTitle)
+                this.InvokeOnUiThreadIfRequired(() => {
+                    if (titleChangedArgs.Title.StartsWith("view-source:"))
+                        tbUrl.Text = titleChangedArgs.Title;
+                    Text = titleChangedArgs.Title;
+                    chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, true);
+                    /*HistoryManager.Save(
+                        url,
+                        title: titleChangedArgs.Title/*,
+                        onSaved: () => {
+                            UpdateAutoCompletion();
+                        }*///);
+                });
+        }
         // Url Auto Complete
         public void UpdateAutoCompletion()
         {
@@ -168,22 +187,6 @@ namespace Surfer.Forms
             });
         }
 
-        internal void TitleChanged(string url, TitleChangedEventArgs titleChangedArgs)
-        {
-            if(titleChangedArgs.Title != "DevTools")
-                this.InvokeOnUiThreadIfRequired(() => {
-                    if (titleChangedArgs.Title.StartsWith("view-source:"))
-                        tbUrl.Text = titleChangedArgs.Title;
-                    Text = titleChangedArgs.Title;
-                    chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, true);
-                    /*HistoryManager.Save(
-                        url,
-                        title: titleChangedArgs.Title/*,
-                        onSaved: () => {
-                            UpdateAutoCompletion();
-                        }*///);
-                });
-        }
         public void ShowLoading(int progress)
         {
             this.InvokeOnUiThreadIfRequired(() =>
