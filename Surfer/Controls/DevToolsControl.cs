@@ -13,6 +13,7 @@ namespace Surfer.Controls
         public DevToolsControl(IChromiumWebBrowserBase chromiumWebBrowser)
         {
             _chromiumWebBrowser = chromiumWebBrowser;
+            MinimumSize = new System.Drawing.Size(260, Size.Height);
         }
         public void UpdateElementLocation(int inspectElementAtX = 0, int inspectElementAtY = 0)
         {

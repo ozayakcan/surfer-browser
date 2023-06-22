@@ -551,7 +551,7 @@ namespace Surfer.Forms
                 || (key == (Keys.Control | Keys.Alt | Keys.I))
             )
             {
-                if (devToolsPanel.Visible)
+                if (_devToolsEnabled)
                 {
                     HideDevTools();
                 }
@@ -572,35 +572,34 @@ namespace Surfer.Forms
             return resp;
         }
 
-        DevToolsControl DevTools;
+        private DevToolsControl DevTools;
+        private bool _devToolsEnabled = false;
         public void ShowDevTools(int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
             this.InvokeOnUiThreadIfRequired(() =>
             {
                 if (DevTools == null)
                     DevTools = chBrowser.ShowDevToolsDockedCustom(
-                        devToolsPanel,
-                        dockStyle: DockStyle.Fill,
+                        pnlChBrowser,
+                        dockStyle: DockStyle.Right,
                         inspectElementAtX: inspectElementAtX,
                         inspectElementAtY: inspectElementAtY
                     );
                 else
+                {
+                    pnlChBrowser.Controls.Add(DevTools);
                     DevTools.UpdateElementLocation(inspectElementAtX, inspectElementAtY);
-                if (devToolsPanel.Width != DevTools.Width)
-                    devToolsPanel.Width = DevTools.Width;
-                if (devToolsPanel.Controls.Count == 0)
-                    devToolsPanel.Controls.Add(DevTools);
-                if (devToolsPanel.BackColor != DevTools.BackColor)
-                    devToolsPanel.BackColor = DevTools.BackColor;
-                devToolsPanel.Visible = true;
-                //chBrowser.CloseDevTools();
+                }
+                _devToolsEnabled = true;
             });
         }
         public void HideDevTools()
         {
             this.InvokeOnUiThreadIfRequired(() =>
             {
-                devToolsPanel.Visible = false;
+                if(DevTools != null)
+                    pnlChBrowser.Controls.Remove(DevTools);
+                _devToolsEnabled = false;
             });
         }
         public void ViewSource()
