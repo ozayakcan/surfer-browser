@@ -102,9 +102,23 @@ namespace Surfer.Forms
         public void OnAddressChanged(AddressChangedEventArgs addressChangedArgs)
         {
             this.InvokeOnUiThreadIfRequired(() => {
-                bool isDevTools = addressChangedArgs.Address.StartsWith("devtools://");
-                string address = isDevTools ? chBrowser.Address : addressChangedArgs.Address;
-                _canChangeTitle = !isDevTools;
+                IgnoredUrls.IgnoredUrl ignoredUrl = null;
+                foreach (var _ignoredUrl in IgnoredUrls.list)
+                {
+                    if (addressChangedArgs.Address.StartsWith(_ignoredUrl.url))
+                    {
+                        ignoredUrl = _ignoredUrl;
+                        break;
+                    }
+                }
+                string address = addressChangedArgs.Address;
+                if (ignoredUrl != null)
+                {
+                    address = ignoredUrl.ignoreInAddress ? chBrowser.Address : addressChangedArgs.Address;
+                    _canChangeTitle = ignoredUrl.canChangeTitle;
+                }
+                else
+                    _canChangeTitle = true;
                 tbUrl.Text = address;
                 if (fullScreenForm != null)
                     fullScreenForm.Text = address;
@@ -117,8 +131,19 @@ namespace Surfer.Forms
         {
             if (_canChangeTitle)
                 this.InvokeOnUiThreadIfRequired(() => {
-                    if (titleChangedArgs.Title.StartsWith("view-source:"))
-                        tbUrl.Text = titleChangedArgs.Title;
+                    IgnoredUrls.IgnoredUrl ignoredUrl = null;
+                    foreach (var _ignoredUrl in IgnoredUrls.list)
+                    {
+                        if (titleChangedArgs.Title.StartsWith(_ignoredUrl.url))
+                        {
+                            ignoredUrl = _ignoredUrl;
+                            break;
+                        }
+                    }
+                    if(ignoredUrl != null)
+                        if (ignoredUrl.changeUrl)
+                            tbUrl.Text = titleChangedArgs.Title;
+                        
                     Text = titleChangedArgs.Title;
                     chBrowser.GetBrowserHost().GetNavigationEntries(myNavigationEntryVisitor, true);
                     /*HistoryManager.Save(
