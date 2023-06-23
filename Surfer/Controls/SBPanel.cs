@@ -7,7 +7,7 @@ using Surfer.Utils;
 
 namespace Surfer.Controls
 {
-    public class MyPanel : Panel
+    public class SBPanel : Panel
     {
         private Color _defaultBorderColor = Color.Black;
         private Color? _borderColor;
@@ -109,7 +109,7 @@ namespace Surfer.Controls
 
         private Pen _pen;
 
-        public MyPanel() : base()
+        public SBPanel() : base()
         {
             _pen = new Pen(BorderColor, BorderThickness);
             DoubleBuffered = true;

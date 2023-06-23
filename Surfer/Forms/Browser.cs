@@ -19,13 +19,13 @@ namespace Surfer.Forms
         public string StartUrl {get; set;}
         public Icon OriginalIcon = Properties.Resources.tab_icon;
         public Icon SiteIcon;
-        public MyAppContainer AppContainer { get; set; }
+        public SBAppContainer AppContainer { get; set; }
         public TitleBarTab Tab { get; set; }
 
         MyNavigationEntryVisitor myNavigationEntryVisitor;
 
         Color pnlUrlBorderColor;
-        public Browser(MyAppContainer appContainer, TitleBarTab titlebarTab)
+        public Browser(SBAppContainer appContainer, TitleBarTab titlebarTab)
         {
             AppContainer = appContainer;
             Tab = titlebarTab;
@@ -34,12 +34,12 @@ namespace Surfer.Forms
             if (StartUrl != null)
             {
                 tbUrl.Text = StartUrl;
-                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(StartUrl));
+                SBSiteInformationButtonStatus(true, SBBrowserSettings.IsSecureUrl(StartUrl));
             }
             else
-                SiteInformationButtonStatus(false);
-            tsNav.Renderer = new MyRenderer();
-            tsUrl.Renderer = new MyRenderer();
+                SBSiteInformationButtonStatus(false);
+            tsNav.Renderer = new SBRenderer();
+            tsUrl.Renderer = new SBRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
         }
 
@@ -57,11 +57,11 @@ namespace Surfer.Forms
         private void Browser_Load(object sender, EventArgs e)
         {
             // Browser
-            chBrowser.DisplayHandler = new MyDisplayHandler(this);
-            chBrowser.RequestHandler = new MyRequestHandler(this);
-            chBrowser.FindHandler = new MyFindHandler(this);
-            chBrowser.KeyboardHandler = new MyKeyboardHandler(this);
-            chBrowser.MenuHandler = new MyContextMenuHandler(this);
+            chBrowser.DisplayHandler = new SBDisplayHandler(this);
+            chBrowser.RequestHandler = new SBRequestHandler(this);
+            chBrowser.FindHandler = new SBFindHandler(this);
+            chBrowser.KeyboardHandler = new SBKeyboardHandler(this);
+            chBrowser.MenuHandler = new SBContextMenuHandler(this);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);
@@ -108,7 +108,7 @@ namespace Surfer.Forms
                 tbUrl.Text = address;
                 if (fullScreenForm != null)
                     fullScreenForm.Text = address;
-                SiteInformationButtonStatus(true, MyBrowserSettings.IsSecureUrl(address));
+                SBSiteInformationButtonStatus(true, SBBrowserSettings.IsSecureUrl(address));
                 OnFavIconUrlChanged(address);
             });
         }
@@ -271,7 +271,7 @@ namespace Surfer.Forms
         }
         private void btnHome_Click(object sender, EventArgs e)
         {
-            LoadUrl(MyBrowserSettings.HomePage);
+            LoadUrl(SBBrowserSettings.HomePage);
         }
    
         private void SetGoHomeButtonStatus(bool status)
@@ -333,7 +333,7 @@ namespace Surfer.Forms
         }
         private void tbUrl_KeyUp(object sender, KeyEventArgs e)
         {
-            SiteInformationButtonStatus(false);
+            SBSiteInformationButtonStatus(false);
             if (e.KeyCode == Keys.Enter)
             {
                 string url = tbUrl.Text;
@@ -349,7 +349,7 @@ namespace Surfer.Forms
                 }
             }
         }
-        private void SiteInformationButtonStatus(bool enabled, bool locked = false)
+        private void SBSiteInformationButtonStatus(bool enabled, bool locked = false)
         {
             if (enabled)
             {
@@ -386,7 +386,7 @@ namespace Surfer.Forms
                     CloseOnClickOutSide = false,
                     Fullscreen = Fullscreen,
                 };
-                siteInfoPopupForm.Content = new SiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm };
+                siteInfoPopupForm.Content = new SBSiteInformation(url, Icon) { OwnerForm = siteInfoPopupForm };
                 siteInfoPopupForm.Show();
             }
             else
@@ -450,15 +450,15 @@ namespace Surfer.Forms
                         CloseOnClickOutSide = false,
                         Fullscreen = Fullscreen,
                     };
-                    searchPopupForm.Content = new Search(this) { OwnerForm = searchPopupForm };
+                    searchPopupForm.Content = new SBSearch(this) { OwnerForm = searchPopupForm };
                     searchPopupForm.Show();
                 }
                 else
                 {
                     searchPopupForm.Show();
                 }
-                Search search = (Search)searchPopupForm.Content;
-                search.tbSearch.Focus();
+                SBSearch sbSearch = (SBSearch)searchPopupForm.Content;
+                sbSearch.tbSearch.Focus();
             });
         }
         public void CloseSearch()
@@ -572,7 +572,7 @@ namespace Surfer.Forms
             return resp;
         }
 
-        private DevToolsControl DevTools;
+        private SBDevTools DevTools;
         private bool _devToolsEnabled = false;
         public void ShowDevTools(int inspectElementAtX = 0, int inspectElementAtY = 0)
         {

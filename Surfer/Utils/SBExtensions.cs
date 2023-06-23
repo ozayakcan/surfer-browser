@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Surfer.Utils
 {
-    public static class MyExtensions
+    public static class SBExtensions
     {
         // IEnumerable
         public static T Find<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
@@ -54,7 +54,7 @@ namespace Surfer.Utils
         public static string GetUrlWithoutHTTP(this Uri uri)
         {
             string text = uri.AbsoluteUri;
-            if (MyBrowserSettings.IsUrl(text))
+            if (SBBrowserSettings.IsUrl(text))
                 return text.Substring(text.LastIndexOf(new Uri(text).Host));
             else
                 return text;
@@ -88,27 +88,27 @@ namespace Surfer.Utils
         {
             return "https://www.google.com/search?q=" + text;
         }
-        public static DevToolsControl ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Action<DevToolsControl> addParentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
+        public static SBDevTools ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Action<SBDevTools> addParentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
             if (!chromiumWebBrowser.IsDisposed && addParentControl != null)
             {
-                DevToolsControl devToolsControl = new DevToolsControl(chromiumWebBrowser)
+                SBDevTools sbDevTools = new SBDevTools(chromiumWebBrowser)
                 {
                     Name = controlName,
                     Dock = dockStyle
                 };
-                devToolsControl.CreateControl();
-                addParentControl(devToolsControl);
-                devToolsControl.UpdateElementLocation(inspectElementAtX, inspectElementAtY);
-                return devToolsControl;
+                sbDevTools.CreateControl();
+                addParentControl(sbDevTools);
+                sbDevTools.UpdateElementLocation(inspectElementAtX, inspectElementAtY);
+                return sbDevTools;
             }
             return null;
         }
-        public static DevToolsControl ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Control parentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
+        public static SBDevTools ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Control parentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
             if (!chromiumWebBrowser.IsDisposed && parentControl != null && !parentControl.IsDisposed)
             {
-                return chromiumWebBrowser.ShowDevToolsDockedCustom(delegate (DevToolsControl ctrl)
+                return chromiumWebBrowser.ShowDevToolsDockedCustom(delegate (SBDevTools ctrl)
                 {
                     parentControl.Controls.Add(ctrl);
                 }, controlName, dockStyle, inspectElementAtX, inspectElementAtY);

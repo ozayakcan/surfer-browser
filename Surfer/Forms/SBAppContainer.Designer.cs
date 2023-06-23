@@ -1,6 +1,6 @@
 ﻿namespace Surfer.Forms
 {
-    partial class MyAppContainer
+    partial class SBAppContainer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyAppContainer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SBAppContainer));
             this.SuspendLayout();
             // 
-            // MyAppContainer
+            // SBAppContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

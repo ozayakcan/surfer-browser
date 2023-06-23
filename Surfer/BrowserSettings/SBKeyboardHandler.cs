@@ -6,11 +6,11 @@ using System.Windows.Forms;
 
 namespace Surfer.BrowserSettings
 {
-    public class MyKeyboardHandler: IKeyboardHandler
+    public class SBKeyboardHandler: IKeyboardHandler
     {
         private Browser MyBrowser;
 
-        public MyKeyboardHandler(Browser browser)
+        public SBKeyboardHandler(Browser browser)
         {
             MyBrowser = browser;
         }

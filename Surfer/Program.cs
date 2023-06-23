@@ -17,11 +17,11 @@ namespace Surfer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Browser());
-            MyAppContainer appContainer = new MyAppContainer();
+            SBAppContainer appContainer = new SBAppContainer();
             TitleBarTab titlebarTab = new EasyTabs.TitleBarTab(appContainer);
             titlebarTab.Content = new Browser(appContainer, titlebarTab)
             {
-                StartUrl = MyBrowserSettings.HomePage,
+                StartUrl = SBBrowserSettings.HomePage,
             };
             appContainer.Tabs.Add(titlebarTab);
             appContainer.SelectedTabIndex = 0;

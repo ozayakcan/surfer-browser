@@ -1,6 +1,6 @@
 ﻿namespace Surfer.Controls
 {
-    partial class Search
+    partial class SBSearch
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,9 +32,9 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblCurrent = new System.Windows.Forms.Label();
             this.lblCur = new System.Windows.Forms.Label();
-            this.btnFindPrev = new Surfer.Controls.MyIconButton();
-            this.btnFindNext = new Surfer.Controls.MyIconButton();
-            this.btnClose = new Surfer.Controls.MyIconButton();
+            this.btnFindPrev = new Surfer.Controls.SBIconButton();
+            this.btnFindNext = new Surfer.Controls.SBIconButton();
+            this.btnClose = new Surfer.Controls.SBIconButton();
             this.SuspendLayout();
             // 
             // tbSearch
@@ -133,7 +133,7 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // Search
+            // SBSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -145,7 +145,7 @@
             this.Controls.Add(this.btnFindPrev);
             this.Controls.Add(this.btnFindNext);
             this.Controls.Add(this.btnClose);
-            this.Name = "Search";
+            this.Name = "SBSearch";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(240, 23);
             this.ResumeLayout(false);
@@ -154,9 +154,9 @@
         }
 
         #endregion
-        private MyIconButton btnClose;
-        private MyIconButton btnFindPrev;
-        private MyIconButton btnFindNext;
+        private SBIconButton btnClose;
+        private SBIconButton btnFindPrev;
+        private SBIconButton btnFindNext;
         private System.Windows.Forms.Label lblCurrent;
         private System.Windows.Forms.Label lblCur;
         private System.Windows.Forms.Label lblTotal;

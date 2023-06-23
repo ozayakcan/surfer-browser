@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Surfer.Controls
 {
-    public class MyToolStripSpringTextBox : ToolStripTextBox
+    public class SBToolStripSpringTextBox : ToolStripTextBox
     {
         public override Size GetPreferredSize(Size constrainingSize)
         {
@@ -27,7 +27,7 @@ namespace Surfer.Controls
                     Owner.OverflowButton.Margin.Horizontal;
             }
 
-            // Declare a variable to maintain a count of MyToolStripSpringTextBox
+            // Declare a variable to maintain a count of SBToolStripSpringTextBox
             // items currently displayed in the owning ToolStrip.
             Int32 springBoxCount = 0;
 
@@ -36,9 +36,9 @@ namespace Surfer.Controls
                 // Ignore items on the overflow menu.
                 if (item.IsOnOverflow) continue;
 
-                if (item is MyToolStripSpringTextBox)
+                if (item is SBToolStripSpringTextBox)
                 {
-                    // For MyToolStripSpringTextBox items, increment the count and
+                    // For SBToolStripSpringTextBox items, increment the count and
                     // subtract the margin width from the total available width.
                     springBoxCount++;
                     width -= item.Margin.Horizontal;
@@ -51,7 +51,7 @@ namespace Surfer.Controls
                 }
             }
 
-            // If there are multiple MyToolStripSpringTextBox items in the owning
+            // If there are multiple SBToolStripSpringTextBox items in the owning
             // ToolStrip, divide the total available width between them.
             if (springBoxCount > 1) width /= springBoxCount;
 

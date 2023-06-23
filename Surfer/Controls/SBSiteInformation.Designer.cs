@@ -1,6 +1,6 @@
 ﻿namespace Surfer.Controls
 {
-    partial class SiteInformation
+    partial class SBSiteInformation
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.lblConnInfo = new System.Windows.Forms.Label();
-            this.pnlHeader = new Surfer.Controls.MyPanel();
-            this.btnClose = new Surfer.Controls.MyIconButton();
+            this.pnlHeader = new Surfer.Controls.SBPanel();
+            this.btnClose = new Surfer.Controls.SBIconButton();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
@@ -81,13 +81,13 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Label Title";
             // 
-            // SiteInformation
+            // SBSiteInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.lblConnInfo);
-            this.Name = "SiteInformation";
+            this.Name = "SBSiteInformation";
             this.Size = new System.Drawing.Size(300, 61);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
@@ -99,8 +99,8 @@
         #endregion
 
         private System.Windows.Forms.Label lblConnInfo;
-        private MyPanel pnlHeader;
-        private MyIconButton btnClose;
+        private SBPanel pnlHeader;
+        private SBIconButton btnClose;
         private System.Windows.Forms.Label lblTitle;
     }
 }

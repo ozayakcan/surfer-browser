@@ -5,12 +5,12 @@ using System.Drawing;
 
 namespace Surfer.Controls
 {
-    public class DevToolsControl: ChromiumHostControl
+    public class SBDevTools: ChromiumHostControl
     {
         private WindowInfo _windowInfo = new WindowInfo();
         public IChromiumWebBrowserBase _chromiumWebBrowser;
 
-        public DevToolsControl(IChromiumWebBrowserBase chromiumWebBrowser)
+        public SBDevTools(IChromiumWebBrowserBase chromiumWebBrowser)
         {
             _chromiumWebBrowser = chromiumWebBrowser;
             MinimumSize = new System.Drawing.Size(260, Size.Height);

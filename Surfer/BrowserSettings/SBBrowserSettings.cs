@@ -1,6 +1,6 @@
 ﻿namespace Surfer.BrowserSettings
 {
-    public class MyBrowserSettings
+    public class SBBrowserSettings
     {
         public static string HomePage
         {

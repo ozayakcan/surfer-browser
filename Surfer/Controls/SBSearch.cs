@@ -7,11 +7,11 @@ using Surfer.Utils;
 
 namespace Surfer.Controls
 {
-    public partial class Search : UserControl
+    public partial class SBSearch : UserControl
     {
         public Form OwnerForm { get; set; }
         public Browser Browser;
-        public Search(Browser browser)
+        public SBSearch(Browser browser)
         {
             Browser = browser ?? throw new Exception("Browser can not be null");
             InitializeComponent();

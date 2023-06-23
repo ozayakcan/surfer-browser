@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Surfer.BrowserSettings
 {
-    public class MyDisplayHandler : IDisplayHandler
+    public class SBDisplayHandler : IDisplayHandler
     {
         private Browser MyBrowser;
 
-        public MyDisplayHandler(Browser browser)
+        public SBDisplayHandler(Browser browser)
         {
             MyBrowser = browser;
         }

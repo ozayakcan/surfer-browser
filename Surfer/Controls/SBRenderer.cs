@@ -3,14 +3,14 @@ using System.Windows.Forms;
 
 namespace Surfer.Controls
 {
-    class MyRenderer : ToolStripSystemRenderer
+    class SBRenderer : ToolStripSystemRenderer
     {
         protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
         {
             if (e.Item.GetType() == typeof(MyIconDropdownButton))
             {
-                MyIconDropdownButton myIconButton = (MyIconDropdownButton)e.Item;
-                if (myIconButton.VisualDisabled)
+                MyIconDropdownButton sbIconButton = (MyIconDropdownButton)e.Item;
+                if (sbIconButton.VisualDisabled)
                 {
                     DrawTransparent(e);
                     return;
@@ -18,8 +18,8 @@ namespace Surfer.Controls
             }
             if (e.Item.GetType() == typeof(MyIconSplitButton))
             {
-                MyIconSplitButton myIconButton = (MyIconSplitButton)e.Item;
-                if (myIconButton.VisualDisabled)
+                MyIconSplitButton sbIconButton = (MyIconSplitButton)e.Item;
+                if (sbIconButton.VisualDisabled)
                 {
                     DrawTransparent(e);
                     return;
@@ -27,8 +27,8 @@ namespace Surfer.Controls
             }
             if (e.Item.GetType() == typeof(MyIconToolStripButton))
             {
-                MyIconToolStripButton myIconButton = (MyIconToolStripButton)e.Item;
-                if (myIconButton.VisualDisabled)
+                MyIconToolStripButton sbIconButton = (MyIconToolStripButton)e.Item;
+                if (sbIconButton.VisualDisabled)
                 {
                     DrawTransparent(e);
                     return;

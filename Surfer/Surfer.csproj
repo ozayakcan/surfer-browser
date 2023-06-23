@@ -115,36 +115,36 @@
   <ItemGroup>
     <Compile Include="BrowserSettings\ErrorTexts.cs" />
     <Compile Include="BrowserSettings\HistoryManager.cs" />
-    <Compile Include="BrowserSettings\MyContextMenuHandler.cs" />
-    <Compile Include="BrowserSettings\MyFindHandler.cs" />
-    <Compile Include="BrowserSettings\MyKeyboardHandler.cs" />
-    <Compile Include="Controls\DevToolsControl.cs">
+    <Compile Include="BrowserSettings\SBContextMenuHandler.cs" />
+    <Compile Include="BrowserSettings\SBFindHandler.cs" />
+    <Compile Include="BrowserSettings\SBKeyboardHandler.cs" />
+    <Compile Include="Controls\SBDevTools.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\Search.cs">
+    <Compile Include="Controls\SBSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Search.Designer.cs">
-      <DependentUpon>Search.cs</DependentUpon>
+    <Compile Include="Controls\SBSearch.Designer.cs">
+      <DependentUpon>SBSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SiteInformation.cs">
+    <Compile Include="Controls\SBSiteInformation.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\SiteInformation.Designer.cs">
-      <DependentUpon>SiteInformation.cs</DependentUpon>
+    <Compile Include="Controls\SBSiteInformation.Designer.cs">
+      <DependentUpon>SBSiteInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MyPanel.cs">
+    <Compile Include="Controls\SBPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\MyRenderer.cs" />
-    <Compile Include="Controls\MyToolStripSpringTextBox.cs">
+    <Compile Include="Controls\SBRenderer.cs" />
+    <Compile Include="Controls\SBToolStripSpringTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\MyAppContainer.cs">
+    <Compile Include="Forms\SBAppContainer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MyAppContainer.Designer.cs">
-      <DependentUpon>MyAppContainer.cs</DependentUpon>
+    <Compile Include="Forms\SBAppContainer.Designer.cs">
+      <DependentUpon>SBAppContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Browser.cs">
       <SubType>Form</SubType>
@@ -152,9 +152,9 @@
     <Compile Include="Forms\Browser.Designer.cs">
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
-    <Compile Include="BrowserSettings\MyDisplayHandler.cs" />
-    <Compile Include="BrowserSettings\MyRequestHandler.cs" />
-    <Compile Include="Controls\MyIconButton.cs">
+    <Compile Include="BrowserSettings\SBDisplayHandler.cs" />
+    <Compile Include="BrowserSettings\SBRequestHandler.cs" />
+    <Compile Include="Controls\SBIconButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\PopupForm.cs">
@@ -165,21 +165,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BrowserSettings\MyBrowserSettings.cs" />
+    <Compile Include="BrowserSettings\SBBrowserSettings.cs" />
     <Compile Include="Utils\JSON.cs" />
     <Compile Include="Utils\Secrets.cs" />
     <Compile Include="Utils\SecretsLocal.cs" />
-    <Compile Include="Utils\MyExtensions.cs" />
+    <Compile Include="Utils\SBExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
     <Compile Include="Utils\StringCipher.cs" />
-    <EmbeddedResource Include="Controls\Search.resx">
-      <DependentUpon>Search.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SBSearch.resx">
+      <DependentUpon>SBSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SiteInformation.resx">
-      <DependentUpon>SiteInformation.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SBSiteInformation.resx">
+      <DependentUpon>SBSiteInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MyAppContainer.resx">
-      <DependentUpon>MyAppContainer.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SBAppContainer.resx">
+      <DependentUpon>SBAppContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>

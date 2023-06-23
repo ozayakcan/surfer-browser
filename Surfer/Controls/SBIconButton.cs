@@ -5,7 +5,7 @@ using System.Windows.Forms.Design;
 
 namespace Surfer.Controls
 {
-    public partial class MyIconButton: IconButton
+    public partial class SBIconButton: IconButton
     {
         private bool _visualDisabled = false;
         private Color DefaultMouseDownBackColor;
@@ -39,7 +39,7 @@ namespace Surfer.Controls
             VisualDisabled = false;
         }
 
-        public MyIconButton(): base()
+        public SBIconButton(): base()
         {
             FlatAppearance.BorderSize = 0;
             DefaultMouseDownBackColor = FlatAppearance.MouseDownBackColor;

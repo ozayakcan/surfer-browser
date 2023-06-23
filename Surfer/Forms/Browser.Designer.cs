@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlBrowser = new System.Windows.Forms.Panel();
-            this.pnlChBrowser = new Surfer.Controls.MyPanel();
+            this.pnlChBrowser = new Surfer.Controls.SBPanel();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
-            this.pnlNav = new Surfer.Controls.MyPanel();
-            this.pnlUrl = new Surfer.Controls.MyPanel();
+            this.pnlNav = new Surfer.Controls.SBPanel();
+            this.pnlUrl = new Surfer.Controls.SBPanel();
             this.tsUrl = new System.Windows.Forms.ToolStrip();
             this.btnSearch = new Surfer.Controls.MyIconToolStripButton();
             this.btnSecure = new Surfer.Controls.MyIconToolStripButton();
-            this.tbUrl = new Surfer.Controls.MyToolStripSpringTextBox();
+            this.tbUrl = new Surfer.Controls.SBToolStripSpringTextBox();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.tsNav = new System.Windows.Forms.ToolStrip();
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
@@ -319,8 +319,8 @@
         private System.Windows.Forms.ToolTip ttNav;
         private System.Windows.Forms.Panel pnlProgress;
         private System.Windows.Forms.ProgressBar pbLoading;
-        private Controls.MyPanel pnlUrl;
-        private Controls.MyPanel pnlNav;
+        private Controls.SBPanel pnlUrl;
+        private Controls.SBPanel pnlNav;
         private System.Windows.Forms.ToolStrip tsNav;
         private Controls.MyIconToolStripButton btnBack;
         private Controls.MyIconToolStripButton btnForward;
@@ -329,9 +329,9 @@
         private System.Windows.Forms.Panel pnlNavMarginRight;
         private System.Windows.Forms.ToolStrip tsUrl;
         private Controls.MyIconToolStripButton btnSecure;
-        private Surfer.Controls.MyToolStripSpringTextBox tbUrl;
+        private Surfer.Controls.SBToolStripSpringTextBox tbUrl;
         private Controls.MyIconToolStripButton btnSearch;
         public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
-        private Controls.MyPanel pnlChBrowser;
+        private Controls.SBPanel pnlChBrowser;
     }
 }

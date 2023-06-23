@@ -7,9 +7,9 @@ using Surfer.Utils;
 
 namespace Surfer.Forms
 {
-    public partial class MyAppContainer : TitleBarTabs, IMessageFilter
+    public partial class SBAppContainer : TitleBarTabs, IMessageFilter
     {
-        public MyAppContainer()
+        public SBAppContainer()
         {
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.BrowserCache();
@@ -25,10 +25,10 @@ namespace Surfer.Forms
             this.FormClosed += (s, e) => Application.RemoveMessageFilter(this);
             AeroPeekEnabled = true;
             TabRenderer = new ChromeTabRenderer(this);
-            TabSelected += MyAppContainer_TabSelected;
+            TabSelected += SBAppContainer_TabSelected;
         }
 
-        private void MyAppContainer_TabSelected(object sender, TitleBarTabEventArgs e)
+        private void SBAppContainer_TabSelected(object sender, TitleBarTabEventArgs e)
         {
             foreach (var tab in Tabs)
             {
@@ -43,7 +43,7 @@ namespace Surfer.Forms
             TitleBarTab titlebarTab = new TitleBarTab(this);
             titlebarTab.Content = new Browser(this, titlebarTab)
             {
-                StartUrl = MyBrowserSettings.HomePage,
+                StartUrl = SBBrowserSettings.HomePage,
             };
             return titlebarTab;
         }

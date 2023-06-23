@@ -16,11 +16,11 @@ namespace Surfer.BrowserSettings
         // Always active
         Inspect = 26701,
     }
-    public class MyContextMenuHandler : IContextMenuHandler
+    public class SBContextMenuHandler : IContextMenuHandler
     {
         private Browser MyBrowser;
 
-        public MyContextMenuHandler(Browser browser)
+        public SBContextMenuHandler(Browser browser)
         {
             MyBrowser = browser;
         }

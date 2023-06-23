@@ -7,12 +7,12 @@ using System.Windows;
 
 namespace Surfer.BrowserSettings
 {
-    public class MyRequestHandler : IRequestHandler
+    public class SBRequestHandler : IRequestHandler
     {
 
         private Browser MyBrowser;
 
-        public MyRequestHandler(Browser browser)
+        public SBRequestHandler(Browser browser)
         {
             MyBrowser = browser;
         }
