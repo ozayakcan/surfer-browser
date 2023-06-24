@@ -528,11 +528,12 @@ namespace Surfer.Forms
                     }
                 }
                 CloseSiteInfo();
-                if (searchPopupForm != null)
+                CloseSearch();
+                /*if (searchPopupForm != null)
                 {
                     searchPopupForm.Fullscreen = status;
                     searchPopupForm.UpdateLocation();
-                }
+                }*/
                 Fullscreen = status;
             });
         }

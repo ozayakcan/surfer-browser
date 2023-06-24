@@ -117,7 +117,7 @@ namespace Surfer.Forms
             StartPosition = FormStartPosition.Manual;
             ShowInTaskbar = false;
             ShowIcon = false;
-            TopMost = true;
+            TopLevel = true;
         }
 
         /*protected override void OnShown(EventArgs e)
