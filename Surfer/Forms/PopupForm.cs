@@ -47,6 +47,10 @@ namespace Surfer.Forms
                             case PopupFormStyle.Right:
                                 xLocation = loc.X + OwnerControl.Size.Width - Size.Width;
                                 break;
+                            case PopupFormStyle.Fill:
+                                xLocation = loc.X;
+                                Width = OwnerControl.Width;
+                                break;
                         }
                         int yLocation = loc.Y + ownerControl.Size.Height + MarginY;
                         if (Fullscreen)
@@ -189,5 +193,6 @@ namespace Surfer.Forms
         Left,
         Center,
         Right,
+        Fill,
     }
 }
