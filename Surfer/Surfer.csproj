@@ -172,6 +172,7 @@
     <Compile Include="Utils\SecretsLocal.cs" />
     <Compile Include="Utils\SBExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
+    <Compile Include="Utils\Settings.cs" />
     <Compile Include="Utils\StringCipher.cs" />
     <EmbeddedResource Include="Controls\SBSearch.resx">
       <DependentUpon>SBSearch.cs</DependentUpon>
