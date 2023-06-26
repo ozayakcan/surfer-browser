@@ -1,4 +1,6 @@
-﻿namespace Surfer.Forms
+﻿using FontAwesome.Sharp;
+
+namespace Surfer.Forms
 {
     partial class Browser
     {
@@ -294,7 +296,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pnlBrowser);
             this.Controls.Add(this.pnlProgress);
-            this.Icon = global::Surfer.Properties.Resources.tab_icon;
             this.Name = "Browser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Tab";

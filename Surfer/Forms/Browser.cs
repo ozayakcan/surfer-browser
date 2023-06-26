@@ -2,6 +2,7 @@
 using CefSharp.WinForms;
 using CefSharp.WinForms.Host;
 using EasyTabs;
+using FontAwesome.Sharp;
 using Surfer.BrowserSettings;
 using Surfer.Controls;
 using Surfer.Utils;
@@ -30,8 +31,11 @@ namespace Surfer.Forms
                     SBSiteInformationButtonStatus(false);
             }
         }
-        public Icon OriginalIcon = Properties.Resources.tab_icon;
-        public Icon SiteIcon;
+        public System.Drawing.Icon OriginalIcon
+        {
+            get => System.Drawing.Icon.FromHandle(IconChar.Table.ToBitmap(Color.Black).GetHicon());
+        }
+        public System.Drawing.Icon SiteIcon;
         public SBAppContainer AppContainer { get; set; }
         public TitleBarTab Tab { get; set; }
 
@@ -43,6 +47,7 @@ namespace Surfer.Forms
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
+            Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
             tsNav.Renderer = new SBRenderer();
             tsUrl.Renderer = new SBRenderer();
@@ -63,6 +68,7 @@ namespace Surfer.Forms
         private void Browser_Load(object sender, EventArgs e)
         {
             // Browser
+            SetIcon(OriginalIcon, Properties.Resources.icon);
             chBrowser.DisplayHandler = new SBDisplayHandler(this);
             chBrowser.RequestHandler = new SBRequestHandler(this);
             chBrowser.FindHandler = new SBFindHandler(this);
@@ -193,31 +199,29 @@ namespace Surfer.Forms
                         Bitmap bmp = new Bitmap(stream);
                         var thumb = (Bitmap)bmp.GetThumbnailImage(32, 32, null, IntPtr.Zero);
                         thumb.MakeTransparent();
-                        Icon icon = Icon.FromHandle(thumb.GetHicon());
-                        SetIcon(icon);
+                        System.Drawing.Icon icon = System.Drawing.Icon.FromHandle(thumb.GetHicon());
+                        SetIcon(icon, icon);
                     }
                 }
                 catch
                 {
-                    SetIcon(OriginalIcon);
+                    SetIcon(OriginalIcon, Properties.Resources.icon);
                 }
             }
             else
             {
-                SetIcon(OriginalIcon);
+                SetIcon(OriginalIcon, Properties.Resources.icon);
             }
         }
-        private void SetIcon(Icon icon)
+        private void SetIcon(System.Drawing.Icon tabIcon, System.Drawing.Icon thumbnailIcon)
         {
             this.InvokeOnUiThreadIfRequired(() => {
-                Icon = Tab.Icon = SiteIcon = icon;
+                Icon = Tab.Icon = SiteIcon = tabIcon;
                 if (fullScreenForm != null)
-                    fullScreenForm.Icon = icon;
-                Tab.Parent.UpdateThumbnailPreviewIcon(Tab, icon);
-
+                    fullScreenForm.Icon = tabIcon;
+                Tab.Parent.UpdateThumbnailPreviewIcon(Tab, thumbnailIcon);
             });
         }
-
         public void ShowLoading(int progress)
         {
             this.InvokeOnUiThreadIfRequired(() =>

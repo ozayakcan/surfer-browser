@@ -63,9 +63,9 @@ namespace Surfer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        public static System.Drawing.Icon tab_icon {
+        public static System.Drawing.Icon icon {
             get {
-                object obj = ResourceManager.GetObject("tab_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
