@@ -26,10 +26,6 @@ namespace Surfer
                     return;
                 }
             }
-            foreach (var item in args)
-            {
-                MessageBox.Show(item);
-            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Browser());

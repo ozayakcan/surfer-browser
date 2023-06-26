@@ -16,7 +16,20 @@ namespace Surfer.Forms
 {
     public partial class Browser : Form
     {
-        public string StartUrl {get; set;}
+        private string _startUrl = null;
+        public string StartUrl {
+            get => _startUrl;
+            set
+            {
+                _startUrl = value;
+                if(value != null) {
+                    tbUrl.Text = value;
+                    SBSiteInformationButtonStatus(true, SBBrowserSettings.IsSecureUrl(value));
+                }
+                else
+                    SBSiteInformationButtonStatus(false);
+            }
+        }
         public Icon OriginalIcon = Properties.Resources.tab_icon;
         public Icon SiteIcon;
         public SBAppContainer AppContainer { get; set; }
@@ -31,13 +44,6 @@ namespace Surfer.Forms
             Tab = titlebarTab;
             InitializeComponent();
             pnlUrlBorderColor = pnlUrl.BorderColor;
-            if (StartUrl != null)
-            {
-                tbUrl.Text = StartUrl;
-                SBSiteInformationButtonStatus(true, SBBrowserSettings.IsSecureUrl(StartUrl));
-            }
-            else
-                SBSiteInformationButtonStatus(false);
             tsNav.Renderer = new SBRenderer();
             tsUrl.Renderer = new SBRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
