@@ -92,6 +92,7 @@
     <Reference Include="HtmlAgilityPack, Version=1.11.46.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.46\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -99,6 +100,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -174,6 +176,7 @@
     <Compile Include="Utils\SBExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
     <Compile Include="Utils\Settings.cs" />
+    <Compile Include="Utils\SingleInstanceApp.cs" />
     <Compile Include="Utils\StringCipher.cs" />
     <EmbeddedResource Include="Controls\SBSearch.resx">
       <DependentUpon>SBSearch.cs</DependentUpon>
