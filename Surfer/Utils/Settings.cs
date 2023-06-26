@@ -20,10 +20,7 @@ namespace Surfer.Utils
 
         // Keys
 
-        public static readonly Dictionary<string, object> Defaults = new Dictionary<string, object>
-        {
-            
-        };
+        public static readonly bool AddedToDefaults = false;
 
         // End Keys
         public bool IsInitialized = false;
@@ -60,9 +57,8 @@ namespace Surfer.Utils
                 SettingsDict.Add(key, value);
             JSON.writeFile(filePath, SettingsDict/*, Keys.EncryptKey*/);
         }
-        public T Get<T>(string key)
+        public T Get<T>(string key, T defaultValue = default(T))
         {
-            T defaultValue = Defaults.ContainsKey(key) ? (T)Defaults[key] : default(T);
             if (!IsInitialized)
                 Initialize();
             if (SettingsDict.ContainsKey(key))

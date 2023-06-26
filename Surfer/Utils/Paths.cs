@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace Surfer.Utils
 {
@@ -19,6 +20,13 @@ namespace Surfer.Utils
             {
                 
                 return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), VersionInfo.CompanyName, VersionInfo.ProductName);
+            }
+        }
+        public static string Executable
+        {
+            get
+            {
+                return Application.ExecutablePath;
             }
         }
         public static string AppData(string file = "")
