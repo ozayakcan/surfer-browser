@@ -9,7 +9,6 @@ namespace Surfer.Utils
 {
     public class SingleInstanceApp : WindowsFormsApplicationBase
     {
-        private TitleBarTabsApplicationContext m_AppContext;
         public SingleInstanceApp()
         : base()
         {
@@ -20,12 +19,12 @@ namespace Surfer.Utils
         {
             base.OnStartupNextInstance(eventArgs);
 
-            string[] secondInstanceArgumens = eventArgs.CommandLine.ToArray();
+            string[] secondInstanceArguments = eventArgs.CommandLine.ToArray();
 
             SBAppContainer appContainer = (SBAppContainer)MainForm;
-            if (secondInstanceArgumens.Length > 0)
+            if (secondInstanceArguments.Length > 0)
             {
-                appContainer.Tabs.Add(GetTab(appContainer, secondInstanceArgumens));
+                appContainer.Tabs.Add(GetTab(appContainer, secondInstanceArguments));
                 appContainer.SelectedTabIndex = appContainer.Tabs.Count - 1;
             }
             if (eventArgs.BringToForeground)
