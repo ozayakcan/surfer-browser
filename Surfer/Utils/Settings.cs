@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace Surfer.Utils
 {
@@ -65,7 +66,13 @@ namespace Surfer.Utils
             {
                 try
                 {
-                    return (T)SettingsDict[key];
+                    object val = SettingsDict[key];
+                    if (val.IsJArray())
+                        return ((JArray)val).ToObject<T>();
+                    else if (val.IsJObject())
+                        return ((JObject)val).ToObject<T>();
+                    else
+                        return (T)val;
                 }
                 catch (Exception e)
                 {

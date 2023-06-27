@@ -24,6 +24,14 @@ namespace Surfer.Utils
             return default(T);
         }
         // NewtonSoft JSON
+        public static bool IsJArray(this object o)
+        {
+            return o.GetType() == typeof(JArray);
+        }
+        public static bool IsJObject(this object o)
+        {
+            return o.GetType() == typeof(JObject);
+        }
         public static Dictionary<B, T> ToDict<B, T>(this JObject jObject)
         {
             return JObject.FromObject(jObject).ToObject<Dictionary<B, T>>();
