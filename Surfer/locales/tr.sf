@@ -1,0 +1,21 @@
+{
+  "accepted_languages": "tr",
+  "open_link_in_new_tab": "Bağlantıyı yeni sekmede aç",
+  "copy_link": "Bağlantıyı kopyala",
+  "cut_w_key": "Kes ({0})",
+  "copy_w_key": "Kopyala ({0})",
+  "paste_w_key": "Yapıştır ({0})",
+  "select_all_w_key": "Hepsini Seç ({0})",
+  "back": "Geri",
+  "forward": "İleri",
+  "go_home": "Anasayfaya Git",
+  "reload_w_key": "Yenile ({0})",
+  "force_reload_w_key": "Yenilemeye Zorla ({0})",
+  "view_source_w_key": "Sayfa kaynağını görüntüle ({0})",
+  "inspect_w_key": "İncele ({0})",
+  "show_site_information": "Site Bilgilerini Göster",
+  "about_site": "{0} hakkında",
+  "conn_is_secure": "Bağlantı güvenli",
+  "conn_is_not_secure": "Bu siteye olan bağlantınız güvenli değil",
+  "new_tab": "Yeni Sekme"
+}

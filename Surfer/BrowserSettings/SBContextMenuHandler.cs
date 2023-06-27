@@ -33,11 +33,11 @@ namespace Surfer.BrowserSettings
                 if(ItemCount > 0)
                     model.AddSeparator();
                 ItemCount += 1;
-                model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, "Open link in new tab");
+                model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, Language.Get.open_link_in_new_tab);
                 //model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, "Open link in new window");
                 //model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, "Open link in private tab");
                 model.AddSeparator();
-                model.AddItem((CefMenuCommand)CustomCefMenuCommand.CopyLink, "Copy link");
+                model.AddItem((CefMenuCommand)CustomCefMenuCommand.CopyLink, Language.Get.copy_link);
             }
 
             if (!string.IsNullOrEmpty(parameters.SelectionText))
@@ -46,29 +46,29 @@ namespace Surfer.BrowserSettings
                     model.AddSeparator();
                 ItemCount += 1;
                 if (parameters.IsEditable)
-                    model.AddItem(CefMenuCommand.Cut, "Cut (Ctrl + X)");
-                model.AddItem(CefMenuCommand.Copy, "Copy (Ctrl + C)");
+                    model.AddItem(CefMenuCommand.Cut, string.Format(Language.Get.cut_w_key, "Ctrl + X"));
+                model.AddItem(CefMenuCommand.Copy, string.Format(Language.Get.copy_w_key, "Ctrl + C"));
             }
             if (parameters.IsEditable)
             {
                 if(Clipboard.ContainsText())
-                    model.AddItem(CefMenuCommand.Paste, "Paste (Ctrl + V)");
-                model.AddItem(CefMenuCommand.SelectAll, "Select All (Ctrl + A)");
+                    model.AddItem(CefMenuCommand.Paste, string.Format(Language.Get.paste_w_key, "Ctrl + V"));
+                model.AddItem(CefMenuCommand.SelectAll, string.Format(Language.Get.select_all_w_key, "Ctrl + A"));
             }
             if (string.IsNullOrEmpty(parameters.LinkUrl))
             {
                 if (ItemCount > 0)
                     model.AddSeparator();
                 ItemCount += 1;
-                model.AddItem(CefMenuCommand.Back, "Back");
-                model.AddItem(CefMenuCommand.Forward, "Forward");
-                model.AddItem(CefMenuCommand.Reload, "Reload (F5)");
-                model.AddItem(CefMenuCommand.ReloadNoCache, "Force Reload (Ctrl + F5)");
+                model.AddItem(CefMenuCommand.Back, Language.Get.back);
+                model.AddItem(CefMenuCommand.Forward, Language.Get.forward);
+                model.AddItem(CefMenuCommand.Reload, string.Format(Language.Get.reload_w_key, "F5"));
+                model.AddItem(CefMenuCommand.ReloadNoCache, string.Format(Language.Get.reload_w_key, "Ctrl + F5"));
             }
             if (ItemCount > 0)
                 model.AddSeparator();
-            model.AddItem(CefMenuCommand.ViewSource, "View Source (Ctrl + U)");
-            model.AddItem((CefMenuCommand)CustomCefMenuCommand.Inspect, "Inspect (Ctrl + Alt + I)");
+            model.AddItem(CefMenuCommand.ViewSource, string.Format(Language.Get.view_source_w_key, "Ctrl + U"));
+            model.AddItem((CefMenuCommand)CustomCefMenuCommand.Inspect, string.Format(Language.Get.inspect_w_key, "Ctrl + Alt + I"));
         }
 
         public bool OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)

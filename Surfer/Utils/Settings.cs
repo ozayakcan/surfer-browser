@@ -22,6 +22,8 @@ namespace Surfer.Utils
         // Keys
 
         public static readonly bool AddedToDefaults = false;
+        public static readonly bool LanguagesChanged = false;
+        public static readonly List<string> Languages = new List<string>() { "en-US" };
 
         // End Keys
         public bool IsInitialized = false;

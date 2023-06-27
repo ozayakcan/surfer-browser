@@ -47,6 +47,13 @@ namespace Surfer.Forms
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
+            Name = Language.Get.new_tab;
+            Text = Language.Get.new_tab;
+            btnSecure.ToolTipText = Language.Get.show_site_information;
+            btnBack.ToolTipText = Language.Get.back;
+            btnForward.ToolTipText = Language.Get.forward;
+            btnHome.ToolTipText = Language.Get.go_home;
+            btnReload.ToolTipText = string.Format(Language.Get.reload_w_key, "F5");
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
             tsNav.Renderer = new SBRenderer();
@@ -316,7 +323,7 @@ namespace Surfer.Forms
                 btnHome.Enabled = status;
             });
         }
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void btnReload_Click(object sender, EventArgs e)
         {
             chBrowser.Reload();
         }
@@ -327,11 +334,11 @@ namespace Surfer.Forms
             {
                 if (status)
                 {
-                    btnRefresh.IconChar = FontAwesome.Sharp.IconChar.Close;
+                    btnReload.IconChar = FontAwesome.Sharp.IconChar.Close;
                 }
                 else
                 {
-                    btnRefresh.IconChar = FontAwesome.Sharp.IconChar.Refresh;
+                    btnReload.IconChar = FontAwesome.Sharp.IconChar.Refresh;
                 }
             });
         }

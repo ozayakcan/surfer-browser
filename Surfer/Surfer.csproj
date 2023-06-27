@@ -171,6 +171,7 @@
     <Compile Include="Utils\Args.cs" />
     <Compile Include="Utils\IgnoredUrls.cs" />
     <Compile Include="Utils\JSON.cs" />
+    <Compile Include="Utils\Language.cs" />
     <Compile Include="Utils\Secrets.cs" />
     <Compile Include="Utils\SecretsLocal.cs" />
     <Compile Include="Utils\SBExtensions.cs" />
@@ -213,6 +214,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="locales\en-US.sf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="locales\tr.sf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\icon.ico" />

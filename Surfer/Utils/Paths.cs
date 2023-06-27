@@ -29,6 +29,10 @@ namespace Surfer.Utils
                 return Application.ExecutablePath;
             }
         }
+        public static string App(string file = "")
+        {
+            return Path.Combine(Path.GetDirectoryName(Executable), file);
+        }
         public static string AppData(string file = "")
         {
             return (string.IsNullOrEmpty(file) || string.IsNullOrWhiteSpace(file)) ? AppDataPath : Path.Combine(AppDataPath, file);

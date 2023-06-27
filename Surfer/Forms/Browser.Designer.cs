@@ -45,7 +45,7 @@ namespace Surfer.Forms
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
             this.btnHome = new Surfer.Controls.MyIconToolStripButton();
-            this.btnRefresh = new Surfer.Controls.MyIconToolStripButton();
+            this.btnReload = new Surfer.Controls.MyIconToolStripButton();
             this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.pbLoading = new System.Windows.Forms.ProgressBar();
@@ -110,10 +110,10 @@ namespace Surfer.Forms
             this.pnlUrl.BorderThickness = 3F;
             this.pnlUrl.Controls.Add(this.tsUrl);
             this.pnlUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUrl.Location = new System.Drawing.Point(95, 5);
+            this.pnlUrl.Location = new System.Drawing.Point(156, 5);
             this.pnlUrl.Name = "pnlUrl";
             this.pnlUrl.Padding = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.pnlUrl.Size = new System.Drawing.Size(689, 30);
+            this.pnlUrl.Size = new System.Drawing.Size(628, 30);
             this.pnlUrl.TabIndex = 1;
             // 
             // tsUrl
@@ -132,7 +132,7 @@ namespace Surfer.Forms
             this.tsUrl.Name = "tsUrl";
             this.tsUrl.Padding = new System.Windows.Forms.Padding(0);
             this.tsUrl.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsUrl.Size = new System.Drawing.Size(669, 24);
+            this.tsUrl.Size = new System.Drawing.Size(608, 24);
             this.tsUrl.Stretch = true;
             this.tsUrl.TabIndex = 1;
             // 
@@ -158,7 +158,6 @@ namespace Surfer.Forms
             this.btnSecure.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSecure.Name = "btnSecure";
             this.btnSecure.Size = new System.Drawing.Size(23, 20);
-            this.btnSecure.ToolTipText = "Show Site Information";
             this.btnSecure.Visible = false;
             this.btnSecure.Click += new System.EventHandler(this.btnSecure_Click);
             this.btnSecure.MouseLeave += new System.EventHandler(this.btnSecure_MouseLeave);
@@ -198,14 +197,14 @@ namespace Surfer.Forms
             this.tsNav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnBack,
             this.btnForward,
-            this.btnHome,
-            this.btnRefresh});
+            this.btnReload,
+            this.btnHome});
             this.tsNav.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.tsNav.Location = new System.Drawing.Point(5, 5);
             this.tsNav.Name = "tsNav";
             this.tsNav.Padding = new System.Windows.Forms.Padding(0);
             this.tsNav.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsNav.Size = new System.Drawing.Size(90, 30);
+            this.tsNav.Size = new System.Drawing.Size(151, 30);
             this.tsNav.Stretch = true;
             this.tsNav.TabIndex = 0;
             // 
@@ -221,7 +220,6 @@ namespace Surfer.Forms
             this.btnBack.Margin = new System.Windows.Forms.Padding(0);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(30, 30);
-            this.btnBack.ToolTipText = "Go Back";
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnForward
@@ -236,7 +234,6 @@ namespace Surfer.Forms
             this.btnForward.Margin = new System.Windows.Forms.Padding(0);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(30, 30);
-            this.btnForward.ToolTipText = "Go Forward";
             this.btnForward.Visible = false;
             this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
             // 
@@ -252,24 +249,22 @@ namespace Surfer.Forms
             this.btnHome.Margin = new System.Windows.Forms.Padding(0);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(30, 30);
-            this.btnHome.ToolTipText = "Go Home Page";
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
-            // btnRefresh
+            // btnReload
             // 
-            this.btnRefresh.AutoSize = false;
-            this.btnRefresh.BackColor = System.Drawing.Color.Transparent;
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRefresh.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            this.btnRefresh.IconColor = System.Drawing.Color.Black;
-            this.btnRefresh.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRefresh.IconSize = 60;
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(30, 30);
-            this.btnRefresh.ToolTipText = "Refresh";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnReload.AutoSize = false;
+            this.btnReload.BackColor = System.Drawing.Color.Transparent;
+            this.btnReload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnReload.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            this.btnReload.IconColor = System.Drawing.Color.Black;
+            this.btnReload.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnReload.IconSize = 60;
+            this.btnReload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnReload.Margin = new System.Windows.Forms.Padding(0);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(30, 30);
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // pnlProgress
             // 
@@ -299,7 +294,6 @@ namespace Surfer.Forms
             this.Icon = global::Surfer.Properties.Resources.icon;
             this.Name = "Browser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "New Tab";
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlBrowser.ResumeLayout(false);
             this.pnlChBrowser.ResumeLayout(false);
@@ -327,7 +321,7 @@ namespace Surfer.Forms
         private Controls.MyIconToolStripButton btnBack;
         private Controls.MyIconToolStripButton btnForward;
         private Controls.MyIconToolStripButton btnHome;
-        private Controls.MyIconToolStripButton btnRefresh;
+        private Controls.MyIconToolStripButton btnReload;
         private System.Windows.Forms.Panel pnlNavMarginRight;
         private System.Windows.Forms.ToolStrip tsUrl;
         private Controls.MyIconToolStripButton btnSecure;
