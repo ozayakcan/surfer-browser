@@ -7,6 +7,24 @@ namespace Surfer.Utils
 {
     public class Args
     {
+        public string url = null;
+
+        private Args()
+        {
+
+        }
+
+        public static Args Handle(string[] args){
+            Args clsArgs = new Args();
+            for (int i = args.Length - 1; i >= 0; i--)
+            {
+                if (!args[i].StartsWith("-"))
+                    if(clsArgs.url == null)
+                        clsArgs.url = args[i];
+            }
+            return clsArgs;
+        }
+
         public static bool IsAdministrator()
         {
             var identity = WindowsIdentity.GetCurrent();

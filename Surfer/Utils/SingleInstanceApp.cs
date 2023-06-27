@@ -48,9 +48,10 @@ namespace Surfer.Utils
         public TitleBarTab GetTab(SBAppContainer appContainer, string[] args)
         {
             TitleBarTab titlebarTab = new TitleBarTab(appContainer);
+            Args clsArgs = Args.Handle(args);
             titlebarTab.Content = new Browser(appContainer, titlebarTab)
             {
-                StartUrl = args.Length > 0 ? args[args.Length - 1] : SBBrowserSettings.HomePage,
+                StartUrl = clsArgs.url != null ? clsArgs.url : SBBrowserSettings.HomePage,
             };
             return titlebarTab;
         }
