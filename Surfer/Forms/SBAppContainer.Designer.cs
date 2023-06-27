@@ -36,7 +36,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Surfer.Properties.Resources.icon;
             this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = this.ProductName;
             this.Text = this.ProductName;

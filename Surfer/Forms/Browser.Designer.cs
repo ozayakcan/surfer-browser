@@ -296,6 +296,7 @@ namespace Surfer.Forms
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pnlBrowser);
             this.Controls.Add(this.pnlProgress);
+            this.Icon = global::Surfer.Properties.Resources.icon;
             this.Name = "Browser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Tab";
