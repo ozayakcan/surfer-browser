@@ -1,128 +1,196 @@
 ﻿using CefSharp;
+using FontAwesome.Sharp;
 using Surfer.Forms;
 using Surfer.Utils;
-using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Surfer.BrowserSettings
 {
-    public enum CustomCefMenuCommand{
-        // On Links
-        OpenLinkInNewTab = 26501,
-        //OpenLinkInNewWindow = 26502,
-        //OpenLinkInPrivateTab = 26503,
-        CopyLink = 26505,
-
-        // Always active
-        Inspect = 26701,
-    }
     public class SBContextMenuHandler : IContextMenuHandler
     {
-        private Browser MyBrowser;
+        public Browser MyBrowser;
 
         public SBContextMenuHandler(Browser browser)
         {
             MyBrowser = browser;
+
+            UpdateImageText(MyBrowser.tsmiOpenLinkInNewTab, IconChar.Table, Language.Get.open_link_in_new_tab);
+            MyBrowser.tsmiOpenLinkInNewTab.Click += TsmiOpenLinkInNewTab_Click;
+            UpdateImageText(MyBrowser.tsmiCopyLink, IconChar.Copy, Language.Get.copy_link);
+            MyBrowser.tsmiCopyLink.Click += TsmiCopyLink_Click;
+            UpdateImageText(MyBrowser.tsmiCut, IconChar.Cut, Language.Get.cut);
+            MyBrowser.tsmiCut.Click += TsmiCut_Click;
+            UpdateImageText(MyBrowser.tsmiCopy, IconChar.Copy, Language.Get.copy);
+            MyBrowser.tsmiCopy.Click += TsmiCopy_Click;
+            UpdateImageText(MyBrowser.tsmiPaste, IconChar.Paste, Language.Get.paste);
+            MyBrowser.tsmiPaste.Click += TsmiPaste_Click;
+            UpdateImageText(MyBrowser.tsmiSelectAll, IconChar.Allergies, Language.Get.select_all);
+            MyBrowser.tsmiSelectAll.Click += TsmiSelectAll_Click;
+            UpdateImageText(MyBrowser.tsmiBack, IconChar.ArrowLeft, Language.Get.back);
+            MyBrowser.tsmiBack.Click += TsmiBack_Click;
+            UpdateImageText(MyBrowser.tsmiForward, IconChar.ArrowRight, Language.Get.forward);
+            MyBrowser.tsmiForward.Click += TsmiForward_Click; ;
+            UpdateImageText(MyBrowser.tsmiReload, IconChar.Refresh, Language.Get.reload);
+            MyBrowser.tsmiReload.Click += TsmiReload_Click;
+            UpdateImageText(MyBrowser.tsmiReloadNoCache, IconChar.Refresh, Language.Get.force_reload);
+            MyBrowser.tsmiReloadNoCache.Click += TsmiReloadNoCache_Click;
+            UpdateImageText(MyBrowser.tsmiViewSource, IconChar.Sourcetree, Language.Get.view_source);
+            MyBrowser.tsmiViewSource.Click += TsmiViewSource_Click;
+            UpdateImageText(MyBrowser.tsmiInspect, IconChar.MagnifyingGlassChart, Language.Get.inspect);
+            MyBrowser.tsmiInspect.Click += TsmiInspect_Click;
         }
+
+        private void UpdateImageText(ToolStripMenuItem item, IconChar icon, string text)
+        {
+            if (item.Image == null)
+                item.Image = icon.ToBitmap(Color.Black);
+            if (string.IsNullOrEmpty(item.Text))
+                item.Text = text;
+        }
+
+        private void TsmiOpenLinkInNewTab_Click(object sender, EventArgs e)
+        {
+            MyBrowser.OpenInNewTab(_linkUrl);
+        }
+        private void TsmiCopyLink_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(_linkUrl);
+        }
+        private void TsmiCut_Click(object sender, EventArgs e)
+        {
+            MyBrowser.chBrowser.Cut();
+        }
+        private void TsmiCopy_Click(object sender, EventArgs e)
+        {
+            MyBrowser.chBrowser.Copy();
+        }
+        private void TsmiPaste_Click(object sender, EventArgs e)
+        {
+            MyBrowser.chBrowser.Paste();
+        }
+        private void TsmiSelectAll_Click(object sender, EventArgs e)
+        {
+            MyBrowser.chBrowser.SelectAll();
+        }
+        private void TsmiBack_Click(object sender, EventArgs e)
+        {
+            MyBrowser.GoBack();
+        }
+        private void TsmiForward_Click(object sender, EventArgs e)
+        {
+            MyBrowser.GoForward();
+        }
+        private void TsmiReload_Click(object sender, EventArgs e)
+        {
+            MyBrowser.Reload();
+        }
+        private void TsmiReloadNoCache_Click(object sender, EventArgs e)
+        {
+            MyBrowser.Reload(true);
+        }
+        private void TsmiViewSource_Click(object sender, EventArgs e)
+        {
+            MyBrowser.ViewSource();
+        }
+        private void TsmiInspect_Click(object sender, EventArgs e)
+        {
+            MyBrowser.ShowDevTools(_xCoord, _yCoord);
+        }
+
+        private string _linkUrl = null;
+        private string _selectionText = null;
+        private bool _isEditable = false;
+        private int _xCoord = 0;
+        private int _yCoord = 0;
         public void OnBeforeContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
-            model.Clear();
             int ItemCount = 0;
-            if (!string.IsNullOrEmpty(parameters.LinkUrl))
+            _linkUrl = parameters.LinkUrl;
+            _selectionText = parameters.SelectionText;
+            _isEditable = parameters.IsEditable;
+            _xCoord = parameters.XCoord;
+            _yCoord = parameters.YCoord;
+            ResetAll();
+            if (!string.IsNullOrEmpty(_linkUrl))
             {
-                if(ItemCount > 0)
-                    model.AddSeparator();
-                ItemCount += 1;
-                model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, Language.Get.open_link_in_new_tab);
-                //model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, "Open link in new window");
-                //model.AddItem((CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab, "Open link in private tab");
-                model.AddSeparator();
-                model.AddItem((CefMenuCommand)CustomCefMenuCommand.CopyLink, Language.Get.copy_link);
+                MyBrowser.tsmiOpenLinkInNewTab.Visible = true;
+                MyBrowser.tsmiLinkSeperator.Visible = true;
+                MyBrowser.tsmiCopyLink.Visible = true;
+                ItemCount++;
             }
+            
+            if (!string.IsNullOrEmpty(_selectionText))
+            {
+                MyBrowser.tsmiCopy.Visible = true;
+                MyBrowser.tsmiCopy.Enabled = true;
+            }
+            if (_isEditable)
+            {
+                MyBrowser.tsmiSelectionSeperator.Visible = ItemCount > 0;
+                MyBrowser.tsmiCut.Visible = true;
+                MyBrowser.tsmiCut.Enabled = !string.IsNullOrEmpty(_selectionText);
+                MyBrowser.tsmiCopy.Visible = true;
+                MyBrowser.tsmiCopy.Enabled = !string.IsNullOrEmpty(_selectionText);
+                MyBrowser.tsmiPaste.Visible = true;
+                MyBrowser.tsmiPaste.Enabled = Clipboard.ContainsText();
+                MyBrowser.tsmiSelectAll.Visible = true;
+                ItemCount++;
+            }
+            if (string.IsNullOrEmpty(_linkUrl) && !_isEditable)
+            {
+                MyBrowser.tsmiNormalSeperator.Visible = ItemCount > 0;
+                MyBrowser.tsmiBack.Visible = true;
+                MyBrowser.tsmiForward.Visible = true;
+                MyBrowser.tsmiReload.Visible = true;
+                MyBrowser.tsmiReloadNoCache.Visible = true;
+                ItemCount++;
+            }
+            MyBrowser.tsmiSourceSeperator.Visible = ItemCount > 0;
+        }
 
-            if (!string.IsNullOrEmpty(parameters.SelectionText))
-            {
-                if (ItemCount > 0)
-                    model.AddSeparator();
-                ItemCount += 1;
-                if (parameters.IsEditable)
-                    model.AddItem(CefMenuCommand.Cut, string.Format(Language.Get.cut_w_key, "Ctrl + X"));
-                model.AddItem(CefMenuCommand.Copy, string.Format(Language.Get.copy_w_key, "Ctrl + C"));
-            }
-            if (parameters.IsEditable)
-            {
-                if(Clipboard.ContainsText())
-                    model.AddItem(CefMenuCommand.Paste, string.Format(Language.Get.paste_w_key, "Ctrl + V"));
-                model.AddItem(CefMenuCommand.SelectAll, string.Format(Language.Get.select_all_w_key, "Ctrl + A"));
-            }
-            if (string.IsNullOrEmpty(parameters.LinkUrl))
-            {
-                if (ItemCount > 0)
-                    model.AddSeparator();
-                ItemCount += 1;
-                model.AddItem(CefMenuCommand.Back, Language.Get.back);
-                model.AddItem(CefMenuCommand.Forward, Language.Get.forward);
-                model.AddItem(CefMenuCommand.Reload, string.Format(Language.Get.reload_w_key, "F5"));
-                model.AddItem(CefMenuCommand.ReloadNoCache, string.Format(Language.Get.reload_w_key, "Ctrl + F5"));
-            }
-            if (ItemCount > 0)
-                model.AddSeparator();
-            model.AddItem(CefMenuCommand.ViewSource, string.Format(Language.Get.view_source_w_key, "Ctrl + U"));
-            model.AddItem((CefMenuCommand)CustomCefMenuCommand.Inspect, string.Format(Language.Get.inspect_w_key, "Ctrl + Alt + I"));
+        private void ResetAll()
+        {
+            MyBrowser.tsmiBack.Visible = false;
+            MyBrowser.tsmiCopy.Visible = false;
+            MyBrowser.tsmiCopy.Enabled = true;
+            MyBrowser.tsmiCopyLink.Visible = false;
+            MyBrowser.tsmiCopyLink.Enabled = true;
+            MyBrowser.tsmiCut.Visible = false;
+            MyBrowser.tsmiCut.Enabled = true;
+            MyBrowser.tsmiForward.Visible = false;
+            MyBrowser.tsmiLinkSeperator.Visible = false;
+            MyBrowser.tsmiNormalSeperator.Visible = false;
+            MyBrowser.tsmiOpenLinkInNewTab.Visible = false;
+            MyBrowser.tsmiOpenLinkInNewTab.Enabled = true;
+            MyBrowser.tsmiPaste.Visible = false;
+            MyBrowser.tsmiPaste.Enabled = true;
+            MyBrowser.tsmiReload.Visible = false;
+            MyBrowser.tsmiReload.Enabled = true;
+            MyBrowser.tsmiReloadNoCache.Visible = false;
+            MyBrowser.tsmiReloadNoCache.Enabled = true;
+            MyBrowser.tsmiSelectAll.Visible = false;
+            MyBrowser.tsmiSelectAll.Enabled = true;
+            MyBrowser.tsmiSelectionSeperator.Visible = false;
+            MyBrowser.tsmiSourceSeperator.Visible = false;
         }
 
         public bool OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
         {
-            switch (commandId)
-            {
-                case (CefMenuCommand)CustomCefMenuCommand.OpenLinkInNewTab:
-                    MyBrowser.OpenInNewTab(parameters.LinkUrl);
-                    return true;
-                case (CefMenuCommand)CustomCefMenuCommand.CopyLink:
-                    Clipboard.SetText(parameters.LinkUrl);
-                    return true;
-                case CefMenuCommand.Cut:
-                    MyBrowser.chBrowser.Cut();
-                    return true;
-                case CefMenuCommand.Copy:
-                    MyBrowser.chBrowser.Copy();
-                    return true;
-                case CefMenuCommand.Paste:
-                    MyBrowser.chBrowser.Paste();
-                    return true;
-                case CefMenuCommand.SelectAll:
-                    MyBrowser.chBrowser.SelectAll();
-                    return true;
-                case CefMenuCommand.Back:
-                    MyBrowser.GoBack();
-                    return true;
-                case CefMenuCommand.Forward:
-                    MyBrowser.GoForward();
-                    return true;
-                case CefMenuCommand.Reload:
-                    MyBrowser.chBrowser.Reload();
-                    return true;
-                case CefMenuCommand.ReloadNoCache:
-                    MyBrowser.chBrowser.Reload(true);
-                    return true;
-                case CefMenuCommand.ViewSource:
-                    MyBrowser.ViewSource();
-                    return true;
-                case (CefMenuCommand)CustomCefMenuCommand.Inspect:
-                    MyBrowser.ShowDevTools(parameters.XCoord, parameters.YCoord);
-                    return true;
-            }
             return false;
         }
-
         public void OnContextMenuDismissed(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame)
         {
-            
+            //MyBrowser.chBrowserContextMenu.Hide();
         }
-
         public bool RunContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
         {
-            return false;
+            MyBrowser.chBrowserContextMenu.Show(Cursor.Position);
+            return true;
         }
     }
 }

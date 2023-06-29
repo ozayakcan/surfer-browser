@@ -291,6 +291,10 @@ namespace Surfer.Forms
             {
                 btnBack.Enabled = status;
             });
+            chBrowserContextMenu.InvokeOnUiThreadIfRequired(() =>
+            {
+                tsmiBack.Enabled = status;
+            });
         }
         private void btnForward_Click(object sender, EventArgs e)
         {
@@ -310,6 +314,11 @@ namespace Surfer.Forms
             {
                 btnForward.Visible = btnForward.Enabled = status;
             });
+
+            chBrowserContextMenu.InvokeOnUiThreadIfRequired(() =>
+            {
+                tsmiForward.Enabled = status;
+            });
         }
         private void btnHome_Click(object sender, EventArgs e)
         {
@@ -325,9 +334,12 @@ namespace Surfer.Forms
         }
         private void btnReload_Click(object sender, EventArgs e)
         {
-            chBrowser.Reload();
+            Reload();
         }
-
+        public void Reload(bool ignoreCache = false)
+        {
+            chBrowser.Reload(ignoreCache);
+        }
         private void SetRefreshButtonStatus(bool status)
         {
             this.InvokeOnUiThreadIfRequired(() =>
@@ -574,12 +586,12 @@ namespace Surfer.Forms
             }
             else if ((modifiers == CefEventFlags.ControlDown && key == Keys.F5) || (key == (Keys.Control | Keys.F5)))
             {
-                chBrowser.Reload(true);
+                Reload(true);
                 return true;
             }
             else if (key == Keys.F5)
             {
-                chBrowser.Reload();
+                Reload();
                 return true;
             }
             else if ((modifiers == CefEventFlags.ControlDown && key == Keys.U) || (key == (Keys.Control | Keys.U))

@@ -44,8 +44,25 @@ namespace Surfer.Forms
             this.tsNav = new System.Windows.Forms.ToolStrip();
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
-            this.btnHome = new Surfer.Controls.MyIconToolStripButton();
             this.btnReload = new Surfer.Controls.MyIconToolStripButton();
+            this.btnHome = new Surfer.Controls.MyIconToolStripButton();
+            this.chBrowserContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiOpenLinkInNewTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLinkSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiCopyLink = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSelectionSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiNormalSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiBack = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiForward = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReload = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReloadNoCache = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSourceSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiViewSource = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiInspect = new System.Windows.Forms.ToolStripMenuItem();
             this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.pbLoading = new System.Windows.Forms.ProgressBar();
@@ -55,6 +72,7 @@ namespace Surfer.Forms
             this.pnlUrl.SuspendLayout();
             this.tsUrl.SuspendLayout();
             this.tsNav.SuspendLayout();
+            this.chBrowserContextMenu.SuspendLayout();
             this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,10 +128,10 @@ namespace Surfer.Forms
             this.pnlUrl.BorderThickness = 3F;
             this.pnlUrl.Controls.Add(this.tsUrl);
             this.pnlUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUrl.Location = new System.Drawing.Point(156, 5);
+            this.pnlUrl.Location = new System.Drawing.Point(95, 5);
             this.pnlUrl.Name = "pnlUrl";
             this.pnlUrl.Padding = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.pnlUrl.Size = new System.Drawing.Size(628, 30);
+            this.pnlUrl.Size = new System.Drawing.Size(689, 30);
             this.pnlUrl.TabIndex = 1;
             // 
             // tsUrl
@@ -132,7 +150,7 @@ namespace Surfer.Forms
             this.tsUrl.Name = "tsUrl";
             this.tsUrl.Padding = new System.Windows.Forms.Padding(0);
             this.tsUrl.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsUrl.Size = new System.Drawing.Size(608, 24);
+            this.tsUrl.Size = new System.Drawing.Size(669, 24);
             this.tsUrl.Stretch = true;
             this.tsUrl.TabIndex = 1;
             // 
@@ -204,7 +222,7 @@ namespace Surfer.Forms
             this.tsNav.Name = "tsNav";
             this.tsNav.Padding = new System.Windows.Forms.Padding(0);
             this.tsNav.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsNav.Size = new System.Drawing.Size(151, 30);
+            this.tsNav.Size = new System.Drawing.Size(90, 30);
             this.tsNav.Stretch = true;
             this.tsNav.TabIndex = 0;
             // 
@@ -237,20 +255,6 @@ namespace Surfer.Forms
             this.btnForward.Visible = false;
             this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
             // 
-            // btnHome
-            // 
-            this.btnHome.AutoSize = false;
-            this.btnHome.BackColor = System.Drawing.Color.Transparent;
-            this.btnHome.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnHome.IconChar = FontAwesome.Sharp.IconChar.House;
-            this.btnHome.IconColor = System.Drawing.Color.Black;
-            this.btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnHome.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnHome.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(30, 30);
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
-            // 
             // btnReload
             // 
             this.btnReload.AutoSize = false;
@@ -265,6 +269,145 @@ namespace Surfer.Forms
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(30, 30);
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // btnHome
+            // 
+            this.btnHome.AutoSize = false;
+            this.btnHome.BackColor = System.Drawing.Color.Transparent;
+            this.btnHome.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnHome.IconChar = FontAwesome.Sharp.IconChar.House;
+            this.btnHome.IconColor = System.Drawing.Color.Black;
+            this.btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnHome.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnHome.Margin = new System.Windows.Forms.Padding(0);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(30, 30);
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // chBrowserContextMenu
+            // 
+            this.chBrowserContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpenLinkInNewTab,
+            this.tsmiLinkSeperator,
+            this.tsmiCopyLink,
+            this.tsmiSelectionSeperator,
+            this.tsmiCut,
+            this.tsmiCopy,
+            this.tsmiPaste,
+            this.tsmiSelectAll,
+            this.tsmiNormalSeperator,
+            this.tsmiBack,
+            this.tsmiForward,
+            this.tsmiReload,
+            this.tsmiReloadNoCache,
+            this.tsmiSourceSeperator,
+            this.tsmiViewSource,
+            this.tsmiInspect});
+            this.chBrowserContextMenu.Name = "chBrowserContextMenu";
+            this.chBrowserContextMenu.Size = new System.Drawing.Size(140, 292);
+            // 
+            // tsmiOpenLinkInNewTab
+            // 
+            this.tsmiOpenLinkInNewTab.Name = "tsmiOpenLinkInNewTab";
+            this.tsmiOpenLinkInNewTab.ShortcutKeyDisplayString = "";
+            this.tsmiOpenLinkInNewTab.Size = new System.Drawing.Size(139, 22);
+            this.tsmiOpenLinkInNewTab.Visible = false;
+            // 
+            // tsmiLinkSeperator
+            // 
+            this.tsmiLinkSeperator.Name = "tsmiLinkSeperator";
+            this.tsmiLinkSeperator.Size = new System.Drawing.Size(136, 6);
+            this.tsmiLinkSeperator.Visible = false;
+            // 
+            // tsmiCopyLink
+            // 
+            this.tsmiCopyLink.Name = "tsmiCopyLink";
+            this.tsmiCopyLink.Size = new System.Drawing.Size(139, 22);
+            this.tsmiCopyLink.Visible = false;
+            // 
+            // tsmiSelectionSeperator
+            // 
+            this.tsmiSelectionSeperator.Name = "tsmiSelectionSeperator";
+            this.tsmiSelectionSeperator.Size = new System.Drawing.Size(136, 6);
+            this.tsmiSelectionSeperator.Visible = false;
+            // 
+            // tsmiCut
+            // 
+            this.tsmiCut.Name = "tsmiCut";
+            this.tsmiCut.ShortcutKeyDisplayString = "Ctrl + X";
+            this.tsmiCut.Size = new System.Drawing.Size(139, 22);
+            this.tsmiCut.Visible = false;
+            // 
+            // tsmiCopy
+            // 
+            this.tsmiCopy.Name = "tsmiCopy";
+            this.tsmiCopy.ShortcutKeyDisplayString = "Ctrl + C";
+            this.tsmiCopy.Size = new System.Drawing.Size(139, 22);
+            this.tsmiCopy.Visible = false;
+            // 
+            // tsmiPaste
+            // 
+            this.tsmiPaste.Name = "tsmiPaste";
+            this.tsmiPaste.ShortcutKeyDisplayString = "Ctrl + V";
+            this.tsmiPaste.Size = new System.Drawing.Size(139, 22);
+            this.tsmiPaste.Visible = false;
+            // 
+            // tsmiSelectAll
+            // 
+            this.tsmiSelectAll.Name = "tsmiSelectAll";
+            this.tsmiSelectAll.ShortcutKeyDisplayString = "Ctrl + A";
+            this.tsmiSelectAll.Size = new System.Drawing.Size(139, 22);
+            this.tsmiSelectAll.Visible = false;
+            // 
+            // tsmiNormalSeperator
+            // 
+            this.tsmiNormalSeperator.Name = "tsmiNormalSeperator";
+            this.tsmiNormalSeperator.Size = new System.Drawing.Size(136, 6);
+            this.tsmiNormalSeperator.Visible = false;
+            // 
+            // tsmiBack
+            // 
+            this.tsmiBack.Name = "tsmiBack";
+            this.tsmiBack.Size = new System.Drawing.Size(139, 22);
+            this.tsmiBack.Visible = false;
+            // 
+            // tsmiForward
+            // 
+            this.tsmiForward.Name = "tsmiForward";
+            this.tsmiForward.Size = new System.Drawing.Size(139, 22);
+            this.tsmiForward.Visible = false;
+            // 
+            // tsmiReload
+            // 
+            this.tsmiReload.Name = "tsmiReload";
+            this.tsmiReload.ShortcutKeyDisplayString = "F5";
+            this.tsmiReload.Size = new System.Drawing.Size(139, 22);
+            this.tsmiReload.Visible = false;
+            // 
+            // tsmiReloadNoCache
+            // 
+            this.tsmiReloadNoCache.Name = "tsmiReloadNoCache";
+            this.tsmiReloadNoCache.ShortcutKeyDisplayString = "Ctrl + F5";
+            this.tsmiReloadNoCache.Size = new System.Drawing.Size(139, 22);
+            this.tsmiReloadNoCache.Visible = false;
+            // 
+            // tsmiSourceSeperator
+            // 
+            this.tsmiSourceSeperator.Name = "tsmiSourceSeperator";
+            this.tsmiSourceSeperator.Size = new System.Drawing.Size(136, 6);
+            this.tsmiSourceSeperator.Visible = false;
+            // 
+            // tsmiViewSource
+            // 
+            this.tsmiViewSource.Name = "tsmiViewSource";
+            this.tsmiViewSource.ShortcutKeyDisplayString = "Ctrl + U";
+            this.tsmiViewSource.Size = new System.Drawing.Size(139, 22);
+            // 
+            // tsmiInspect
+            // 
+            this.tsmiInspect.Name = "tsmiInspect";
+            this.tsmiInspect.ShortcutKeyDisplayString = "Ctrl + Alt + I";
+            this.tsmiInspect.Size = new System.Drawing.Size(139, 22);
             // 
             // pnlProgress
             // 
@@ -305,6 +448,7 @@ namespace Surfer.Forms
             this.tsUrl.PerformLayout();
             this.tsNav.ResumeLayout(false);
             this.tsNav.PerformLayout();
+            this.chBrowserContextMenu.ResumeLayout(false);
             this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -329,5 +473,22 @@ namespace Surfer.Forms
         private Controls.MyIconToolStripButton btnSearch;
         public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private Controls.SBPanel pnlChBrowser;
+        public System.Windows.Forms.ContextMenuStrip chBrowserContextMenu;
+        public System.Windows.Forms.ToolStripMenuItem tsmiOpenLinkInNewTab;
+        public System.Windows.Forms.ToolStripSeparator tsmiLinkSeperator;
+        public System.Windows.Forms.ToolStripMenuItem tsmiCopyLink;
+        public System.Windows.Forms.ToolStripSeparator tsmiSelectionSeperator;
+        public System.Windows.Forms.ToolStripMenuItem tsmiCut;
+        public System.Windows.Forms.ToolStripMenuItem tsmiCopy;
+        public System.Windows.Forms.ToolStripMenuItem tsmiPaste;
+        public System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
+        public System.Windows.Forms.ToolStripSeparator tsmiNormalSeperator;
+        public System.Windows.Forms.ToolStripMenuItem tsmiBack;
+        public System.Windows.Forms.ToolStripMenuItem tsmiForward;
+        public System.Windows.Forms.ToolStripMenuItem tsmiReload;
+        public System.Windows.Forms.ToolStripMenuItem tsmiReloadNoCache;
+        public System.Windows.Forms.ToolStripSeparator tsmiSourceSeperator;
+        public System.Windows.Forms.ToolStripMenuItem tsmiViewSource;
+        public System.Windows.Forms.ToolStripMenuItem tsmiInspect;
     }
 }
