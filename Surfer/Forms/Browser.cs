@@ -291,10 +291,6 @@ namespace Surfer.Forms
             {
                 btnBack.Enabled = status;
             });
-            chBrowserContextMenu.InvokeOnUiThreadIfRequired(() =>
-            {
-                tsmiBack.Enabled = status;
-            });
         }
         private void btnForward_Click(object sender, EventArgs e)
         {
@@ -313,11 +309,6 @@ namespace Surfer.Forms
             this.InvokeOnUiThreadIfRequired(() =>
             {
                 btnForward.Visible = btnForward.Enabled = status;
-            });
-
-            chBrowserContextMenu.InvokeOnUiThreadIfRequired(() =>
-            {
-                tsmiForward.Enabled = status;
             });
         }
         private void btnHome_Click(object sender, EventArgs e)
