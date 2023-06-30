@@ -155,6 +155,7 @@
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\Browser\SBDisplayHandler.cs" />
+    <Compile Include="Utils\Browser\SBLifeSpanHandler.cs" />
     <Compile Include="Utils\Browser\SBRequestHandler.cs" />
     <Compile Include="Controls\SBIconButton.cs">
       <SubType>Component</SubType>

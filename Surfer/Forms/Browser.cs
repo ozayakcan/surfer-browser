@@ -80,6 +80,7 @@ namespace Surfer.Forms
             chBrowser.FindHandler = new SBFindHandler(this);
             chBrowser.KeyboardHandler = new SBKeyboardHandler(this);
             chBrowser.MenuHandler = new SBContextMenuHandler(this);
+            chBrowser.LifeSpanHandler = new SBLifeSpanHandler(this);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);
@@ -222,10 +223,13 @@ namespace Surfer.Forms
         private void SetIcon(System.Drawing.Icon tabIcon, System.Drawing.Icon thumbnailIcon)
         {
             this.InvokeOnUiThreadIfRequired(() => {
-                Icon = Tab.Icon = SiteIcon = tabIcon;
+                if (Tab != null)
+                    Tab.Icon = tabIcon;
+                Icon = SiteIcon = tabIcon;
                 if (fullScreenForm != null)
                     fullScreenForm.Icon = tabIcon;
-                Tab.Parent.UpdateThumbnailPreviewIcon(Tab, thumbnailIcon);
+                if (Tab != null)
+                    Tab.Parent.UpdateThumbnailPreviewIcon(Tab, thumbnailIcon);
             });
         }
         public void ShowLoading(int progress)
@@ -650,6 +654,18 @@ namespace Surfer.Forms
         public void ViewSource()
         {
             OpenInNewTab("view-source:" + chBrowser.Address, true);
+        }
+        private bool _isPopup = false;
+        public bool IsPopup
+        {
+            get
+            {
+                return _isPopup;
+            }
+            set
+            {
+                _isPopup = tbUrl.ReadOnly = value;
+            }
         }
     }
 }
