@@ -81,6 +81,7 @@ namespace Surfer.Forms
             chBrowser.KeyboardHandler = new SBKeyboardHandler(this);
             chBrowser.MenuHandler = new SBContextMenuHandler(this);
             chBrowser.LifeSpanHandler = new SBLifeSpanHandler(this);
+            chBrowser.DownloadHandler = new SBDownloadHandler();
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);

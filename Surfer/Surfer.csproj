@@ -118,6 +118,7 @@
     <Compile Include="Utils\Browser\ErrorTexts.cs" />
     <Compile Include="Utils\Browser\HistoryManager.cs" />
     <Compile Include="Utils\Browser\SBContextMenuHandler.cs" />
+    <Compile Include="Utils\Browser\SBDownloadHandler.cs" />
     <Compile Include="Utils\Browser\SBFindHandler.cs" />
     <Compile Include="Utils\Browser\SBKeyboardHandler.cs" />
     <Compile Include="Controls\SBDevTools.cs">
