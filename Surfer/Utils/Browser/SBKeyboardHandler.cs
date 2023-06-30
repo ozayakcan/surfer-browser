@@ -1,16 +1,15 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
-using Surfer.Forms;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Surfer.BrowserSettings
+namespace Surfer.Utils.Browser
 {
     public class SBKeyboardHandler: IKeyboardHandler
     {
-        private Browser MyBrowser;
+        private Forms.Browser MyBrowser;
 
-        public SBKeyboardHandler(Browser browser)
+        public SBKeyboardHandler(Forms.Browser browser)
         {
             MyBrowser = browser;
         }

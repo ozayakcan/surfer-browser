@@ -1,18 +1,14 @@
 ﻿using CefSharp;
-using EasyTabs;
-using Surfer.Forms;
-using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Windows;
 
-namespace Surfer.BrowserSettings
+namespace Surfer.Utils.Browser
 {
     public class SBRequestHandler : IRequestHandler
     {
 
-        private Browser MyBrowser;
+        private Forms.Browser MyBrowser;
 
-        public SBRequestHandler(Browser browser)
+        public SBRequestHandler(Forms.Browser browser)
         {
             MyBrowser = browser;
         }

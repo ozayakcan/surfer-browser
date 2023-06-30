@@ -1,7 +1,7 @@
 ﻿using EasyTabs;
 using Microsoft.VisualBasic.ApplicationServices;
-using Surfer.BrowserSettings;
 using Surfer.Forms;
+using Surfer.Utils.Browser;
 using System;
 using System.Linq;
 
@@ -48,7 +48,7 @@ namespace Surfer.Utils
         {
             TitleBarTab titlebarTab = new TitleBarTab(appContainer);
             Args clsArgs = Args.Handle(args);
-            titlebarTab.Content = new Browser(appContainer, titlebarTab)
+            titlebarTab.Content = new Forms.Browser(appContainer, titlebarTab)
             {
                 StartUrl = clsArgs.url != null ? clsArgs.url : SBBrowserSettings.HomePage,
             };

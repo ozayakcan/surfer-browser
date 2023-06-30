@@ -6,8 +6,8 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
-using Surfer.BrowserSettings;
 using Surfer.Utils;
+using Surfer.Utils.Browser;
 
 namespace Surfer.Forms
 {

@@ -1,5 +1,5 @@
-﻿using Surfer.BrowserSettings;
-using Surfer.Utils;
+﻿using Surfer.Utils;
+using Surfer.Utils.Browser;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

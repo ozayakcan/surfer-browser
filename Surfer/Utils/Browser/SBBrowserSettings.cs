@@ -1,4 +1,4 @@
-﻿namespace Surfer.BrowserSettings
+﻿namespace Surfer.Utils.Browser
 {
     public class SBBrowserSettings
     {

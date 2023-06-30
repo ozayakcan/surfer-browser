@@ -1,16 +1,14 @@
 ﻿using CefSharp;
 using CefSharp.Structs;
 using Surfer.Controls;
-using Surfer.Forms;
-using System;
 
-namespace Surfer.BrowserSettings
+namespace Surfer.Utils.Browser
 {
     public class SBFindHandler : IFindHandler
     {
-        private Browser MyBrowser;
+        private Forms.Browser MyBrowser;
 
-        public SBFindHandler(Browser browser)
+        public SBFindHandler(Forms.Browser browser)
         {
             MyBrowser = browser;
         }

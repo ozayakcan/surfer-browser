@@ -1,8 +1,8 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using Newtonsoft.Json.Linq;
-using Surfer.BrowserSettings;
 using Surfer.Controls;
+using Surfer.Utils.Browser;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

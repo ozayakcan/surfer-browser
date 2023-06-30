@@ -2,19 +2,16 @@
 using CefSharp.Enums;
 using CefSharp.Structs;
 using CefSharp.WinForms;
-using Surfer.Forms;
-using Surfer.Utils;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
-namespace Surfer.BrowserSettings
+namespace Surfer.Utils.Browser
 {
     public class SBDisplayHandler : IDisplayHandler
     {
-        private Browser MyBrowser;
+        private Forms.Browser MyBrowser;
 
-        public SBDisplayHandler(Browser browser)
+        public SBDisplayHandler(Forms.Browser browser)
         {
             MyBrowser = browser;
         }

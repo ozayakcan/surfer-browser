@@ -1,9 +1,7 @@
 ﻿using CefSharp;
-using Surfer.Forms;
-using Surfer.Utils;
 using System.Windows.Forms;
 
-namespace Surfer.BrowserSettings
+namespace Surfer.Utils.Browser
 {
     public class SBContextMenuHandler : IContextMenuHandler
     {
@@ -14,9 +12,9 @@ namespace Surfer.BrowserSettings
             Inspect = 26503,
         }
 
-        public Browser MyBrowser;
+        public Forms.Browser MyBrowser;
 
-        public SBContextMenuHandler(Browser browser)
+        public SBContextMenuHandler(Forms.Browser browser)
         {
             MyBrowser = browser;
 

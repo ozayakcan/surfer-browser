@@ -1,12 +1,8 @@
 ﻿using CefSharp;
-using Surfer.Forms;
-using Surfer.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 
-namespace Surfer.BrowserSettings
+namespace Surfer.Utils.Browser
 {
     public class HistoryManager
     {
@@ -64,9 +60,9 @@ namespace Surfer.BrowserSettings
     }
     public class MyNavigationEntryVisitor : INavigationEntryVisitor
     {
-        private Browser MyBrowser;
+        private Forms.Browser MyBrowser;
 
-        public MyNavigationEntryVisitor(Browser browser)
+        public MyNavigationEntryVisitor(Forms.Browser browser)
         {
             MyBrowser = browser;
         }

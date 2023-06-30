@@ -1,11 +1,10 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
-using CefSharp.WinForms.Host;
 using EasyTabs;
 using FontAwesome.Sharp;
-using Surfer.BrowserSettings;
 using Surfer.Controls;
 using Surfer.Utils;
+using Surfer.Utils.Browser;
 using System;
 using System.Drawing;
 using System.IO;
