@@ -18,5 +18,7 @@
   "about_site": "{0} hakkında",
   "conn_is_secure": "Bağlantı güvenli",
   "conn_is_not_secure": "Bu siteye olan bağlantınız güvenli değil",
-  "new_tab": "Yeni Sekme"
+  "new_tab": "Yeni Sekme",
+  "print": "Yazdır",
+  "save_as": "Farklı kaydet"
 }

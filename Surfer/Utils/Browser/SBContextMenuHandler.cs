@@ -9,7 +9,7 @@ namespace Surfer.Utils.Browser
         {
             OpenLinkInNewTab = 26501,
             CopyLink = 26502,
-            Inspect = 26503,
+            Inspect = 26504,
         }
 
         public Forms.Browser MyBrowser;
@@ -58,6 +58,8 @@ namespace Surfer.Utils.Browser
                 model.AddItem(CefMenuCommand.Forward, Language.Get.forward);
                 model.SetEnabled(CefMenuCommand.Forward, chromiumWebBrowser.CanGoForward);
                 model.AddItem(CefMenuCommand.Reload, Language.Get.reload);
+                model.AddSeparator();
+                model.AddItem(CefMenuCommand.Print, Language.Get.print);
             }
             if (model.Count > 0)
                 model.AddSeparator();
@@ -93,7 +95,6 @@ namespace Surfer.Utils.Browser
         }
         public bool RunContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
         {
-            //model.
             return false;
         }
     }

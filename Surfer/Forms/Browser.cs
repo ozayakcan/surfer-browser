@@ -610,6 +610,14 @@ namespace Surfer.Forms
                 }
                 return true;
             }
+            else if (
+                (modifiers == CefEventFlags.ControlDown && key == Keys.P)
+                || (key == (Keys.Control | Keys.P))
+            )
+            {
+                Print();
+                return true;
+            }
             /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
@@ -666,6 +674,10 @@ namespace Surfer.Forms
             {
                 _isPopup = tbUrl.ReadOnly = value;
             }
+        }
+        public void Print()
+        {
+            chBrowser.Print();
         }
     }
 }

@@ -34,6 +34,8 @@ namespace Surfer.Utils
         public string conn_is_secure = "conn_is_secure";
         public string conn_is_not_secure = "conn_is_not_secure";
         public string new_tab = "new_tab";
+        public string print = "print";
+        public string save_as = "save_as";
 
         public static Language Get { get; set; } = new Language();
         public static Language GetL(string languageCode)

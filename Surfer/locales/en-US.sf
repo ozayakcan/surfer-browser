@@ -18,5 +18,7 @@
   "about_site": "About {0}",
   "conn_is_secure": "Connection is secure",
   "conn_is_not_secure": "Your connection to this site isn't secure",
-  "new_tab": "New Tab"
+  "new_tab": "New Tab",
+  "print": "Print",
+  "save_as": "Save as"
 }
