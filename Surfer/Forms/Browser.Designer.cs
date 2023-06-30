@@ -39,10 +39,10 @@ namespace Surfer.Forms
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.pnlNav = new Surfer.Controls.SBPanel();
             this.pnlUrl = new Surfer.Controls.SBPanel();
-            this.tsUrl = new System.Windows.Forms.ToolStrip();
-            this.btnSearch = new Surfer.Controls.MyIconToolStripButton();
-            this.btnSecure = new Surfer.Controls.MyIconToolStripButton();
-            this.tbUrl = new Surfer.Controls.SBToolStripSpringTextBox();
+            this.pnlUrlInner = new Surfer.Controls.SBPanel();
+            this.tbUrl = new System.Windows.Forms.TextBox();
+            this.btnSecure = new Surfer.Controls.SBIconButton();
+            this.btnSearch = new Surfer.Controls.SBIconButton();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.tsNav = new System.Windows.Forms.ToolStrip();
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
@@ -54,7 +54,7 @@ namespace Surfer.Forms
             this.pnlChBrowser.SuspendLayout();
             this.pnlNav.SuspendLayout();
             this.pnlUrl.SuspendLayout();
-            this.tsUrl.SuspendLayout();
+            this.pnlUrlInner.SuspendLayout();
             this.tsNav.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,9 +90,9 @@ namespace Surfer.Forms
             // 
             this.pnlChBrowser.Controls.Add(this.chBrowser);
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChBrowser.Location = new System.Drawing.Point(0, 40);
+            this.pnlChBrowser.Location = new System.Drawing.Point(0, 41);
             this.pnlChBrowser.Name = "pnlChBrowser";
-            this.pnlChBrowser.Size = new System.Drawing.Size(240, 172);
+            this.pnlChBrowser.Size = new System.Drawing.Size(240, 171);
             this.pnlChBrowser.TabIndex = 2;
             // 
             // chBrowser
@@ -101,7 +101,7 @@ namespace Surfer.Forms
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(240, 172);
+            this.chBrowser.Size = new System.Drawing.Size(240, 171);
             this.chBrowser.TabIndex = 0;
             this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
@@ -117,7 +117,7 @@ namespace Surfer.Forms
             this.pnlNav.Margin = new System.Windows.Forms.Padding(0);
             this.pnlNav.Name = "pnlNav";
             this.pnlNav.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlNav.Size = new System.Drawing.Size(240, 40);
+            this.pnlNav.Size = new System.Drawing.Size(240, 41);
             this.pnlNav.TabIndex = 1;
             // 
             // pnlUrl
@@ -126,83 +126,90 @@ namespace Surfer.Forms
             this.pnlUrl.BorderColor = System.Drawing.Color.White;
             this.pnlUrl.BorderRadius = 25;
             this.pnlUrl.BorderThickness = 3F;
-            this.pnlUrl.Controls.Add(this.tsUrl);
+            this.pnlUrl.Controls.Add(this.pnlUrlInner);
             this.pnlUrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUrl.Location = new System.Drawing.Point(95, 5);
             this.pnlUrl.Name = "pnlUrl";
-            this.pnlUrl.Padding = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.pnlUrl.Size = new System.Drawing.Size(129, 30);
+            this.pnlUrl.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.pnlUrl.Size = new System.Drawing.Size(129, 31);
             this.pnlUrl.TabIndex = 1;
             // 
-            // tsUrl
+            // pnlUrlInner
             // 
-            this.tsUrl.BackColor = System.Drawing.Color.Transparent;
-            this.tsUrl.CanOverflow = false;
-            this.tsUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tsUrl.GripMargin = new System.Windows.Forms.Padding(0);
-            this.tsUrl.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.tsUrl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSearch,
-            this.btnSecure,
-            this.tbUrl});
-            this.tsUrl.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.tsUrl.Location = new System.Drawing.Point(10, 3);
-            this.tsUrl.Name = "tsUrl";
-            this.tsUrl.Padding = new System.Windows.Forms.Padding(0);
-            this.tsUrl.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsUrl.Size = new System.Drawing.Size(109, 24);
-            this.tsUrl.Stretch = true;
-            this.tsUrl.TabIndex = 1;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.btnSearch.IconColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(23, 20);
-            this.btnSearch.VisualDisabled = true;
-            // 
-            // btnSecure
-            // 
-            this.btnSecure.BackColor = System.Drawing.Color.Transparent;
-            this.btnSecure.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSecure.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
-            this.btnSecure.IconColor = System.Drawing.Color.Black;
-            this.btnSecure.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSecure.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSecure.Name = "btnSecure";
-            this.btnSecure.Size = new System.Drawing.Size(23, 20);
-            this.btnSecure.Visible = false;
-            this.btnSecure.Click += new System.EventHandler(this.btnSecure_Click);
-            this.btnSecure.MouseLeave += new System.EventHandler(this.btnSecure_MouseLeave);
-            this.btnSecure.MouseHover += new System.EventHandler(this.btnSecure_MouseHover);
+            this.pnlUrlInner.Controls.Add(this.tbUrl);
+            this.pnlUrlInner.Controls.Add(this.btnSecure);
+            this.pnlUrlInner.Controls.Add(this.btnSearch);
+            this.pnlUrlInner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlUrlInner.Location = new System.Drawing.Point(10, 7);
+            this.pnlUrlInner.Name = "pnlUrlInner";
+            this.pnlUrlInner.Size = new System.Drawing.Size(109, 17);
+            this.pnlUrlInner.TabIndex = 0;
             // 
             // tbUrl
             // 
             this.tbUrl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.tbUrl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tbUrl.AutoSize = false;
             this.tbUrl.BackColor = System.Drawing.Color.White;
             this.tbUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbUrl.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.tbUrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUrl.Location = new System.Drawing.Point(44, 0);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(615, 16);
-            this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
-            this.tbUrl.Leave += new System.EventHandler(this.tbUrl_Leave);
-            this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
+            this.tbUrl.Size = new System.Drawing.Size(65, 13);
+            this.tbUrl.TabIndex = 2;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
+            this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
+            this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
+            this.tbUrl.Leave += new System.EventHandler(this.tbUrl_Leave);
+            // 
+            // btnSecure
+            // 
+            this.btnSecure.BackColor = System.Drawing.Color.Transparent;
+            this.btnSecure.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnSecure.FlatAppearance.BorderSize = 0;
+            this.btnSecure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSecure.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            this.btnSecure.IconColor = System.Drawing.Color.Black;
+            this.btnSecure.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSecure.IconSize = 17;
+            this.btnSecure.Location = new System.Drawing.Point(22, 0);
+            this.btnSecure.Name = "btnSecure";
+            this.btnSecure.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.btnSecure.Size = new System.Drawing.Size(22, 17);
+            this.btnSecure.TabIndex = 1;
+            this.btnSecure.UseVisualStyleBackColor = false;
+            this.btnSecure.Visible = false;
+            this.btnSecure.Click += new System.EventHandler(this.btnSecure_Click);
+            this.btnSecure.MouseLeave += new System.EventHandler(this.btnSecure_MouseLeave);
+            this.btnSecure.MouseHover += new System.EventHandler(this.btnSecure_MouseHover);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearch.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnSearch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.btnSearch.IconColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSearch.IconSize = 17;
+            this.btnSearch.Location = new System.Drawing.Point(0, 0);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.btnSearch.Size = new System.Drawing.Size(22, 17);
+            this.btnSearch.TabIndex = 0;
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.VisualDisabled = true;
             // 
             // pnlNavMarginRight
             // 
             this.pnlNavMarginRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlNavMarginRight.Location = new System.Drawing.Point(224, 5);
             this.pnlNavMarginRight.Name = "pnlNavMarginRight";
-            this.pnlNavMarginRight.Size = new System.Drawing.Size(11, 30);
+            this.pnlNavMarginRight.Size = new System.Drawing.Size(11, 31);
             this.pnlNavMarginRight.TabIndex = 3;
             // 
             // tsNav
@@ -222,7 +229,7 @@ namespace Surfer.Forms
             this.tsNav.Name = "tsNav";
             this.tsNav.Padding = new System.Windows.Forms.Padding(0);
             this.tsNav.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsNav.Size = new System.Drawing.Size(90, 30);
+            this.tsNav.Size = new System.Drawing.Size(90, 31);
             this.tsNav.Stretch = true;
             this.tsNav.TabIndex = 0;
             // 
@@ -302,9 +309,8 @@ namespace Surfer.Forms
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
             this.pnlUrl.ResumeLayout(false);
-            this.pnlUrl.PerformLayout();
-            this.tsUrl.ResumeLayout(false);
-            this.tsUrl.PerformLayout();
+            this.pnlUrlInner.ResumeLayout(false);
+            this.pnlUrlInner.PerformLayout();
             this.tsNav.ResumeLayout(false);
             this.tsNav.PerformLayout();
             this.ResumeLayout(false);
@@ -324,11 +330,11 @@ namespace Surfer.Forms
         private Controls.MyIconToolStripButton btnHome;
         private Controls.MyIconToolStripButton btnReload;
         private System.Windows.Forms.Panel pnlNavMarginRight;
-        private System.Windows.Forms.ToolStrip tsUrl;
-        private Controls.MyIconToolStripButton btnSecure;
-        private Controls.MyIconToolStripButton btnSearch;
         public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private Controls.SBPanel pnlChBrowser;
-        public Controls.SBToolStripSpringTextBox tbUrl;
+        private Controls.SBPanel pnlUrlInner;
+        private Controls.SBIconButton btnSearch;
+        private Controls.SBIconButton btnSecure;
+        public System.Windows.Forms.TextBox tbUrl;
     }
 }

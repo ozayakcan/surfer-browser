@@ -48,7 +48,7 @@ namespace Surfer.Forms
             InitializeComponent();
             Name = Language.Get.new_tab;
             Text = Language.Get.new_tab;
-            btnSecure.ToolTipText = Language.Get.show_site_information;
+            ttNav.SetToolTip(btnSecure, Language.Get.show_site_information);
             btnBack.ToolTipText = Language.Get.back;
             btnForward.ToolTipText = Language.Get.forward;
             btnHome.ToolTipText = Language.Get.go_home;
@@ -56,7 +56,6 @@ namespace Surfer.Forms
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
             tsNav.Renderer = new SBRenderer();
-            tsUrl.Renderer = new SBRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
         }
 
