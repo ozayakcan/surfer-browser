@@ -243,7 +243,7 @@
   <Import Project="..\packages\CefSharp.Common.113.1.40\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.113.1.40\build\CefSharp.Common.targets')" />
   <PropertyGroup>
     <PostBuildEvent>If "$(ConfigurationName)"=="Release" (call :deleteDebugFiles) else (echo "Debug files not deleted.")
-
+exit
 :deleteDebugFiles
 SETLOCAL
 for /R "$(TargetDir)" %25%25f in (*.dll) do (
@@ -256,6 +256,7 @@ for /R "$(TargetDir)" %25%25f in (*.exe) do (
 )
 del "$(TargetDir)LICENSE.txt"
 del "$(TargetDir)README.txt"
-ENDLOCAL</PostBuildEvent>
+ENDLOCAL
+exit</PostBuildEvent>
   </PropertyGroup>
 </Project>
