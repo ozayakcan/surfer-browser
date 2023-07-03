@@ -9,8 +9,32 @@ namespace Surfer.Forms
     {
         private bool _loaded = false;
         public bool AnimationEnabled { get; set; } = true;
-
-        public bool CloseOnClickOutSide { get; set; } = true;
+        private bool _closeOnClickOutSide = true;
+        public bool CloseOnClickOutSide {
+            get
+            {
+                return _closeOnClickOutSide;
+            }
+            set
+            {
+                _closeOnClickOutSide = value;
+                if (value)
+                    HideOnClickOutSide = false;
+            }
+        }
+        private bool _hideOnClickOutSide = false;
+        public bool HideOnClickOutSide {
+            get
+            {
+                return _hideOnClickOutSide;
+            }
+            set
+            {
+                _hideOnClickOutSide = value;
+                if (value)
+                    CloseOnClickOutSide = false;
+            }
+        } 
 
         private Control _ownerControl;
         public Control OwnerControl
@@ -184,8 +208,10 @@ namespace Surfer.Forms
 
         private void PopupForm_Deactivate(object sender, EventArgs e)
         {
-            if (CloseOnClickOutSide)
+            if (CloseOnClickOutSide && !HideOnClickOutSide)
                 Close();
+            if (HideOnClickOutSide && !CloseOnClickOutSide)
+                Hide();
         }
     }
     public enum PopupFormStyle
