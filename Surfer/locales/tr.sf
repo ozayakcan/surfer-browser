@@ -20,5 +20,11 @@
   "conn_is_not_secure": "Bu siteye olan bağlantınız güvenli değil",
   "new_tab": "Yeni Sekme",
   "print": "Yazdır",
-  "save_as": "Farklı kaydet"
+  "save_as": "Farklı kaydet",
+  "downloads": "İndirilenler",
+  "open_file": "Dosyayı aç",
+  "download_rem_time_days": "{0} gn {1} st {2} dk {3} sn",
+  "download_rem_time_hours": "{0} st {1} dk {2} sn",
+  "download_rem_time_minutes": "{0} dk {1} sn",
+  "download_rem_time_seconds": "{0} sn"
 }

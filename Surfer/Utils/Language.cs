@@ -36,6 +36,14 @@ namespace Surfer.Utils
         public string new_tab = "new_tab";
         public string print = "print";
         public string save_as = "save_as";
+        public string downloads = "downloads";
+        public string open_file = "open_file";
+        public string download_vars = "download_vars";
+        public string download_speed = "download_speed";
+        public string download_rem_time_days = "download_rem_time_days";
+        public string download_rem_time_hours = "download_rem_time_hours";
+        public string download_rem_time_minutes = "download_rem_time_minutes";
+        public string download_rem_time_seconds = "download_rem_time_seconds";
 
         public static Language Get { get; set; } = new Language();
         public static Language GetL(string languageCode)

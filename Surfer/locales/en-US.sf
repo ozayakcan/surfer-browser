@@ -20,5 +20,11 @@
   "conn_is_not_secure": "Your connection to this site isn't secure",
   "new_tab": "New Tab",
   "print": "Print",
-  "save_as": "Save as"
+  "save_as": "Save as",
+  "downloads": "Downloads",
+  "open_file": "Open file",
+  "download_rem_time_days": "{0} d {1} h {2} m {3} s",
+  "download_rem_time_hours": "{0} h {1} m {2} s",
+  "download_rem_time_minutes": "{0} mins {1} secs",
+  "download_rem_time_seconds": "{0} secs"
 }

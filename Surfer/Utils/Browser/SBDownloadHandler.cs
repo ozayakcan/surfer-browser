@@ -1,16 +1,20 @@
 ﻿using CefSharp;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace Surfer.Utils.Browser
 {
     public class SBDownloadHandler : IDownloadHandler
     {
+        Forms.Browser MyBrowser;
+
+        public SBDownloadHandler(Forms.Browser browser)
+        {
+            MyBrowser = browser;
+        }
+
         public bool CanDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, string url, string requestMethod)
         {
             return true;
@@ -22,21 +26,13 @@ namespace Surfer.Utils.Browser
             {
                 using (callback)
                 {
-                    string location = GetFileName(downloadItem.SuggestedFileName);
+                    string location = DownloadManager.GetFileName(downloadItem.SuggestedFileName);
+                    string tempLocation = DownloadManager.GetFileName(location, overwrite: true, newExt: DownloadManager.Extension);
                     Debug.WriteLine(downloadItem.Id + " download started to " + location);
-                    callback.Continue(location, showDialog: false);
+                    MyBrowser.AppContainer.sBDownloads.AddItem(new DownloadFile(downloadItem.Id, Path.GetFileName(location), Path.GetExtension(location), location, tempLocation, downloadItem.Url, DateTime.Now));
+                    callback.Continue(tempLocation, showDialog: false);
                 }
             }
-        }
-        public string GetFileName(string fileName, int current = 0)
-        {
-            string ext = Path.GetExtension(fileName);
-            string location = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\" +
-                              Path.GetFileNameWithoutExtension(fileName) + (current > 0 ? "(" + current + ")" : "") + (!string.IsNullOrEmpty(ext) ? ext : "");
-            if (File.Exists(location))
-                return GetFileName(fileName, current + 1);
-            else
-                return location;
         }
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
         {
@@ -45,6 +41,7 @@ namespace Surfer.Utils.Browser
                 + ", Current: " + downloadItem.ReceivedBytes
                 + ", Total: " + downloadItem.TotalBytes
                 + ", Speed: " + downloadItem.CurrentSpeed);
+            MyBrowser.AppContainer.sBDownloads.UpdateItem(downloadItem.Id, callback, downloadItem.ReceivedBytes, downloadItem.TotalBytes, downloadItem.CurrentSpeed, downloadItem.IsComplete, downloadItem.IsCancelled, downloadItem.PercentComplete);
         }
     }
 }

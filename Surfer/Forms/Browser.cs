@@ -80,10 +80,11 @@ namespace Surfer.Forms
             chBrowser.KeyboardHandler = new SBKeyboardHandler(this);
             chBrowser.MenuHandler = new SBContextMenuHandler(this);
             chBrowser.LifeSpanHandler = new SBLifeSpanHandler(this);
-            chBrowser.DownloadHandler = new SBDownloadHandler();
+            chBrowser.DownloadHandler = new SBDownloadHandler(this);
             SetGoBackButtonStatus(chBrowser.CanGoBack);
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);
+            InitializeDownloadsForm();
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
         }
@@ -678,6 +679,15 @@ namespace Surfer.Forms
         public void Print()
         {
             chBrowser.Print();
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            AppContainer.ShowDownloadsForm(this, pnlButtons, pnlNav.Padding.Top + pnlNav.Padding.Bottom);
+        }
+        private void InitializeDownloadsForm()
+        {
+            AppContainer.InitializeDownloadsForm(this, pnlButtons, pnlNav.Padding.Top + pnlNav.Padding.Bottom);
         }
     }
 }

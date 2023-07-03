@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -6,6 +8,7 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
+using Surfer.Controls.Downloads;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
 
@@ -43,7 +46,7 @@ namespace Surfer.Forms
                 Settings.User.Save(nameof(Settings.LanguagesChanged), true);
             }
             Language.Set(Settings.User.Get(nameof(Settings.Languages), Settings.Languages)[0]);
-
+            sBDownloads = new SBDownloads();
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.BrowserCache();
             cefSettings.PersistSessionCookies = true;
@@ -55,10 +58,13 @@ namespace Surfer.Forms
                 Cef.Initialize(cefSettings);
             if (!HistoryManager.IsInitialized)
                 HistoryManager.Initialize();
+            if (!DownloadManager.IsInitialized)
+                DownloadManager.Initialize();
             InitializeComponent();
             Application.AddMessageFilter(this);
             this.FormClosed += (s, e) => Application.RemoveMessageFilter(this);
             AeroPeekEnabled = true;
+            ExitOnLastTabClose = false;
             TabRenderer = new ChromeTabRenderer(this);
             TabSelected += SBAppContainer_TabSelected;
         }
@@ -98,6 +104,43 @@ namespace Surfer.Forms
         {
             if (m.Msg == 0x101) mRepeating = false;
             return false;
+        }
+
+        public SBDownloads sBDownloads;
+        
+        public PopupForm downloadsPopupForm;
+        public void InitializeDownloadsForm(Browser owner, Control ownerControl, int marginY)
+        {
+            ShowDownloadsForm(owner, ownerControl, marginY);
+            sBDownloads.UpdateDownloads();
+            CloseDownloadsForm();
+        }
+        public void ShowDownloadsForm(Browser owner, Control ownerControl, int marginY)
+        {
+            this.InvokeOnUiThreadIfRequired(() =>
+            {
+                sBDownloads.MyBrowser = owner;
+                downloadsPopupForm = new PopupForm()
+                {
+                    Owner = owner,
+                    OwnerControl = ownerControl,
+                    WhenClosed = () => { downloadsPopupForm = null; },
+                    PopupFormStyle = PopupFormStyle.Right,
+                    MarginY = marginY,
+                    AnimationEnabled = true,
+                    HideOnClickOutSide = true,
+                    Content = sBDownloads,
+                };
+                downloadsPopupForm.Show();
+            });
+        }
+        public void CloseDownloadsForm()
+        {
+            this.InvokeOnUiThreadIfRequired(() =>
+            {
+                if (downloadsPopupForm != null)
+                    downloadsPopupForm.Hide();
+            });
         }
     }
 }

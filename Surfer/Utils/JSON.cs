@@ -22,7 +22,7 @@ namespace Surfer.Utils
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 using (FileStream fs = File.Create(filePath))
                 {
-                    byte[] contentBytes = new UTF8Encoding(true).GetBytes(content.Equals("") ? (password == null ? emptyContent : StringCipher.Encrypt(emptyContent, password)) : (password == null ? content : StringCipher.Encrypt(content, password)));
+                    byte[] contentBytes = new UTF8Encoding(true).GetBytes(content.Equals("") ? (password == null ? emptyContent : StringHandler.Encrypt(emptyContent, password)) : (password == null ? content : StringHandler.Encrypt(content, password)));
                     fs.Write(contentBytes, 0, contentBytes.Length);
                 }
             }
@@ -75,7 +75,7 @@ namespace Surfer.Utils
                 else
                     createFile(filePath, password: password);
                 string text = File.ReadAllText(filePath, Encoding.Default);
-                return JsonConvert.DeserializeObject<T>(password == null ? text : StringCipher.Decrypt(text, password));
+                return JsonConvert.DeserializeObject<T>(password == null ? text : StringHandler.Decrypt(text, password));
             }
             catch (Exception e)
             {

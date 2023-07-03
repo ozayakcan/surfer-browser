@@ -3,6 +3,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using Surfer.Forms;
 using Surfer.Utils.Browser;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Surfer.Utils
@@ -13,6 +14,17 @@ namespace Surfer.Utils
         : base()
         {
             IsSingleInstance = true;
+        }
+
+        protected override void OnShutdown()
+        {
+            DownloadManager.Reset();
+            var downloadTemps = Directory.EnumerateFiles(DownloadManager.Location, "*.*", SearchOption.AllDirectories).Where(s => Path.GetExtension(s) == DownloadManager.Extension);
+            foreach (var file in downloadTemps)
+            {
+                File.Delete(file);
+            }
+            base.OnShutdown();
         }
 
         protected override void OnStartupNextInstance(StartupNextInstanceEventArgs eventArgs)

@@ -32,9 +32,6 @@ namespace Surfer.Forms
         {
             this.components = new System.ComponentModel.Container();
             this.pnlBrowser = new System.Windows.Forms.Panel();
-            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
-            this.pnlProgress = new System.Windows.Forms.Panel();
-            this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.pnlChBrowser = new Surfer.Controls.SBPanel();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.pnlNav = new Surfer.Controls.SBPanel();
@@ -44,18 +41,24 @@ namespace Surfer.Forms
             this.btnSecure = new Surfer.Controls.SBIconButton();
             this.btnSearch = new Surfer.Controls.SBIconButton();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
+            this.pnlButtons = new Surfer.Controls.SBPanel();
+            this.btnDownload = new Surfer.Controls.SBIconButton();
             this.tsNav = new System.Windows.Forms.ToolStrip();
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
             this.btnReload = new Surfer.Controls.MyIconToolStripButton();
             this.btnHome = new Surfer.Controls.MyIconToolStripButton();
+            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlProgress = new System.Windows.Forms.Panel();
+            this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.pnlBrowser.SuspendLayout();
-            this.pnlProgress.SuspendLayout();
             this.pnlChBrowser.SuspendLayout();
             this.pnlNav.SuspendLayout();
             this.pnlUrl.SuspendLayout();
             this.pnlUrlInner.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             this.tsNav.SuspendLayout();
+            this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBrowser
@@ -65,26 +68,8 @@ namespace Surfer.Forms
             this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
             this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(240, 212);
+            this.pnlBrowser.Size = new System.Drawing.Size(1005, 212);
             this.pnlBrowser.TabIndex = 0;
-            // 
-            // pnlProgress
-            // 
-            this.pnlProgress.Controls.Add(this.pbLoading);
-            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
-            this.pnlProgress.Name = "pnlProgress";
-            this.pnlProgress.Size = new System.Drawing.Size(240, 5);
-            this.pnlProgress.TabIndex = 2;
-            this.pnlProgress.Visible = false;
-            // 
-            // pbLoading
-            // 
-            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLoading.Location = new System.Drawing.Point(0, 0);
-            this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(240, 5);
-            this.pbLoading.TabIndex = 0;
             // 
             // pnlChBrowser
             // 
@@ -92,7 +77,7 @@ namespace Surfer.Forms
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChBrowser.Location = new System.Drawing.Point(0, 41);
             this.pnlChBrowser.Name = "pnlChBrowser";
-            this.pnlChBrowser.Size = new System.Drawing.Size(240, 171);
+            this.pnlChBrowser.Size = new System.Drawing.Size(1005, 171);
             this.pnlChBrowser.TabIndex = 2;
             // 
             // chBrowser
@@ -101,7 +86,7 @@ namespace Surfer.Forms
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(240, 171);
+            this.chBrowser.Size = new System.Drawing.Size(1005, 171);
             this.chBrowser.TabIndex = 0;
             this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
@@ -111,13 +96,14 @@ namespace Surfer.Forms
             // 
             this.pnlNav.Controls.Add(this.pnlUrl);
             this.pnlNav.Controls.Add(this.pnlNavMarginRight);
+            this.pnlNav.Controls.Add(this.pnlButtons);
             this.pnlNav.Controls.Add(this.tsNav);
             this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlNav.Location = new System.Drawing.Point(0, 0);
             this.pnlNav.Margin = new System.Windows.Forms.Padding(0);
             this.pnlNav.Name = "pnlNav";
             this.pnlNav.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlNav.Size = new System.Drawing.Size(240, 41);
+            this.pnlNav.Size = new System.Drawing.Size(1005, 41);
             this.pnlNav.TabIndex = 1;
             // 
             // pnlUrl
@@ -131,7 +117,7 @@ namespace Surfer.Forms
             this.pnlUrl.Location = new System.Drawing.Point(95, 5);
             this.pnlUrl.Name = "pnlUrl";
             this.pnlUrl.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.pnlUrl.Size = new System.Drawing.Size(129, 31);
+            this.pnlUrl.Size = new System.Drawing.Size(877, 31);
             this.pnlUrl.TabIndex = 1;
             // 
             // pnlUrlInner
@@ -142,7 +128,7 @@ namespace Surfer.Forms
             this.pnlUrlInner.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUrlInner.Location = new System.Drawing.Point(10, 7);
             this.pnlUrlInner.Name = "pnlUrlInner";
-            this.pnlUrlInner.Size = new System.Drawing.Size(109, 17);
+            this.pnlUrlInner.Size = new System.Drawing.Size(857, 17);
             this.pnlUrlInner.TabIndex = 0;
             // 
             // tbUrl
@@ -155,7 +141,7 @@ namespace Surfer.Forms
             this.tbUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUrl.Location = new System.Drawing.Point(44, 0);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(65, 13);
+            this.tbUrl.Size = new System.Drawing.Size(813, 13);
             this.tbUrl.TabIndex = 2;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
@@ -207,10 +193,37 @@ namespace Surfer.Forms
             // pnlNavMarginRight
             // 
             this.pnlNavMarginRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlNavMarginRight.Location = new System.Drawing.Point(224, 5);
+            this.pnlNavMarginRight.Location = new System.Drawing.Point(972, 5);
             this.pnlNavMarginRight.Name = "pnlNavMarginRight";
             this.pnlNavMarginRight.Size = new System.Drawing.Size(11, 31);
             this.pnlNavMarginRight.TabIndex = 3;
+            // 
+            // pnlButtons
+            // 
+            this.pnlButtons.Controls.Add(this.btnDownload);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlButtons.Location = new System.Drawing.Point(983, 5);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Padding = new System.Windows.Forms.Padding(0, 7, 0, 7);
+            this.pnlButtons.Size = new System.Drawing.Size(17, 31);
+            this.pnlButtons.TabIndex = 4;
+            // 
+            // btnDownload
+            // 
+            this.btnDownload.BackColor = System.Drawing.Color.Transparent;
+            this.btnDownload.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnDownload.FlatAppearance.BorderSize = 0;
+            this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDownload.IconChar = FontAwesome.Sharp.IconChar.Download;
+            this.btnDownload.IconColor = System.Drawing.Color.Black;
+            this.btnDownload.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDownload.IconSize = 17;
+            this.btnDownload.Location = new System.Drawing.Point(0, 7);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(17, 17);
+            this.btnDownload.TabIndex = 0;
+            this.btnDownload.UseVisualStyleBackColor = false;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // tsNav
             // 
@@ -291,11 +304,29 @@ namespace Surfer.Forms
             this.btnHome.Size = new System.Drawing.Size(30, 30);
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
+            // pnlProgress
+            // 
+            this.pnlProgress.Controls.Add(this.pbLoading);
+            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
+            this.pnlProgress.Name = "pnlProgress";
+            this.pnlProgress.Size = new System.Drawing.Size(1005, 5);
+            this.pnlProgress.TabIndex = 2;
+            this.pnlProgress.Visible = false;
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoading.Location = new System.Drawing.Point(0, 0);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(1005, 5);
+            this.pbLoading.TabIndex = 0;
+            // 
             // Browser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 217);
+            this.ClientSize = new System.Drawing.Size(1005, 217);
             this.Controls.Add(this.pnlBrowser);
             this.Controls.Add(this.pnlProgress);
             this.Icon = global::Surfer.Properties.Resources.icon;
@@ -304,15 +335,16 @@ namespace Surfer.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlBrowser.ResumeLayout(false);
-            this.pnlProgress.ResumeLayout(false);
             this.pnlChBrowser.ResumeLayout(false);
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
             this.pnlUrl.ResumeLayout(false);
             this.pnlUrlInner.ResumeLayout(false);
             this.pnlUrlInner.PerformLayout();
+            this.pnlButtons.ResumeLayout(false);
             this.tsNav.ResumeLayout(false);
             this.tsNav.PerformLayout();
+            this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -336,5 +368,7 @@ namespace Surfer.Forms
         private Controls.SBIconButton btnSearch;
         private Controls.SBIconButton btnSecure;
         public System.Windows.Forms.TextBox tbUrl;
+        private Controls.SBPanel pnlButtons;
+        private Controls.SBIconButton btnDownload;
     }
 }
