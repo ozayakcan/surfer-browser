@@ -619,6 +619,14 @@ namespace Surfer.Forms
                 Print();
                 return true;
             }
+            else if (
+                (modifiers == CefEventFlags.ControlDown && key == Keys.W)
+                || (key == (Keys.Control | Keys.W))
+            )
+            {
+                AppContainer.CloseMyTab(Tab);
+                return true;
+            }
             /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
