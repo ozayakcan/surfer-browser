@@ -14,7 +14,7 @@ namespace Surfer.Controls.Downloads
         public SBDownloads()
         {
             InitializeComponent();
-            lblDownloads.Text = Language.Get.downloads;
+            lblDownloads.Text = Locale.Get.downloads;
             pnlDownloads.HorizontalScroll.Visible = false;
         }
         public void UpdateDownloads()

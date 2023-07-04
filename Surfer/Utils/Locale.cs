@@ -5,12 +5,12 @@ using System.IO;
 
 namespace Surfer.Utils
 {
-    public class Language
+    public class Locale
     {
         public static readonly string Location = Paths.App("locales");
-        public static string Current = Settings.Languages[0];
+        public static string Current = Settings.Locales[0];
 
-        public Language()
+        public Locale()
         {
 
         }
@@ -45,25 +45,25 @@ namespace Surfer.Utils
         public string download_rem_time_minutes = "download_rem_time_minutes";
         public string download_rem_time_seconds = "download_rem_time_seconds";
 
-        public static Language Get { get; set; } = new Language();
-        public static Language GetL(string languageCode)
+        public static Locale Get { get; set; } = new Locale();
+        public static Locale GetL(string localeCode)
         {
-            return GetClass(languageCode);
+            return GetClass(localeCode);
         }
-        public static void Set(string languageCode)
+        public static void Set(string localeCode)
         {
-            Current = languageCode;
-            Get = GetClass(languageCode);
+            Current = localeCode;
+            Get = GetClass(localeCode);
         }
-        private static Language GetClass(string languageCode)
+        private static Locale GetClass(string localeCode)
         {
             try
             {
-                return JSON.readFile<Language>(Path.Combine(Location, languageCode + ".sf")/*, Keys.EncryptKey*/) ?? new Language();
+                return JSON.readFile<Locale>(Path.Combine(Location, localeCode + JSON.Extension)/*, Keys.EncryptKey*/) ?? new Locale();
             }
             catch
             {
-                return new Language();
+                return new Locale();
             }
         }
     }

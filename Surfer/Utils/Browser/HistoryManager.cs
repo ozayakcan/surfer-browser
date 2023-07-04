@@ -7,7 +7,7 @@ namespace Surfer.Utils.Browser
     public class HistoryManager
     {
         public static bool IsInitialized = false;
-        private readonly static string filePath = Paths.BrowserCache("History.sf");
+        private readonly static string filePath = Paths.BrowserCache("History" + JSON.Extension);
 
         public static List<MyNavigationEntry> Get { get; set; } = new List<MyNavigationEntry>();
 

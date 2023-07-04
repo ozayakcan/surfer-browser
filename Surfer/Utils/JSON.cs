@@ -11,6 +11,7 @@ namespace Surfer.Utils
     public class JSON
     {
         private const string empty = "{}";
+        public static readonly string Extension = ".sf";
         private static void createFile(string filePath, string content = "", string password = null, string emptyContent = empty)
         {
             if (File.Exists(filePath) && !content.Equals(""))

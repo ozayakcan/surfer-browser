@@ -188,7 +188,7 @@
     <Compile Include="Utils\Icons\IconListManager.cs" />
     <Compile Include="Utils\IgnoredUrls.cs" />
     <Compile Include="Utils\JSON.cs" />
-    <Compile Include="Utils\Language.cs" />
+    <Compile Include="Utils\Locale.cs" />
     <Compile Include="Utils\Secrets.cs" />
     <Compile Include="Utils\SecretsLocal.cs" />
     <Compile Include="Utils\SBExtensions.cs" />

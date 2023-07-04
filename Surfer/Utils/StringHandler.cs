@@ -130,12 +130,12 @@ namespace Surfer.Utils
             TimeSpan timeRemaining = TimeSpan.FromSeconds(seconds);
             //MessageBox.Show(timeRemaining.Days + "," + timeRemaining.Hours + "," + timeRemaining.Minutes + "," + timeRemaining.Seconds);
             if (timeRemaining.Days > 0)
-                return string.Format(Language.Get.download_rem_time_days, timeRemaining.Days, timeRemaining.Hours, timeRemaining.Minutes, timeRemaining.Seconds);
+                return string.Format(Locale.Get.download_rem_time_days, timeRemaining.Days, timeRemaining.Hours, timeRemaining.Minutes, timeRemaining.Seconds);
             else if (timeRemaining.Hours > 0)
-                return string.Format(Language.Get.download_rem_time_hours, timeRemaining.Hours, timeRemaining.Minutes, timeRemaining.Seconds);
+                return string.Format(Locale.Get.download_rem_time_hours, timeRemaining.Hours, timeRemaining.Minutes, timeRemaining.Seconds);
             else if (timeRemaining.Minutes > 0)
-                return string.Format(Language.Get.download_rem_time_minutes, timeRemaining.Minutes, timeRemaining.Seconds);
-            return string.Format(Language.Get.download_rem_time_seconds, timeRemaining.Seconds);
+                return string.Format(Locale.Get.download_rem_time_minutes, timeRemaining.Minutes, timeRemaining.Seconds);
+            return string.Format(Locale.Get.download_rem_time_seconds, timeRemaining.Seconds);
         }
     }
 }

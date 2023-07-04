@@ -24,47 +24,47 @@ namespace Surfer.Utils.Browser
             model.Clear();
             if (!string.IsNullOrEmpty(parameters.LinkUrl))
             {
-                model.AddItem((CefMenuCommand)MyCefMenuCommand.OpenLinkInNewTab, Language.Get.open_link_in_new_tab);
+                model.AddItem((CefMenuCommand)MyCefMenuCommand.OpenLinkInNewTab, Locale.Get.open_link_in_new_tab);
                 model.AddSeparator();
-                model.AddItem((CefMenuCommand)MyCefMenuCommand.CopyLink, Language.Get.copy_link);
+                model.AddItem((CefMenuCommand)MyCefMenuCommand.CopyLink, Locale.Get.copy_link);
             }
 
             if (parameters.IsEditable)
             {
                 if (model.Count > 0)
                     model.AddSeparator();
-                model.AddItem(CefMenuCommand.Cut, Language.Get.cut);
+                model.AddItem(CefMenuCommand.Cut, Locale.Get.cut);
                 model.SetEnabled(CefMenuCommand.Cut, !string.IsNullOrEmpty(parameters.SelectionText));
             }
             if (!string.IsNullOrEmpty(parameters.SelectionText) || parameters.IsEditable)
             {
                 if (!parameters.IsEditable)
                     model.AddSeparator();
-                model.AddItem(CefMenuCommand.Copy, Language.Get.copy);
+                model.AddItem(CefMenuCommand.Copy, Locale.Get.copy);
                 model.SetEnabled(CefMenuCommand.Copy, !string.IsNullOrEmpty(parameters.SelectionText));
             }
             if (parameters.IsEditable)
             {
-                model.AddItem(CefMenuCommand.Paste, Language.Get.paste);
+                model.AddItem(CefMenuCommand.Paste, Locale.Get.paste);
                 model.SetEnabled(CefMenuCommand.Paste, Clipboard.ContainsText());
-                model.AddItem(CefMenuCommand.SelectAll, Language.Get.select_all);
+                model.AddItem(CefMenuCommand.SelectAll, Locale.Get.select_all);
             }
             if (string.IsNullOrEmpty(parameters.LinkUrl) && !parameters.IsEditable)
             {
                 if (model.Count > 0)
                     model.AddSeparator();
-                model.AddItem(CefMenuCommand.Back, Language.Get.back);
+                model.AddItem(CefMenuCommand.Back, Locale.Get.back);
                 model.SetEnabled(CefMenuCommand.Back, chromiumWebBrowser.CanGoBack);
-                model.AddItem(CefMenuCommand.Forward, Language.Get.forward);
+                model.AddItem(CefMenuCommand.Forward, Locale.Get.forward);
                 model.SetEnabled(CefMenuCommand.Forward, chromiumWebBrowser.CanGoForward);
-                model.AddItem(CefMenuCommand.Reload, Language.Get.reload);
+                model.AddItem(CefMenuCommand.Reload, Locale.Get.reload);
                 model.AddSeparator();
-                model.AddItem(CefMenuCommand.Print, Language.Get.print);
+                model.AddItem(CefMenuCommand.Print, Locale.Get.print);
             }
             if (model.Count > 0)
                 model.AddSeparator();
-            model.AddItem(CefMenuCommand.ViewSource, Language.Get.view_source);
-            model.AddItem((CefMenuCommand)MyCefMenuCommand.Inspect, Language.Get.inspect);
+            model.AddItem(CefMenuCommand.ViewSource, Locale.Get.view_source);
+            model.AddItem((CefMenuCommand)MyCefMenuCommand.Inspect, Locale.Get.inspect);
         }
 
 

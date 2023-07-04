@@ -17,17 +17,17 @@ namespace Surfer.Utils
         }
 
         public static Settings User = new Settings();
-        public static Settings Global = new Settings(Paths.AppData(nameof(Settings).ToString() + ".sf"));
+        public static Settings Global = new Settings(Paths.AppData(nameof(Settings).ToString() + JSON.Extension));
 
         // Keys
 
         public static readonly bool AddedToDefaults = false;
-        public static readonly bool LanguagesChanged = false;
-        public static readonly List<string> Languages = new List<string>() { "en-US" };
+        public static readonly bool LocalesChanged = false;
+        public static readonly List<string> Locales = new List<string>() { "en-US" };
 
         // End Keys
         public bool IsInitialized = false;
-        private string filePath = Paths.BrowserCache(nameof(Settings).ToString() + ".sf");
+        private string filePath = Paths.BrowserCache(nameof(Settings).ToString() + JSON.Extension);
 
         private Dictionary<string, object> SettingsDict { get; set; } = new Dictionary<string, object>();
 

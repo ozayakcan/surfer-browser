@@ -11,8 +11,8 @@ namespace Surfer.Utils.Browser
     class DownloadManager
     {
         public static bool IsInitialized = false;
-        public static readonly string Extension = ".sfdownload";
-        private readonly static string filePath = Paths.BrowserCache("Downloads.sf");
+        public static readonly string Extension = JSON.Extension + "download";
+        private readonly static string filePath = Paths.BrowserCache("Downloads"+JSON.Extension);
 
         public static List<DownloadFile> Get { get; set; } = new List<DownloadFile>();
 

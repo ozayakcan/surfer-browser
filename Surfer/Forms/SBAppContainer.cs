@@ -19,41 +19,41 @@ namespace Surfer.Forms
         public SBAppContainer()
         {
 
-            if (!Settings.User.Get(nameof(Settings.LanguagesChanged), Settings.LanguagesChanged))
+            if (!Settings.User.Get(nameof(Settings.LocalesChanged), Settings.LocalesChanged))
             {
                 CultureInfo ci = CultureInfo.CurrentUICulture;
-                string languageFile = null;
-                if (File.Exists(Path.Combine(Language.Location, ci.TwoLetterISOLanguageName + ".sf")))
+                string localeFile = null;
+                if (File.Exists(Path.Combine(Locale.Location, ci.TwoLetterISOLanguageName + JSON.Extension)))
                 {
-                    languageFile = Path.Combine(Language.Location, ci.TwoLetterISOLanguageName + ".sf");
+                    localeFile = Path.Combine(Locale.Location, ci.TwoLetterISOLanguageName + JSON.Extension);
                 }
-                if (File.Exists(Path.Combine(Language.Location, ci.Name + ".sf")))
+                if (File.Exists(Path.Combine(Locale.Location, ci.Name + JSON.Extension)))
                 {
-                    languageFile = Path.Combine(Language.Location, ci.Name + ".sf");
+                    localeFile = Path.Combine(Locale.Location, ci.Name + JSON.Extension);
                 }
-                if (languageFile != null)
+                if (localeFile != null)
                 {
-                    List<string> languages = Settings.Languages;
-                    string lang = Path.GetFileNameWithoutExtension(languageFile);
-                    if (!languages.Contains(lang))
-                        languages.Insert(0, Path.GetFileNameWithoutExtension(languageFile));
-                    Settings.User.Save(nameof(Settings.Languages), languages);
+                    List<string> locales = Settings.Locales;
+                    string lang = Path.GetFileNameWithoutExtension(localeFile);
+                    if (!locales.Contains(lang))
+                        locales.Insert(0, Path.GetFileNameWithoutExtension(localeFile));
+                    Settings.User.Save(nameof(Settings.Locales), locales);
                 }
                 else
                 {
-                    Settings.User.Save(nameof(Settings.Languages), Settings.Languages);
+                    Settings.User.Save(nameof(Settings.Locales), Settings.Locales);
                 }
-                Settings.User.Save(nameof(Settings.LanguagesChanged), true);
+                Settings.User.Save(nameof(Settings.LocalesChanged), true);
             }
-            Language.Set(Settings.User.Get(nameof(Settings.Languages), Settings.Languages)[0]);
+            Locale.Set(Settings.User.Get(nameof(Settings.Locales), Settings.Locales)[0]);
             sBDownloads = new SBDownloads();
             CefSettings cefSettings = new CefSettings();
             cefSettings.CachePath = Paths.BrowserCache();
             cefSettings.PersistSessionCookies = true;
             cefSettings.PersistUserPreferences = true;
             cefSettings.CefCommandLineArgs.Add("persist_session_cookies", "1");
-            cefSettings.AcceptLanguageList = string.Join(",", Settings.User.Get(nameof(Settings.Languages), Settings.Languages).Select((l) => Language.GetL(l).accepted_languages));
-            cefSettings.Locale = Settings.User.Get(nameof(Settings.Languages), Settings.Languages)[0];
+            cefSettings.AcceptLanguageList = string.Join(",", Settings.User.Get(nameof(Settings.Locales), Settings.Locales).Select((l) => Locale.GetL(l).accepted_languages));
+            cefSettings.Locale = Settings.User.Get(nameof(Settings.Locales), Settings.Locales)[0];
             if (!Cef.IsInitialized)
                 Cef.Initialize(cefSettings);
             if (!HistoryManager.IsInitialized)

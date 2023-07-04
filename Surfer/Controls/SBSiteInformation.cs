@@ -21,9 +21,9 @@ namespace Surfer.Controls
         public SBSiteInformation(Uri url, Icon icon)
         {
             InitializeComponent();
-            lblTitle.Text = string.Format(Language.Get.about_site, url.Host);
+            lblTitle.Text = string.Format(Locale.Get.about_site, url.Host);
             _isSecure = SBBrowserSettings.IsSecureUrl(url.AbsoluteUri);
-            lblConnInfo.Text = _isSecure ? Language.Get.conn_is_secure : Language.Get.conn_is_not_secure;
+            lblConnInfo.Text = _isSecure ? Locale.Get.conn_is_secure : Locale.Get.conn_is_not_secure;
             if (!_isSecure)
                 lblConnInfo.ForeColor = Color.Red;
         }

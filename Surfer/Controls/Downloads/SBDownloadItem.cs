@@ -17,7 +17,7 @@ namespace Surfer.Controls.Downloads
         {
             InitializeComponent();
             MyBrowser = browser;
-            lblOpenFile.Text = Language.Get.open_file;
+            lblOpenFile.Text = Locale.Get.open_file;
             if (downloadFile != null)
                 InitializeItem(downloadFile, null);
         }
