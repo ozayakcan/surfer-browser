@@ -4,7 +4,7 @@ using Surfer.Utils.Browser;
 using Surfer.Utils;
 using CefSharp;
 using System;
-using System.Drawing;
+using System.IO;
 
 namespace Surfer.Controls.Downloads
 {
@@ -24,7 +24,7 @@ namespace Surfer.Controls.Downloads
                 List<SBDownloadItem> controls = new List<SBDownloadItem>();
                 foreach (var item in DownloadManager.Get)
                 {
-                    SBDownloadItem sbDownloadItem = new SBDownloadItem(MyBrowser, item);
+                    SBDownloadItem sbDownloadItem = new SBDownloadItem(MyBrowser, item, IsFirstInitialized: true);
                     sbDownloadItem.Width = pnlDownloads.Width - 25;
                     controls.Add(sbDownloadItem);
                 }
@@ -41,13 +41,30 @@ namespace Surfer.Controls.Downloads
             pnlDownloads.InvokeOnUiThreadIfRequired(() =>
             {
                 SBDownloadItem sbDownloadItem = new SBDownloadItem(MyBrowser, downloadFile);
+                sbDownloadItem.Width = pnlDownloads.Width - 25;
                 pnlDownloads.Controls.Add(sbDownloadItem);
                 sbDownloadItem.SendToBack();
                 DownloadManager.Save(downloadFile);
                 ScrollToTop();
             });
         }
-        public void UpdateItem(int ID, IDownloadItemCallback callback, long ReceivedBytes = 0, long TotalBytes = 0, long CurrentSpeed = 0, bool completed = false, bool cancelled = false, int percentage = -1)
+        public void RemoveItem(SBDownloadItem sBDownloadItem)
+        {
+            pnlDownloads.InvokeOnUiThreadIfRequired(() =>{
+                pnlDownloads.Controls.Remove(sBDownloadItem);
+                DownloadManager.Remove(sBDownloadItem.downloadFile);
+                try
+                {
+                    if (File.Exists(sBDownloadItem.downloadFile.TempLocation))
+                        File.Delete(sBDownloadItem.downloadFile.TempLocation);
+                }
+                catch
+                {
+
+                }
+            });
+        }
+        public void UpdateItem(int ID, IDownloadItemCallback callback, long ReceivedBytes = 0, long TotalBytes = 0, long CurrentSpeed = 0, bool completed = false, int percentage = -1)
         {
             pnlDownloads.InvokeOnUiThreadIfRequired(() =>
             {
@@ -64,7 +81,6 @@ namespace Surfer.Controls.Downloads
                             downloadFile.TotalBytes = TotalBytes;
                             downloadFile.CurrentSpeed = CurrentSpeed;
                             downloadFile.Completed = completed;
-                            downloadFile.Cancelled = cancelled;
                             if (completed)
                                 downloadFile.ID = 0;
                             downloadFile.Date = DateTime.Now;
@@ -80,20 +96,6 @@ namespace Surfer.Controls.Downloads
         {
             if(pnlDownloads.Controls.Count > 0)
                 pnlDownloads.ScrollControlIntoView(pnlDownloads.Controls[0]);
-        }
-        public bool HasDownloading()
-        {
-            ControlCollection controlCollection = pnlDownloads.Controls;
-            foreach (var item in controlCollection)
-            {
-                if (item.GetType() == typeof(SBDownloadItem))
-                {
-                    SBDownloadItem sbDownloadItem = (SBDownloadItem)item;
-                    if (!sbDownloadItem.downloadFile.Completed && !sbDownloadItem.downloadFile.Cancelled)
-                        return true;
-                }
-            }
-            return false;
         }
     }
 }

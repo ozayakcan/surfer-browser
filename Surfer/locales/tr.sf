@@ -26,5 +26,13 @@
   "download_rem_time_days": "{0} gn {1} st {2} dk {3} sn",
   "download_rem_time_hours": "{0} st {1} dk {2} sn",
   "download_rem_time_minutes": "{0} dk {1} sn",
-  "download_rem_time_seconds": "{0} sn"
+  "download_rem_time_seconds": "{0} sn",
+  "retry": "Tekrar dene",
+  "pause": "Durdur",
+  "resume": "Devam Ettir",
+  "cancel": "İptal",
+  "show_in_folder": "Dosya konumunda göster",
+  "copy_download_link": "İndirme bağlantısını kopyala",
+  "delete_file": "Dosyayı sil",
+  "remove_from_list": "Listeden kaldır"
 }

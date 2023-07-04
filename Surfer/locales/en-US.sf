@@ -26,5 +26,13 @@
   "download_rem_time_days": "{0} d {1} h {2} m {3} s",
   "download_rem_time_hours": "{0} h {1} m {2} s",
   "download_rem_time_minutes": "{0} mins {1} secs",
-  "download_rem_time_seconds": "{0} secs"
+  "download_rem_time_seconds": "{0} secs",
+  "retry": "Retry",
+  "pause": "Pause",
+  "resume": "Resume",
+  "cancel": "Cancel",
+  "show_in_folder": "Show in folder",
+  "copy_download_link": "Copy download link",
+  "delete_file": "Delete file",
+  "remove_from_list": "Remove from list"
 }

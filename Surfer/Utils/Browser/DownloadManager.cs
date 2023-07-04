@@ -47,6 +47,14 @@ namespace Surfer.Utils.Browser
                 _write();
             }
         }
+        public static void Remove(DownloadFile downloadFile)
+        {
+            if (IsInitialized)
+            {
+                Get.Remove(downloadFile);
+                _write();
+            }
+        }
         public static void Reset()
         {
             if (IsInitialized)
@@ -57,7 +65,6 @@ namespace Surfer.Utils.Browser
                         Get[i].ID = 0;
                     if (!Get[i].Completed)
                     {
-                        Get[i].Cancelled = true;
                         Get[i].ReceivedBytes = 0;
                         Get[i].TotalBytes = 0;
                         Get[i].CurrentSpeed = 0;
@@ -97,7 +104,6 @@ namespace Surfer.Utils.Browser
         public long TotalBytes = 0;
         public long CurrentSpeed = 0;
         public bool Completed = false;
-        public bool Cancelled = false;
         public DownloadFile(int ID, string FileName, string Extension, string Location, string TempLocation, string Url, DateTime Date)
         {
             this.ID = ID;

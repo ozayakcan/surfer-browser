@@ -44,6 +44,14 @@ namespace Surfer.Utils
         public string download_rem_time_hours = "download_rem_time_hours";
         public string download_rem_time_minutes = "download_rem_time_minutes";
         public string download_rem_time_seconds = "download_rem_time_seconds";
+        public string retry = "retry";
+        public string pause = "pause";
+        public string resume = "resume";
+        public string cancel = "cancel";
+        public string show_in_folder = "show_in_folder";
+        public string copy_download_link = "copy_download_link";
+        public string delete_file = "delete_file";
+        public string remove_from_list = "remove_from_list";
 
         public static Locale Get { get; set; } = new Locale();
         public static Locale GetL(string localeCode)

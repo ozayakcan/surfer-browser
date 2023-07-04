@@ -41,7 +41,7 @@ namespace Surfer.Utils.Browser
                 + ", Current: " + downloadItem.ReceivedBytes
                 + ", Total: " + downloadItem.TotalBytes
                 + ", Speed: " + downloadItem.CurrentSpeed);
-            MyBrowser.AppContainer.sBDownloads.UpdateItem(downloadItem.Id, callback, downloadItem.ReceivedBytes, downloadItem.TotalBytes, downloadItem.CurrentSpeed, downloadItem.IsComplete, downloadItem.IsCancelled, downloadItem.PercentComplete);
+            MyBrowser.AppContainer.sBDownloads.UpdateItem(downloadItem.Id, callback, downloadItem.ReceivedBytes, downloadItem.TotalBytes, downloadItem.CurrentSpeed, downloadItem.IsComplete, downloadItem.PercentComplete);
         }
     }
 }
