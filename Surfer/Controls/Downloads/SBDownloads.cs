@@ -43,7 +43,7 @@ namespace Surfer.Controls.Downloads
                 SBDownloadItem sbDownloadItem = new SBDownloadItem(MyBrowser, downloadFile);
                 sbDownloadItem.Width = pnlDownloads.Width - 25;
                 pnlDownloads.Controls.Add(sbDownloadItem);
-                sbDownloadItem.SendToBack();
+                sbDownloadItem.BringToFront();
                 DownloadManager.Save(downloadFile);
                 ScrollToTop();
             });
