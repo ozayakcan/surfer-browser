@@ -28,19 +28,13 @@ namespace Surfer.Utils.Browser
                 {
                     string location = DownloadManager.GetFileName(downloadItem.SuggestedFileName);
                     string tempLocation = DownloadManager.GetFileName(location, overwrite: true, newExt: DownloadManager.Extension);
-                    Debug.WriteLine(downloadItem.Id + " download started to " + location);
-                    MyBrowser.AppContainer.sBDownloads.AddItem(new DownloadFile(downloadItem.Id, Path.GetFileName(location), Path.GetExtension(location), location, tempLocation, downloadItem.Url, DateTime.Now));
+                    MyBrowser.AppContainer.sBDownloads.AddItem(new DownloadFile(DownloadManager.LastID(), downloadItem.Id, Path.GetFileName(location), Path.GetExtension(location), location, tempLocation, downloadItem.Url, DateTime.Now));
                     callback.Continue(tempLocation, showDialog: false);
                 }
             }
         }
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
         {
-            Debug.WriteLine(
-                downloadItem.Id
-                + ", Current: " + downloadItem.ReceivedBytes
-                + ", Total: " + downloadItem.TotalBytes
-                + ", Speed: " + downloadItem.CurrentSpeed);
             MyBrowser.AppContainer.sBDownloads.UpdateItem(downloadItem.Id, callback, downloadItem.ReceivedBytes, downloadItem.TotalBytes, downloadItem.CurrentSpeed, downloadItem.IsComplete, downloadItem.PercentComplete);
         }
     }

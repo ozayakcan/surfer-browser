@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Surfer.Utils.Browser
 {
@@ -23,11 +24,25 @@ namespace Surfer.Utils.Browser
                 try
                 {
                     Get = JSON.readFile<List<DownloadFile>>(filePath/*, Keys.EncryptKey*/) ?? new List<DownloadFile>();
+
                 }
                 catch
                 {
                     Get = new List<DownloadFile>();
                 }
+                bool _idsUpdated = false;
+                foreach(var item in Get)
+                {
+                    if(item.DownloadID != 0)
+                    {
+                        item.DownloadID = 0;
+                        _idsUpdated = true;
+                    }
+                    if (File.Exists(item.TempLocation))
+                        File.Delete(item.TempLocation);
+                }
+                if (_idsUpdated)
+                    _write();
                 IsInitialized = true;
             }
             else
@@ -35,15 +50,18 @@ namespace Surfer.Utils.Browser
                 throw new Exception(typeof(DownloadManager).ToString() + " is already initialized!");
             }
         }
-        public static void Save(DownloadFile downloadFile)
+        public static void Save(DownloadFile downloadFile = null)
         {
             if (IsInitialized)
             {
-                int downloadFileIndex = Get.FindIndex((d) => d.ID == downloadFile.ID);
-                if (downloadFileIndex >= 0)
-                    Get[downloadFileIndex] = downloadFile;
-                else
-                    Get.Insert(0, downloadFile);
+                if(downloadFile != null)
+                {
+                    int downloadFileIndex = Get.FindIndex((d) => d.ID == downloadFile.ID);
+                    if (downloadFileIndex >= 0)
+                        Get[downloadFileIndex] = downloadFile;
+                    else
+                        Get.Insert(0, downloadFile);
+                }
                 _write();
             }
         }
@@ -61,8 +79,8 @@ namespace Surfer.Utils.Browser
             {
                 for (int i = 0; i < Get.Count; i++)
                 {
-                    if (Get[i].ID != 0)
-                        Get[i].ID = 0;
+                    if (Get[i].DownloadID != 0)
+                        Get[i].DownloadID = 0;
                     if (!Get[i].Completed)
                     {
                         Get[i].ReceivedBytes = 0;
@@ -90,10 +108,18 @@ namespace Surfer.Utils.Browser
             else
                 return location;
         }
+        public static int LastID()
+        {
+            if (Get.Count > 0)
+                return Get.Max(d => d.ID) + 1;
+            else
+                return 1;
+        }
     }
     public class DownloadFile
     {
         public int ID;
+        public int DownloadID;
         public string FileName;
         public string Extension;
         public string Location;
@@ -104,9 +130,10 @@ namespace Surfer.Utils.Browser
         public long TotalBytes = 0;
         public long CurrentSpeed = 0;
         public bool Completed = false;
-        public DownloadFile(int ID, string FileName, string Extension, string Location, string TempLocation, string Url, DateTime Date)
+        public DownloadFile(int ID, int DownloadID, string FileName, string Extension, string Location, string TempLocation, string Url, DateTime Date)
         {
             this.ID = ID;
+            this.DownloadID = DownloadID;
             this.FileName = FileName;
             this.Extension = Extension;
             this.Location = Location;

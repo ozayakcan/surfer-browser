@@ -64,7 +64,7 @@ namespace Surfer.Controls.Downloads
                 }
             });
         }
-        public void UpdateItem(int ID, IDownloadItemCallback callback, long ReceivedBytes = 0, long TotalBytes = 0, long CurrentSpeed = 0, bool completed = false, int percentage = -1)
+        public void UpdateItem(int DownloadID, IDownloadItemCallback callback, long ReceivedBytes = 0, long TotalBytes = 0, long CurrentSpeed = 0, bool completed = false, int percentage = -1)
         {
             pnlDownloads.InvokeOnUiThreadIfRequired(() =>
             {
@@ -74,7 +74,7 @@ namespace Surfer.Controls.Downloads
                     if(item.GetType() == typeof(SBDownloadItem))
                     {
                         SBDownloadItem sbDownloadItem = (SBDownloadItem)item;
-                        if (sbDownloadItem.downloadFile.ID == ID)
+                        if (sbDownloadItem.downloadFile.DownloadID == DownloadID)
                         {
                             DownloadFile downloadFile = sbDownloadItem.downloadFile;
                             downloadFile.ReceivedBytes = ReceivedBytes;
@@ -82,7 +82,7 @@ namespace Surfer.Controls.Downloads
                             downloadFile.CurrentSpeed = CurrentSpeed;
                             downloadFile.Completed = completed;
                             if (completed)
-                                downloadFile.ID = 0;
+                                downloadFile.DownloadID = 0;
                             downloadFile.Date = DateTime.Now;
                             DownloadManager.Save(downloadFile);
                             sbDownloadItem.InitializeItem(downloadFile, callback, percentage);
