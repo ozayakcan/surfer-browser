@@ -30,6 +30,7 @@ namespace Surfer.Utils.Browser
                     string tempLocation = DownloadManager.GetFileName(location, overwrite: true, newExt: DownloadManager.Extension);
                     MyBrowser.AppContainer.sBDownloads.AddItem(new DownloadFile(DownloadManager.LastID(), downloadItem.Id, Path.GetFileName(location), Path.GetExtension(location), location, tempLocation, downloadItem.Url, DateTime.Now));
                     callback.Continue(tempLocation, showDialog: false);
+                    MyBrowser.ShowDownloadsForm();
                 }
             }
         }

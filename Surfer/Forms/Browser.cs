@@ -695,6 +695,10 @@ namespace Surfer.Forms
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
+            ShowDownloadsForm();
+        }
+        public void ShowDownloadsForm()
+        {
             AppContainer.ShowDownloadsForm(this, pnlButtons, pnlNav.Padding.Top + pnlNav.Padding.Bottom);
         }
         private void InitializeDownloadsForm()
