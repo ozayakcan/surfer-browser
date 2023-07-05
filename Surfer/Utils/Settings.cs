@@ -37,7 +37,7 @@ namespace Surfer.Utils
             {
                 try
                 {
-                    SettingsDict = JSON.readFile<Dictionary<string, object>>(filePath/*, Keys.EncryptKey*/) ?? new Dictionary<string, object>();
+                    SettingsDict = JSON.readFile<Dictionary<string, object>>(filePath, Secrets.EncryptKey) ?? new Dictionary<string, object>();
                 }
                 catch
                 {
@@ -58,7 +58,7 @@ namespace Surfer.Utils
                 SettingsDict[key] = value;
             else
                 SettingsDict.Add(key, value);
-            JSON.writeFile(filePath, SettingsDict/*, Keys.EncryptKey*/);
+            JSON.writeFile(filePath, SettingsDict, Secrets.EncryptKey);
         }
         public T Get<T>(string key, T defaultValue = default(T))
         {

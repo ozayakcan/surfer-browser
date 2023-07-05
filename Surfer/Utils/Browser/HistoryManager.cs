@@ -17,7 +17,7 @@ namespace Surfer.Utils.Browser
             {
                 try
                 {
-                    Get = JSON.readFile<List<MyNavigationEntry>>(filePath/*, Keys.EncryptKey*/) ?? new List<MyNavigationEntry>();
+                    Get = JSON.readFile<List<MyNavigationEntry>>(filePath, Secrets.EncryptKey) ?? new List<MyNavigationEntry>();
                 }
                 catch
                 {
@@ -52,7 +52,7 @@ namespace Surfer.Utils.Browser
                     }
                     else
                         Get.Add(myNavigationEntry);
-                    JSON.writeFile(filePath, Get/*, Keys.EncryptKey*/);
+                    JSON.writeFile(filePath, Get, Secrets.EncryptKey);
                     onSaved?.Invoke();
                 }
             }

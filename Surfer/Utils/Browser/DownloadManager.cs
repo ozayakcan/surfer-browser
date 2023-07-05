@@ -23,7 +23,7 @@ namespace Surfer.Utils.Browser
             {
                 try
                 {
-                    Get = JSON.readFile<List<DownloadFile>>(filePath/*, Keys.EncryptKey*/) ?? new List<DownloadFile>();
+                    Get = JSON.readFile<List<DownloadFile>>(filePath, Secrets.EncryptKey) ?? new List<DownloadFile>();
 
                 }
                 catch
@@ -93,7 +93,7 @@ namespace Surfer.Utils.Browser
         }
         private static void _write()
         {
-            JSON.writeFile(filePath, Get/*, Keys.EncryptKey*/);
+            JSON.writeFile(filePath, Get, Secrets.EncryptKey);
         }
         public static string Location = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\";
         public static string GetFileName(string fileName, int current = 0, bool overwrite = false, string newExt = null)
