@@ -21,11 +21,7 @@ namespace Surfer.Utils
             if (!File.Exists(filePath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                using (FileStream fs = File.Create(filePath))
-                {
-                    byte[] contentBytes = new UTF8Encoding(true).GetBytes(content.Equals("") ? (password == null ? emptyContent : StringHandler.Encrypt(emptyContent, password)) : (password == null ? content : StringHandler.Encrypt(content, password)));
-                    fs.Write(contentBytes, 0, contentBytes.Length);
-                }
+                FileHandler.Write(filePath, content.Equals("") ? (password == null ? emptyContent : StringHandler.Encrypt(emptyContent, password)) : (password == null ? content : StringHandler.Encrypt(content, password)));
             }
         }
         public static Dictionary<string, T> read<T>(string text)
@@ -75,7 +71,7 @@ namespace Surfer.Utils
                     createFile(filePath, password: password, emptyContent: "[]");
                 else
                     createFile(filePath, password: password);
-                string text = File.ReadAllText(filePath, Encoding.Default);
+                string text = FileHandler.Read(filePath);
                 return JsonConvert.DeserializeObject<T>(password == null ? text : StringHandler.Decrypt(text, password));
             }
             catch (Exception e)
