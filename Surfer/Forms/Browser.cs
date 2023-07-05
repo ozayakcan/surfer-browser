@@ -371,6 +371,23 @@ namespace Surfer.Forms
                 pnlUrl.BorderColor = pnlUrlBorderColor;
         }
 
+        private void tbUrl_TextChanged(object sender, EventArgs e)
+        {
+            string text = tbUrl.Text;
+            try
+            {
+                tbUrl.Text = new Uri(text).GetUrlWithoutHTTP();
+                if (tbUrlEntered)
+                {
+                    tbUrl.SelectionStart = tbUrl.Text.Length;
+                    tbUrl.SelectionLength = 0;
+                }
+            }
+            catch
+            {
+
+            }
+        }
         private void tbUrl_Click(object sender, EventArgs e)
         {
             if (tbUrlEntered)
@@ -466,19 +483,6 @@ namespace Surfer.Forms
                 siteInfoPopupForm.UpdateLocation();
             if (searchPopupForm != null)
                 searchPopupForm.UpdateLocation();
-        }
-
-        private void tbUrl_TextChanged(object sender, EventArgs e)
-        {
-            string text = tbUrl.Text;
-            try
-            {
-                tbUrl.Text = new Uri(text).GetUrlWithoutHTTP();
-            }
-            catch
-            {
-
-            }
         }
         public PopupForm searchPopupForm;
         public void ShowSearch()

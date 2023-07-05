@@ -68,7 +68,7 @@ namespace Surfer.Forms
             this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
             this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(1005, 212);
+            this.pnlBrowser.Size = new System.Drawing.Size(1005, 484);
             this.pnlBrowser.TabIndex = 0;
             // 
             // pnlChBrowser
@@ -77,7 +77,7 @@ namespace Surfer.Forms
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChBrowser.Location = new System.Drawing.Point(0, 41);
             this.pnlChBrowser.Name = "pnlChBrowser";
-            this.pnlChBrowser.Size = new System.Drawing.Size(1005, 171);
+            this.pnlChBrowser.Size = new System.Drawing.Size(1005, 443);
             this.pnlChBrowser.TabIndex = 2;
             // 
             // chBrowser
@@ -86,7 +86,7 @@ namespace Surfer.Forms
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(1005, 171);
+            this.chBrowser.Size = new System.Drawing.Size(1005, 443);
             this.chBrowser.TabIndex = 0;
             this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
@@ -326,7 +326,7 @@ namespace Surfer.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 217);
+            this.ClientSize = new System.Drawing.Size(1005, 489);
             this.Controls.Add(this.pnlBrowser);
             this.Controls.Add(this.pnlProgress);
             this.Icon = global::Surfer.Properties.Resources.icon;
