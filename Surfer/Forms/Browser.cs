@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Surfer.Forms
@@ -631,6 +632,14 @@ namespace Surfer.Forms
                 AppContainer.CloseMyTab(Tab);
                 return true;
             }
+            else if (
+                (modifiers == CefEventFlags.ControlDown && key == Keys.S)
+                || (key == (Keys.Control | Keys.S))
+            )
+            {
+                SaveAs();
+                return true;
+            }
             /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
@@ -692,6 +701,54 @@ namespace Surfer.Forms
         {
             chBrowser.Print();
         }
+        public void SaveAs()
+        {
+            chBrowser.GetSourceAsync().ContinueWith(taskHtml =>
+            {
+                if (taskHtml.IsCompleted)
+                {
+                    var html = taskHtml.Result;
+                    Thread thread = new Thread(() =>{
+                        SaveFileDialog saveFileDialog = new SaveFileDialog();
+                        saveFileDialog.InitialDirectory = DownloadManager.Location;
+                        saveFileDialog.Title = "Save text Files";
+                        saveFileDialog.DefaultExt = "html";
+                        saveFileDialog.Filter = string.Format(Locale.Get.save_as_complete_filter, "(*.html)|*.html");
+                        saveFileDialog.FileName = Text;
+                        saveFileDialog.RestoreDirectory = true;
+                        DialogResult dialogResult = saveFileDialog.ShowDialog();
+                        if(dialogResult == DialogResult.OK)
+                        {
+                            try
+                            {
+                                FileHandler.Write(saveFileDialog.FileName, html);
+                                string tempLocation = Path.GetDirectoryName(saveFileDialog.FileName) + Path.GetFileName(saveFileDialog.FileName) + DownloadManager.Extension;
+                                DownloadFile downloadFile = new DownloadFile(
+                                        DownloadManager.LastID(),
+                                        0,
+                                        Path.GetFileName(saveFileDialog.FileName),
+                                        Path.GetExtension(saveFileDialog.FileName),
+                                        saveFileDialog.FileName,
+                                        tempLocation,
+                                        tbUrl.Text,
+                                        DateTime.Now
+                                    );
+                                downloadFile.Completed = true;
+                                downloadFile.IsWebPage = true;
+                                AppContainer.sBDownloads.AddItem(downloadFile);
+                            }catch(Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                            
+                        }
+                    });
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.Start();
+                    thread.Join();
+                }
+            });
+    }
 
         private void btnDownload_Click(object sender, EventArgs e)
         {

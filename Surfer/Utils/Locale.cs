@@ -35,7 +35,8 @@ namespace Surfer.Utils
         public string conn_is_not_secure = "conn_is_not_secure";
         public string new_tab = "new_tab";
         public string print = "print";
-        public string save_as = "save_as";
+        public string save_as = "save_as"; 
+        public string save_as_complete_filter = "save_as_complete_filter";
         public string downloads = "downloads";
         public string open_file = "open_file";
         public string download_vars = "download_vars";

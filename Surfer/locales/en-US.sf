@@ -21,6 +21,7 @@
   "new_tab": "New Tab",
   "print": "Print",
   "save_as": "Save as",
+  "save_as_complete_filter": "Webpage, complete {0}",
   "downloads": "Downloads",
   "open_file": "Open file",
   "download_rem_time_days": "{0} d {1} h {2} m {3} s",

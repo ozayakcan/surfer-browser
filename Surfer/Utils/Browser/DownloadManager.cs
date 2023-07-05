@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Surfer.Utils.Browser
 {
@@ -130,6 +126,7 @@ namespace Surfer.Utils.Browser
         public long TotalBytes = 0;
         public long CurrentSpeed = 0;
         public bool Completed = false;
+        public bool IsWebPage = false;
         public DownloadFile(int ID, int DownloadID, string FileName, string Extension, string Location, string TempLocation, string Url, DateTime Date)
         {
             this.ID = ID;

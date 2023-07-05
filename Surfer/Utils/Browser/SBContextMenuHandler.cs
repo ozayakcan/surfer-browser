@@ -9,6 +9,7 @@ namespace Surfer.Utils.Browser
         {
             OpenLinkInNewTab = 26501,
             CopyLink = 26502,
+            SaveAs = 26503,
             Inspect = 26504,
         }
 
@@ -60,6 +61,7 @@ namespace Surfer.Utils.Browser
                 model.AddItem(CefMenuCommand.Reload, Locale.Get.reload);
                 model.AddSeparator();
                 model.AddItem(CefMenuCommand.Print, Locale.Get.print);
+                model.AddItem((CefMenuCommand)MyCefMenuCommand.SaveAs, Locale.Get.save_as);
             }
             if (model.Count > 0)
                 model.AddSeparator();
@@ -77,6 +79,9 @@ namespace Surfer.Utils.Browser
                     return true;
                 case MyCefMenuCommand.CopyLink:
                     Clipboard.SetText(parameters.LinkUrl);
+                    return true;
+                case MyCefMenuCommand.SaveAs:
+                    MyBrowser.SaveAs();
                     return true;
                 case MyCefMenuCommand.Inspect:
                     MyBrowser.ShowDevTools(parameters.XCoord, parameters.YCoord);

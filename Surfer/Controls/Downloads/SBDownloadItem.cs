@@ -99,9 +99,11 @@ namespace Surfer.Controls.Downloads
         }
         private void SetRetry()
         {
-            btnRetry.Visible
-                = btnRemoveFromList.Visible
-                = tsmiRetry.Visible
+            if (downloadFile.IsWebPage)
+                btnRetry.Visible = tsmiRetry.Visible = false;
+            else
+                btnRetry.Visible = tsmiRetry.Visible = false;
+            btnRemoveFromList.Visible
                 = tsmiSeperator1.Visible
                 = tsmiRemoveFromList.Visible
                 = true;

@@ -21,6 +21,7 @@
   "new_tab": "Yeni Sekme",
   "print": "Yazdır",
   "save_as": "Farklı kaydet",
+  "save_as_complete_filter": "Websayfası, tamamı {0}",
   "downloads": "İndirilenler",
   "open_file": "Dosyayı aç",
   "download_rem_time_days": "{0} gn {1} st {2} dk {3} sn",
