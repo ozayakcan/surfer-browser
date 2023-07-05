@@ -41,7 +41,7 @@
             this.pnlDownloads.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlDownloads.Location = new System.Drawing.Point(0, 25);
             this.pnlDownloads.Name = "pnlDownloads";
-            this.pnlDownloads.Size = new System.Drawing.Size(300, 165);
+            this.pnlDownloads.Size = new System.Drawing.Size(350, 165);
             this.pnlDownloads.TabIndex = 1;
             this.pnlDownloads.WrapContents = false;
             // 
@@ -51,7 +51,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(300, 25);
+            this.pnlHeader.Size = new System.Drawing.Size(350, 25);
             this.pnlHeader.TabIndex = 0;
             // 
             // lblDownloads
@@ -71,7 +71,7 @@
             this.Controls.Add(this.pnlDownloads);
             this.Controls.Add(this.pnlHeader);
             this.Name = "SBDownloads";
-            this.Size = new System.Drawing.Size(300, 190);
+            this.Size = new System.Drawing.Size(350, 190);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.ResumeLayout(false);

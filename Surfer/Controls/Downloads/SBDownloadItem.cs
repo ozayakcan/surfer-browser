@@ -53,6 +53,7 @@ namespace Surfer.Controls.Downloads
             toolTip1.SetToolTip(btnCancel, tsmiCancel.Text);
             toolTip1.SetToolTip(btnShowInFolder, tsmiShowInFolder.Text);
             toolTip1.SetToolTip(btnDeleteFile, tsmiDeleteFile.Text);
+            Invalidate();
         }
         public void InitializeItem(DownloadFile downloadFile, IDownloadItemCallback callback, int percentage = -1, bool IsFirstInitialized = false)
         {
@@ -79,6 +80,7 @@ namespace Surfer.Controls.Downloads
                 = btnShowInFolder.Visible
                 = btnDeleteFile.Visible
                 = true;
+            btnDeleteFile.SendToBack();
             pnlPbDownload.Visible
                 = lblDownloaded.Visible
                 = lblHyphen.Visible
@@ -103,8 +105,9 @@ namespace Surfer.Controls.Downloads
                 = tsmiSeperator1.Visible
                 = tsmiRemoveFromList.Visible
                 = true;
-            lblOpenFile.Visible
-                = pnlPbDownload.Visible
+            btnRemoveFromList.SendToBack();
+            pnlPbDownload.Visible
+                = lblOpenFile.Visible
                 = lblOpenFile.Visible
                 = lblDownloaded.Visible
                 = lblHyphen.Visible
@@ -131,6 +134,7 @@ namespace Surfer.Controls.Downloads
                 = tsmiPauseResume.Visible
                 = tsmiCancel.Visible
                 = true;
+            btnCancel.SendToBack();
             lblOpenFile.Visible
                 = btnRetry.Visible
                 = btnRemoveFromList.Visible

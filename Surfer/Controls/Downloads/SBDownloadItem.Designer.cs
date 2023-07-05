@@ -42,6 +42,8 @@
             this.tsmiRemoveFromList = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCancel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnRetry = new Surfer.Controls.SBIconButton();
+            this.btnRemoveFromList = new Surfer.Controls.SBIconButton();
             this.pnlFile = new Surfer.Controls.SBPanel();
             this.pnlFooter = new Surfer.Controls.SBPanel();
             this.lblRemainingTime = new System.Windows.Forms.Label();
@@ -53,12 +55,10 @@
             this.pbDownload = new System.Windows.Forms.ProgressBar();
             this.pnlHeader = new Surfer.Controls.SBPanel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnRetry = new Surfer.Controls.SBIconButton();
             this.btnPauseResume = new Surfer.Controls.SBIconButton();
             this.btnCancel = new Surfer.Controls.SBIconButton();
-            this.btnDeleteFile = new Surfer.Controls.SBIconButton();
             this.btnShowInFolder = new Surfer.Controls.SBIconButton();
-            this.btnRemoveFromList = new Surfer.Controls.SBIconButton();
+            this.btnDeleteFile = new Surfer.Controls.SBIconButton();
             ((System.ComponentModel.ISupportInitialize)(this.imgFile)).BeginInit();
             this.downloadItemContextMenu.SuspendLayout();
             this.pnlFile.SuspendLayout();
@@ -166,6 +166,42 @@
             this.tsmiCancel.Visible = false;
             this.tsmiCancel.Click += new System.EventHandler(this.Cancel);
             // 
+            // btnRetry
+            // 
+            this.btnRetry.BackColor = System.Drawing.Color.Transparent;
+            this.btnRetry.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnRetry.FlatAppearance.BorderSize = 0;
+            this.btnRetry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetry.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            this.btnRetry.IconColor = System.Drawing.Color.Black;
+            this.btnRetry.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRetry.IconSize = 26;
+            this.btnRetry.Location = new System.Drawing.Point(194, 0);
+            this.btnRetry.Name = "btnRetry";
+            this.btnRetry.Size = new System.Drawing.Size(26, 33);
+            this.btnRetry.TabIndex = 5;
+            this.btnRetry.UseVisualStyleBackColor = false;
+            this.btnRetry.Visible = false;
+            this.btnRetry.Click += new System.EventHandler(this.Retry);
+            // 
+            // btnRemoveFromList
+            // 
+            this.btnRemoveFromList.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemoveFromList.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnRemoveFromList.FlatAppearance.BorderSize = 0;
+            this.btnRemoveFromList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveFromList.IconChar = FontAwesome.Sharp.IconChar.Xmark;
+            this.btnRemoveFromList.IconColor = System.Drawing.Color.Black;
+            this.btnRemoveFromList.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRemoveFromList.IconSize = 26;
+            this.btnRemoveFromList.Location = new System.Drawing.Point(220, 0);
+            this.btnRemoveFromList.Name = "btnRemoveFromList";
+            this.btnRemoveFromList.Size = new System.Drawing.Size(26, 33);
+            this.btnRemoveFromList.TabIndex = 8;
+            this.btnRemoveFromList.UseVisualStyleBackColor = false;
+            this.btnRemoveFromList.Visible = false;
+            this.btnRemoveFromList.Click += new System.EventHandler(this.RemoveFromList);
+            // 
             // pnlFile
             // 
             this.pnlFile.Controls.Add(this.pnlFooter);
@@ -174,7 +210,7 @@
             this.pnlFile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFile.Location = new System.Drawing.Point(26, 0);
             this.pnlFile.Name = "pnlFile";
-            this.pnlFile.Size = new System.Drawing.Size(170, 33);
+            this.pnlFile.Size = new System.Drawing.Size(220, 33);
             this.pnlFile.TabIndex = 3;
             // 
             // pnlFooter
@@ -187,7 +223,7 @@
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFooter.Location = new System.Drawing.Point(0, 20);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(170, 13);
+            this.pnlFooter.Size = new System.Drawing.Size(220, 13);
             this.pnlFooter.TabIndex = 3;
             // 
             // lblRemainingTime
@@ -253,7 +289,7 @@
             this.pnlPbDownload.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPbDownload.Location = new System.Drawing.Point(0, 13);
             this.pnlPbDownload.Name = "pnlPbDownload";
-            this.pnlPbDownload.Size = new System.Drawing.Size(170, 7);
+            this.pnlPbDownload.Size = new System.Drawing.Size(220, 7);
             this.pnlPbDownload.TabIndex = 3;
             this.pnlPbDownload.Visible = false;
             // 
@@ -262,7 +298,7 @@
             this.pbDownload.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbDownload.Location = new System.Drawing.Point(0, 0);
             this.pbDownload.Name = "pbDownload";
-            this.pbDownload.Size = new System.Drawing.Size(170, 7);
+            this.pbDownload.Size = new System.Drawing.Size(220, 7);
             this.pbDownload.TabIndex = 2;
             // 
             // pnlHeader
@@ -271,7 +307,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(170, 13);
+            this.pnlHeader.Size = new System.Drawing.Size(220, 13);
             this.pnlHeader.TabIndex = 2;
             // 
             // lblTitle
@@ -284,24 +320,6 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "title";
             // 
-            // btnRetry
-            // 
-            this.btnRetry.BackColor = System.Drawing.Color.Transparent;
-            this.btnRetry.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnRetry.FlatAppearance.BorderSize = 0;
-            this.btnRetry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRetry.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            this.btnRetry.IconColor = System.Drawing.Color.Black;
-            this.btnRetry.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRetry.IconSize = 26;
-            this.btnRetry.Location = new System.Drawing.Point(144, 0);
-            this.btnRetry.Name = "btnRetry";
-            this.btnRetry.Size = new System.Drawing.Size(26, 33);
-            this.btnRetry.TabIndex = 5;
-            this.btnRetry.UseVisualStyleBackColor = false;
-            this.btnRetry.Visible = false;
-            this.btnRetry.Click += new System.EventHandler(this.Retry);
-            // 
             // btnPauseResume
             // 
             this.btnPauseResume.BackColor = System.Drawing.Color.Transparent;
@@ -312,7 +330,7 @@
             this.btnPauseResume.IconColor = System.Drawing.Color.Black;
             this.btnPauseResume.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPauseResume.IconSize = 26;
-            this.btnPauseResume.Location = new System.Drawing.Point(196, 0);
+            this.btnPauseResume.Location = new System.Drawing.Point(246, 0);
             this.btnPauseResume.Name = "btnPauseResume";
             this.btnPauseResume.Size = new System.Drawing.Size(26, 33);
             this.btnPauseResume.TabIndex = 4;
@@ -330,31 +348,13 @@
             this.btnCancel.IconColor = System.Drawing.Color.Black;
             this.btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCancel.IconSize = 26;
-            this.btnCancel.Location = new System.Drawing.Point(222, 0);
+            this.btnCancel.Location = new System.Drawing.Point(272, 0);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(26, 33);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Visible = false;
             this.btnCancel.Click += new System.EventHandler(this.Cancel);
-            // 
-            // btnDeleteFile
-            // 
-            this.btnDeleteFile.BackColor = System.Drawing.Color.Transparent;
-            this.btnDeleteFile.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnDeleteFile.FlatAppearance.BorderSize = 0;
-            this.btnDeleteFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteFile.IconChar = FontAwesome.Sharp.IconChar.TrashCan;
-            this.btnDeleteFile.IconColor = System.Drawing.Color.Black;
-            this.btnDeleteFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnDeleteFile.IconSize = 26;
-            this.btnDeleteFile.Location = new System.Drawing.Point(274, 0);
-            this.btnDeleteFile.Name = "btnDeleteFile";
-            this.btnDeleteFile.Size = new System.Drawing.Size(26, 33);
-            this.btnDeleteFile.TabIndex = 6;
-            this.btnDeleteFile.UseVisualStyleBackColor = false;
-            this.btnDeleteFile.Visible = false;
-            this.btnDeleteFile.Click += new System.EventHandler(this.DeleteFile);
             // 
             // btnShowInFolder
             // 
@@ -366,7 +366,7 @@
             this.btnShowInFolder.IconColor = System.Drawing.Color.Black;
             this.btnShowInFolder.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnShowInFolder.IconSize = 26;
-            this.btnShowInFolder.Location = new System.Drawing.Point(248, 0);
+            this.btnShowInFolder.Location = new System.Drawing.Point(298, 0);
             this.btnShowInFolder.Name = "btnShowInFolder";
             this.btnShowInFolder.Size = new System.Drawing.Size(26, 33);
             this.btnShowInFolder.TabIndex = 7;
@@ -374,23 +374,23 @@
             this.btnShowInFolder.Visible = false;
             this.btnShowInFolder.Click += new System.EventHandler(this.ShowInFolder);
             // 
-            // btnRemoveFromList
+            // btnDeleteFile
             // 
-            this.btnRemoveFromList.BackColor = System.Drawing.Color.Transparent;
-            this.btnRemoveFromList.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnRemoveFromList.FlatAppearance.BorderSize = 0;
-            this.btnRemoveFromList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemoveFromList.IconChar = FontAwesome.Sharp.IconChar.Close;
-            this.btnRemoveFromList.IconColor = System.Drawing.Color.Black;
-            this.btnRemoveFromList.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRemoveFromList.IconSize = 26;
-            this.btnRemoveFromList.Location = new System.Drawing.Point(170, 0);
-            this.btnRemoveFromList.Name = "btnRemoveFromList";
-            this.btnRemoveFromList.Size = new System.Drawing.Size(26, 33);
-            this.btnRemoveFromList.TabIndex = 8;
-            this.btnRemoveFromList.UseVisualStyleBackColor = false;
-            this.btnRemoveFromList.Visible = false;
-            this.btnRemoveFromList.Click += new System.EventHandler(this.RemoveFromList);
+            this.btnDeleteFile.BackColor = System.Drawing.Color.Transparent;
+            this.btnDeleteFile.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnDeleteFile.FlatAppearance.BorderSize = 0;
+            this.btnDeleteFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteFile.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnDeleteFile.IconColor = System.Drawing.Color.Black;
+            this.btnDeleteFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDeleteFile.IconSize = 26;
+            this.btnDeleteFile.Location = new System.Drawing.Point(324, 0);
+            this.btnDeleteFile.Name = "btnDeleteFile";
+            this.btnDeleteFile.Size = new System.Drawing.Size(26, 33);
+            this.btnDeleteFile.TabIndex = 6;
+            this.btnDeleteFile.UseVisualStyleBackColor = false;
+            this.btnDeleteFile.Visible = false;
+            this.btnDeleteFile.Click += new System.EventHandler(this.DeleteFile);
             // 
             // SBDownloadItem
             // 
@@ -406,7 +406,7 @@
             this.Controls.Add(this.btnShowInFolder);
             this.Controls.Add(this.btnDeleteFile);
             this.Name = "SBDownloadItem";
-            this.Size = new System.Drawing.Size(300, 33);
+            this.Size = new System.Drawing.Size(350, 33);
             ((System.ComponentModel.ISupportInitialize)(this.imgFile)).EndInit();
             this.downloadItemContextMenu.ResumeLayout(false);
             this.pnlFile.ResumeLayout(false);
