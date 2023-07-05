@@ -34,6 +34,7 @@ namespace Surfer.Utils.Browser
             {
                 if (model.Count > 0)
                     model.AddSeparator();
+                model.AddItem(CefMenuCommand.Undo, Locale.Get.undo);
                 model.AddItem(CefMenuCommand.Cut, Locale.Get.cut);
                 model.SetEnabled(CefMenuCommand.Cut, !string.IsNullOrEmpty(parameters.SelectionText));
             }

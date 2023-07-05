@@ -17,6 +17,7 @@ namespace Surfer.Utils
         public string accepted_languages = "accepted_languages";
         public string open_link_in_new_tab = "open_link_in_new_tab";
         public string copy_link = "copy_link";
+        public string undo = "undo";
         public string cut = "cut";
         public string copy = "copy";
         public string paste = "paste";
