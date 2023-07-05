@@ -344,7 +344,7 @@
             this.btnDeleteFile.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnDeleteFile.FlatAppearance.BorderSize = 0;
             this.btnDeleteFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteFile.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            this.btnDeleteFile.IconChar = FontAwesome.Sharp.IconChar.TrashCan;
             this.btnDeleteFile.IconColor = System.Drawing.Color.Black;
             this.btnDeleteFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDeleteFile.IconSize = 26;

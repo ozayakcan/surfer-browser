@@ -42,7 +42,7 @@ namespace Surfer.Controls.Downloads
             tsmiCopyDownloadLink.Text = Locale.Get.copy_download_link;
             tsmiCopyDownloadLink.Image = IconChar.Link.ToBitmap(Color.Black);
             tsmiDeleteFile.Text = Locale.Get.delete_file;
-            tsmiDeleteFile.Image = IconChar.Trash.ToBitmap(Color.Black);
+            tsmiDeleteFile.Image = IconChar.TrashCan.ToBitmap(Color.Black);
             tsmiRemoveFromList.Text = Locale.Get.remove_from_list;
             tsmiRemoveFromList.Image = IconChar.Close.ToBitmap(Color.Black);
             tsmiCancel.Text = Locale.Get.cancel;
@@ -74,8 +74,8 @@ namespace Surfer.Controls.Downloads
             lblOpenFile.Visible
                 = tsmiOpenFile.Visible
                 = tsmiSeperator1.Visible
-                = tsmiDeleteFile.Visible
                 = tsmiRemoveFromList.Visible
+                = tsmiDeleteFile.Visible
                 = btnShowInFolder.Visible
                 = btnDeleteFile.Visible
                 = true;
@@ -92,7 +92,7 @@ namespace Surfer.Controls.Downloads
                 = tsmiPauseResume.Visible
                 = tsmiCancel.Visible
                 = false;
-            if (callback != null)
+            if (callback != null && downloadFile.Completed && File.Exists(downloadFile.TempLocation))
                 File.Move(downloadFile.TempLocation, downloadFile.Location);
         }
         private void SetRetry()
