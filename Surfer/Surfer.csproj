@@ -127,8 +127,15 @@
     <Compile Include="Controls\Downloads\SBDownloads.designer.cs">
       <DependentUpon>SBDownloads.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FavoriteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FavoriteControl.Designer.cs">
+      <DependentUpon>FavoriteControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Browser\DownloadManager.cs" />
     <Compile Include="Utils\Browser\ErrorTexts.cs" />
+    <Compile Include="Utils\Browser\FavoriteManager.cs" />
     <Compile Include="Utils\Browser\HistoryManager.cs" />
     <Compile Include="Utils\Browser\SBContextMenuHandler.cs" />
     <Compile Include="Utils\Browser\SBDownloadHandler.cs" />
@@ -202,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Downloads\SBDownloads.resx">
       <DependentUpon>SBDownloads.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FavoriteControl.resx">
+      <DependentUpon>FavoriteControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SBSearch.resx">
       <DependentUpon>SBSearch.cs</DependentUpon>

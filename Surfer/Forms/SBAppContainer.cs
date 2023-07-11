@@ -60,6 +60,8 @@ namespace Surfer.Forms
                 HistoryManager.Initialize();
             if (!DownloadManager.IsInitialized)
                 DownloadManager.Initialize();
+            if (!FavoriteManager.IsInitialized)
+                FavoriteManager.Initialize();
             InitializeComponent();
             Application.AddMessageFilter(this);
             this.FormClosed += (s, e) => Application.RemoveMessageFilter(this);

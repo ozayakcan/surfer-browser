@@ -23,6 +23,17 @@ namespace Surfer.Utils
             }
             return default(T);
         }
+        public static int FindIndex(this Control.ControlCollection controlCollection, Func<Control, bool> predicate)
+        {
+            for(int i = 0; i < controlCollection.Count; i++)
+            {
+                if (predicate(controlCollection[i]))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
         // NewtonSoft JSON
         public static bool IsJArray(this object o)
         {

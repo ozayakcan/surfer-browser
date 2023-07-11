@@ -36,5 +36,6 @@
   "show_in_folder": "Dosya konumunda göster",
   "copy_download_link": "İndirme bağlantısını kopyala",
   "delete_file": "Dosyayı sil",
-  "remove_from_list": "Listeden kaldır"
+  "remove_from_list": "Listeden kaldır",
+  "delete": "Sil"
 }

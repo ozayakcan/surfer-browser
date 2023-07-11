@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
+using Etier.IconHelper;
 using FontAwesome.Sharp;
 using Surfer.Controls;
 using Surfer.Utils;
@@ -86,6 +87,7 @@ namespace Surfer.Forms
             SetGoForwardButtonStatus(chBrowser.CanGoForward);
             myNavigationEntryVisitor = new MyNavigationEntryVisitor(this);
             InitializeDownloadsForm();
+            InitializeFavorites();
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
         }
@@ -640,6 +642,21 @@ namespace Surfer.Forms
                 SaveAs();
                 return true;
             }
+            else if (
+                (modifiers == (CefEventFlags.ControlDown | CefEventFlags.ShiftDown) && key == Keys.B)
+                || (key == (Keys.Control | Keys.Shift | Keys.B))
+            )
+            {
+                this.InvokeOnUiThreadIfRequired(() =>
+                {
+                    foreach (var tab in AppContainer.Tabs)
+                    {
+                        Browser br = (Browser)tab.Content;
+                        br.SetFavoritesPanelStatus(!pnlFavorites.Visible);
+                    }
+                });
+                return true;
+            }
             /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
@@ -761,6 +778,65 @@ namespace Surfer.Forms
         private void InitializeDownloadsForm()
         {
             AppContainer.InitializeDownloadsForm(this, pnlButtons, pnlNav.Padding.Top + pnlNav.Padding.Bottom);
+        }
+
+        private void SetFavoritesPanelStatus(bool status)
+        {
+            pnlFavorites.Visible = status;
+            Settings.User.Save(nameof(Settings.FavoritesPanelEnabled), status);
+        }
+        public void InitializeFavorites()
+        {
+            foreach(var fav in FavoriteManager.Get)
+            {
+                FavoriteControl favoriteControl;
+                if (pnlFavorites.Controls.Count > 0)
+                {
+                    Control.ControlCollection favoriteControls = pnlFavorites.Controls;
+                    int controlIndex = favoriteControls.FindIndex((c) => ((FavoriteControl)c).Url == fav.Url);
+                    if (controlIndex >= 0)
+                        favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
+                    else
+                        favoriteControl = new FavoriteControl(this);
+                }
+                else
+                    favoriteControl = new FavoriteControl(this);
+                favoriteControl.Dock = DockStyle.Left;
+                favoriteControl.Icon = IconReader.ByteToBitmap(fav.Favicon, favoriteControl.btnFavoriteUrl.IconSize, favoriteControl.btnFavoriteUrl.IconSize);
+                favoriteControl.Title = fav.Title;
+                favoriteControl.Url = fav.Url;
+                pnlFavorites.Controls.Add(favoriteControl);
+                favoriteControl.BringToFront();
+            }
+            SetFavoritesPanelStatus(Settings.User.Get(nameof(Settings.FavoritesPanelEnabled), Settings.FavoritesPanelEnabled));
+        }
+        public void DeleteFavoriteInAllTabs(string url)
+        {
+            foreach (var tab in AppContainer.Tabs)
+            {
+                Browser br = (Browser)tab.Content;
+                br.DeleteFavoriteControl(url);
+            }
+        }
+        private void DeleteFavoriteControl(string url)
+        {
+            if (pnlFavorites.Controls.Count > 0)
+            {
+                Control.ControlCollection favoriteControls = pnlFavorites.Controls;
+                int controlIndex = favoriteControls.FindIndex((c) => ((FavoriteControl)c).Url == url);
+                if (controlIndex >= 0)
+                    pnlFavorites.Controls.RemoveAt(controlIndex);
+            }
+        }
+        private void btnFavorite_Click(object sender, EventArgs e)
+        {
+            FavoriteManager.Save(new Favorite(IconReader.BitmapToByte(Icon.ToBitmap()), Text, chBrowser.Address), () => {
+                foreach(var tab in AppContainer.Tabs)
+                {
+                    Browser br = (Browser)tab.Content;
+                    br.InitializeFavorites();
+                }
+            });
         }
     }
 }

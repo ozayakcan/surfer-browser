@@ -54,6 +54,7 @@ namespace Surfer.Utils
         public string copy_download_link = "copy_download_link";
         public string delete_file = "delete_file";
         public string remove_from_list = "remove_from_list";
+        public string delete = "delete";
 
         public static Locale Get { get; set; } = new Locale();
         public static Locale GetL(string localeCode)

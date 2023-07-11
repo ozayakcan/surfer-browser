@@ -34,12 +34,14 @@ namespace Surfer.Forms
             this.pnlBrowser = new System.Windows.Forms.Panel();
             this.pnlChBrowser = new Surfer.Controls.SBPanel();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
+            this.pnlFavorites = new Surfer.Controls.SBPanel();
             this.pnlNav = new Surfer.Controls.SBPanel();
             this.pnlUrl = new Surfer.Controls.SBPanel();
             this.pnlUrlInner = new Surfer.Controls.SBPanel();
             this.tbUrl = new System.Windows.Forms.TextBox();
             this.btnSecure = new Surfer.Controls.SBIconButton();
             this.btnSearch = new Surfer.Controls.SBIconButton();
+            this.btnFavorite = new Surfer.Controls.SBIconButton();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.pnlButtons = new Surfer.Controls.SBPanel();
             this.btnDownload = new Surfer.Controls.SBIconButton();
@@ -64,6 +66,7 @@ namespace Surfer.Forms
             // pnlBrowser
             // 
             this.pnlBrowser.Controls.Add(this.pnlChBrowser);
+            this.pnlBrowser.Controls.Add(this.pnlFavorites);
             this.pnlBrowser.Controls.Add(this.pnlNav);
             this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
@@ -75,9 +78,9 @@ namespace Surfer.Forms
             // 
             this.pnlChBrowser.Controls.Add(this.chBrowser);
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChBrowser.Location = new System.Drawing.Point(0, 41);
+            this.pnlChBrowser.Location = new System.Drawing.Point(0, 61);
             this.pnlChBrowser.Name = "pnlChBrowser";
-            this.pnlChBrowser.Size = new System.Drawing.Size(1005, 443);
+            this.pnlChBrowser.Size = new System.Drawing.Size(1005, 423);
             this.pnlChBrowser.TabIndex = 2;
             // 
             // chBrowser
@@ -86,11 +89,20 @@ namespace Surfer.Forms
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";
-            this.chBrowser.Size = new System.Drawing.Size(1005, 443);
+            this.chBrowser.Size = new System.Drawing.Size(1005, 423);
             this.chBrowser.TabIndex = 0;
             this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
             this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
+            // 
+            // pnlFavorites
+            // 
+            this.pnlFavorites.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlFavorites.Location = new System.Drawing.Point(0, 41);
+            this.pnlFavorites.Name = "pnlFavorites";
+            this.pnlFavorites.Size = new System.Drawing.Size(1005, 20);
+            this.pnlFavorites.TabIndex = 3;
+            this.pnlFavorites.Visible = false;
             // 
             // pnlNav
             // 
@@ -125,6 +137,7 @@ namespace Surfer.Forms
             this.pnlUrlInner.Controls.Add(this.tbUrl);
             this.pnlUrlInner.Controls.Add(this.btnSecure);
             this.pnlUrlInner.Controls.Add(this.btnSearch);
+            this.pnlUrlInner.Controls.Add(this.btnFavorite);
             this.pnlUrlInner.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUrlInner.Location = new System.Drawing.Point(10, 7);
             this.pnlUrlInner.Name = "pnlUrlInner";
@@ -141,7 +154,7 @@ namespace Surfer.Forms
             this.tbUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUrl.Location = new System.Drawing.Point(44, 0);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(813, 13);
+            this.tbUrl.Size = new System.Drawing.Size(796, 13);
             this.tbUrl.TabIndex = 2;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
@@ -189,6 +202,23 @@ namespace Surfer.Forms
             this.btnSearch.TabIndex = 0;
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.VisualDisabled = true;
+            // 
+            // btnFavorite
+            // 
+            this.btnFavorite.BackColor = System.Drawing.Color.Transparent;
+            this.btnFavorite.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnFavorite.FlatAppearance.BorderSize = 0;
+            this.btnFavorite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFavorite.IconChar = FontAwesome.Sharp.IconChar.Star;
+            this.btnFavorite.IconColor = System.Drawing.Color.Black;
+            this.btnFavorite.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnFavorite.IconSize = 17;
+            this.btnFavorite.Location = new System.Drawing.Point(840, 0);
+            this.btnFavorite.Name = "btnFavorite";
+            this.btnFavorite.Size = new System.Drawing.Size(17, 17);
+            this.btnFavorite.TabIndex = 1;
+            this.btnFavorite.UseVisualStyleBackColor = false;
+            this.btnFavorite.Click += new System.EventHandler(this.btnFavorite_Click);
             // 
             // pnlNavMarginRight
             // 
@@ -370,5 +400,7 @@ namespace Surfer.Forms
         public System.Windows.Forms.TextBox tbUrl;
         private Controls.SBPanel pnlButtons;
         private Controls.SBIconButton btnDownload;
+        private Controls.SBIconButton btnFavorite;
+        private Controls.SBPanel pnlFavorites;
     }
 }

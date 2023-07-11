@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Etier.IconHelper
 {
@@ -121,8 +122,37 @@ namespace Etier.IconHelper
 
 			User32.DestroyIcon( shfi.hIcon );		// Cleanup
 			return icon;
-		}	
-	}
+        }
+        public static byte[] BitmapToByte(Bitmap bitmap)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                return memoryStream.ToArray();
+            }
+        }
+        public static Bitmap ByteToBitmap(byte[] byt)
+        {
+            using (var ms = new MemoryStream(byt))
+            {
+                return new Bitmap(ms);
+            }
+        }
+        public static Bitmap ByteToBitmap(byte[] byt, Size size)
+        {
+            using (var ms = new MemoryStream(byt))
+            {
+                return new Bitmap(new Bitmap(ms), size);
+            }
+        }
+        public static Bitmap ByteToBitmap(byte[] byt, int width, int height)
+        {
+            using (var ms = new MemoryStream(byt))
+            {
+                return new Bitmap(new Bitmap(ms), width, height);
+            }
+        }
+    }
 
 	/// <summary>
 	/// Wraps necessary Shell32.dll structures and functions required to retrieve Icon Handles using SHGetFileInfo. Code

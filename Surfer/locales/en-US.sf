@@ -36,5 +36,6 @@
   "show_in_folder": "Show in folder",
   "copy_download_link": "Copy download link",
   "delete_file": "Delete file",
-  "remove_from_list": "Remove from list"
+  "remove_from_list": "Remove from list",
+  "delete": "Delete"
 }

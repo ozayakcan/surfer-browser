@@ -23,6 +23,7 @@ namespace Surfer.Utils
 
         public static readonly bool AddedToDefaults = false;
         public static readonly bool LocalesChanged = false;
+        public static readonly bool FavoritesPanelEnabled = false;
         public static readonly List<string> Locales = new List<string>() { "en-US" };
 
         // End Keys
