@@ -18,7 +18,11 @@ namespace Surfer.Controls
             }
             set
             {
-                btnFavoriteUrl.Image = value;
+                if(value != null)
+                {
+                    Bitmap bitmap = new Bitmap(value, btnFavoriteUrl.IconSize, btnFavoriteUrl.IconSize);
+                    btnFavoriteUrl.Image = bitmap;
+                }
             }
         }
         public string Title

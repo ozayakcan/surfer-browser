@@ -97,12 +97,15 @@ namespace Surfer.Forms
             // 
             // pnlFavorites
             // 
+            this.pnlFavorites.AllowDrop = true;
             this.pnlFavorites.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFavorites.Location = new System.Drawing.Point(0, 41);
             this.pnlFavorites.Name = "pnlFavorites";
             this.pnlFavorites.Size = new System.Drawing.Size(1005, 20);
             this.pnlFavorites.TabIndex = 3;
             this.pnlFavorites.Visible = false;
+            this.pnlFavorites.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlFavorites_DragDrop);
+            this.pnlFavorites.DragOver += new System.Windows.Forms.DragEventHandler(this.pnlFavorites_DragOver);
             // 
             // pnlNav
             // 

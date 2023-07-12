@@ -39,7 +39,7 @@
             // 
             this.btnFavoriteUrl.ContextMenuStrip = this.contextMenuStrip1;
             this.btnFavoriteUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnFavoriteUrl.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnFavoriteUrl.IconChar = FontAwesome.Sharp.IconChar.Table;
             this.btnFavoriteUrl.IconColor = System.Drawing.Color.Black;
             this.btnFavoriteUrl.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnFavoriteUrl.IconSize = 13;

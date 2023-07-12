@@ -3,6 +3,7 @@ using CefSharp.WinForms;
 using EasyTabs;
 using Etier.IconHelper;
 using FontAwesome.Sharp;
+using IWshRuntimeLibrary;
 using Surfer.Controls;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
@@ -789,24 +790,16 @@ namespace Surfer.Forms
         {
             foreach(var fav in FavoriteManager.Get)
             {
-                FavoriteControl favoriteControl;
-                if (pnlFavorites.Controls.Count > 0)
-                {
-                    Control.ControlCollection favoriteControls = pnlFavorites.Controls;
-                    int controlIndex = favoriteControls.FindIndex((c) => ((FavoriteControl)c).Url == fav.Url);
-                    if (controlIndex >= 0)
-                        favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
-                    else
-                        favoriteControl = new FavoriteControl(this);
-                }
-                else
-                    favoriteControl = new FavoriteControl(this);
-                favoriteControl.Dock = DockStyle.Left;
-                favoriteControl.Icon = IconReader.ByteToBitmap(fav.Favicon, favoriteControl.btnFavoriteUrl.IconSize, favoriteControl.btnFavoriteUrl.IconSize);
-                favoriteControl.Title = fav.Title;
-                favoriteControl.Url = fav.Url;
-                pnlFavorites.Controls.Add(favoriteControl);
-                favoriteControl.BringToFront();
+                FavoriteControl favoriteControl = null;
+                int controlIndex = GetFavoriteControlIndex(fav.Url);
+                if(controlIndex >= 0)
+                    favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
+                AddToFavorite(
+                    IconReader.BytesToBitmap(fav.Favicon),
+                    fav.Title,
+                    fav.Url,
+                    favoriteControl
+                );
             }
             SetFavoritesPanelStatus(Settings.User.Get(nameof(Settings.FavoritesPanelEnabled), Settings.FavoritesPanelEnabled));
         }
@@ -820,23 +813,107 @@ namespace Surfer.Forms
         }
         private void DeleteFavoriteControl(string url)
         {
-            if (pnlFavorites.Controls.Count > 0)
-            {
-                Control.ControlCollection favoriteControls = pnlFavorites.Controls;
-                int controlIndex = favoriteControls.FindIndex((c) => ((FavoriteControl)c).Url == url);
-                if (controlIndex >= 0)
-                    pnlFavorites.Controls.RemoveAt(controlIndex);
-            }
+            int controlIndex = GetFavoriteControlIndex(url);
+            if (controlIndex >= 0)
+                pnlFavorites.Controls.RemoveAt(controlIndex);
         }
         private void btnFavorite_Click(object sender, EventArgs e)
         {
-            FavoriteManager.Save(new Favorite(IconReader.BitmapToByte(Icon.ToBitmap()), Text, chBrowser.Address), () => {
+            FavoriteManager.Save(new Favorite(IconReader.BitmapToBytes(Icon.ToBitmap()), Text, chBrowser.Address), () => {
                 foreach(var tab in AppContainer.Tabs)
                 {
                     Browser br = (Browser)tab.Content;
                     br.InitializeFavorites();
                 }
             });
+        }
+        private readonly WshShell shell = new WshShell();
+        private void pnlFavorites_DragOver(object sender, DragEventArgs e)
+        {
+            // This checks that each file being dragged over is a .lnk file.
+            // If it is not, it will show the invalid cursor thanks to some
+            // e.Effect being set to none by default.
+            bool dropEnabled = true;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop, true) &&
+                    e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths &&
+                    filePaths.Any(filePath => Path.GetExtension(filePath)?.ToLowerInvariant() != ".url"))
+                {
+                    dropEnabled = false;
+                }
+            }
+            else
+            {
+                dropEnabled = false;
+            }
+
+            if (dropEnabled)
+            {
+                // Set the effect to copy so we can drop the item
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void pnlFavorites_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
+                e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths)
+            {
+                // Print out the path and target of each shortcut file dropped on
+                foreach (string filePath in filePaths)
+                {
+                    Console.WriteLine(filePath);
+                    var link = shell.CreateShortcut(filePath);
+                    if (link != null)
+                    {
+                        FavoriteControl favoriteControl = null;
+                        int controlIndex = GetFavoriteControlIndex(link.TargetPath);
+                        if (controlIndex >= 0)
+                            favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
+                        AddToFavorite(
+                            Properties.Resources.icon.ToBitmap(),
+                            Path.GetFileNameWithoutExtension(link.FullName),
+                            link.TargetPath,
+                            favoriteControl,
+                            true
+                        );
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error Shortcut");
+                    }
+                }
+            }
+        }
+        private int GetFavoriteControlIndex(string url)
+        {
+            if (pnlFavorites.Controls.Count > 0)
+            {
+                Control.ControlCollection favoriteControls = pnlFavorites.Controls;
+                int controlIndex = favoriteControls.FindIndex((c) => ((FavoriteControl)c).Url == url);
+                return controlIndex;
+            }
+            return -1;
+        }
+        private void AddToFavorite(Bitmap icon, string title, string url, FavoriteControl favoriteControl = null, bool addToFavorite = false)
+        {
+            bool favoriteExists = false;
+            if (favoriteControl != null)
+                favoriteExists = true;
+            else
+                favoriteControl = new FavoriteControl(this);
+            favoriteControl.Dock = DockStyle.Left;
+            favoriteControl.Icon = icon;
+            favoriteControl.Title = title;
+            favoriteControl.Url = url;
+            if (!favoriteExists)
+            {
+                pnlFavorites.Controls.Add(favoriteControl);
+                favoriteControl.BringToFront();
+            }
+            if (addToFavorite)
+                FavoriteManager.Save(new Favorite(IconReader.BitmapToBytes(icon), title, url));
         }
     }
 }

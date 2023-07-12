@@ -123,33 +123,28 @@ namespace Etier.IconHelper
 			User32.DestroyIcon( shfi.hIcon );		// Cleanup
 			return icon;
         }
-        public static byte[] BitmapToByte(Bitmap bitmap)
+        public static byte[] IconToBytes(Icon icon)
         {
-            using (var memoryStream = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
-                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                return memoryStream.ToArray();
+                icon.Save(ms);
+                return ms.ToArray();
             }
         }
-        public static Bitmap ByteToBitmap(byte[] byt)
+        public static byte[] BitmapToBytes(Bitmap bitmap)
         {
-            using (var ms = new MemoryStream(byt))
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+
+        public static Bitmap BytesToBitmap(byte[] bytes)
+        {
+            using (MemoryStream ms = new MemoryStream(bytes))
             {
                 return new Bitmap(ms);
-            }
-        }
-        public static Bitmap ByteToBitmap(byte[] byt, Size size)
-        {
-            using (var ms = new MemoryStream(byt))
-            {
-                return new Bitmap(new Bitmap(ms), size);
-            }
-        }
-        public static Bitmap ByteToBitmap(byte[] byt, int width, int height)
-        {
-            using (var ms = new MemoryStream(byt))
-            {
-                return new Bitmap(new Bitmap(ms), width, height);
             }
         }
     }
