@@ -20,7 +20,7 @@ namespace Surfer.Controls
             {
                 if(value != null)
                 {
-                    Bitmap bitmap = new Bitmap(value, btnFavoriteUrl.IconSize, btnFavoriteUrl.IconSize);
+                    Bitmap bitmap = new Bitmap(value, 12, 12);
                     btnFavoriteUrl.Image = bitmap;
                 }
             }

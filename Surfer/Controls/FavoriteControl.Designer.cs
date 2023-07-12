@@ -29,30 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnFavoriteUrl = new FontAwesome.Sharp.IconButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnFavoriteUrl = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnFavoriteUrl
-            // 
-            this.btnFavoriteUrl.ContextMenuStrip = this.contextMenuStrip1;
-            this.btnFavoriteUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnFavoriteUrl.IconChar = FontAwesome.Sharp.IconChar.Table;
-            this.btnFavoriteUrl.IconColor = System.Drawing.Color.Black;
-            this.btnFavoriteUrl.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnFavoriteUrl.IconSize = 13;
-            this.btnFavoriteUrl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFavoriteUrl.Location = new System.Drawing.Point(0, 0);
-            this.btnFavoriteUrl.Name = "btnFavoriteUrl";
-            this.btnFavoriteUrl.Size = new System.Drawing.Size(150, 18);
-            this.btnFavoriteUrl.TabIndex = 0;
-            this.btnFavoriteUrl.Text = "title";
-            this.btnFavoriteUrl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFavoriteUrl.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnFavoriteUrl.UseVisualStyleBackColor = true;
-            this.btnFavoriteUrl.Click += new System.EventHandler(this.btnFavoriteUrl_Click);
             // 
             // contextMenuStrip1
             // 
@@ -68,6 +49,24 @@
             this.tsmiDelete.Text = "delete";
             this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
             // 
+            // btnFavoriteUrl
+            // 
+            this.btnFavoriteUrl.AutoEllipsis = true;
+            this.btnFavoriteUrl.ContextMenuStrip = this.contextMenuStrip1;
+            this.btnFavoriteUrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnFavoriteUrl.FlatAppearance.BorderSize = 0;
+            this.btnFavoriteUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFavoriteUrl.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnFavoriteUrl.Location = new System.Drawing.Point(0, 0);
+            this.btnFavoriteUrl.Name = "btnFavoriteUrl";
+            this.btnFavoriteUrl.Size = new System.Drawing.Size(150, 18);
+            this.btnFavoriteUrl.TabIndex = 1;
+            this.btnFavoriteUrl.Text = "title";
+            this.btnFavoriteUrl.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnFavoriteUrl.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnFavoriteUrl.UseVisualStyleBackColor = true;
+            this.btnFavoriteUrl.Click += new System.EventHandler(this.btnFavoriteUrl_Click);
+            // 
             // FavoriteControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,9 +80,8 @@
         }
 
         #endregion
-
-        public FontAwesome.Sharp.IconButton btnFavoriteUrl;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.Button btnFavoriteUrl;
     }
 }
