@@ -133,6 +133,9 @@
     <Compile Include="Controls\FavoriteControl.Designer.cs">
       <DependentUpon>FavoriteControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SBContextMenuStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\Browser\DownloadManager.cs" />
     <Compile Include="Utils\Browser\ErrorTexts.cs" />
     <Compile Include="Utils\Browser\FavoriteManager.cs" />
@@ -262,6 +265,10 @@
     <ProjectReference Include="..\EasyTabs\EasyTabs.csproj">
       <Project>{690ba0f7-d8fe-4ebe-ba39-8058086c7a09}</Project>
       <Name>EasyTabs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Theme\Theme.csproj">
+      <Project>{1574136d-b777-4b06-8abb-a5a5bc982e4b}</Project>
+      <Name>Theme</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

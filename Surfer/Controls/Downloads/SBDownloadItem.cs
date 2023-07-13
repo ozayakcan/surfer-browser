@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using CefSharp;
 using Etier.IconHelper;
 using FontAwesome.Sharp;
+using Microsoft.Win32;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
 
@@ -19,12 +20,20 @@ namespace Surfer.Controls.Downloads
         public SBDownloadItem(Forms.Browser browser, DownloadFile downloadFile, bool IsFirstInitialized = false)
         {
             InitializeComponent();
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             InitializeFirst();
             MyBrowser = browser;
             lblOpenFile.Text = Locale.Get.open_file;
             if (downloadFile != null)
                 InitializeItem(downloadFile, null, IsFirstInitialized: IsFirstInitialized);
         }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            InitializeIcons();
+            Invalidate();
+        }
+
         private void InitializeFirst()
         {
             lblTitle.Text = "";
@@ -32,21 +41,14 @@ namespace Surfer.Controls.Downloads
             lblSpeed.Text = "";
             lblRemainingTime.Text = "";
             lblOpenFile.Text = tsmiOpenFile.Text = Locale.Get.open_file;
-            tsmiOpenFile.Image = IconChar.File.ToBitmap(Color.Black);
             tsmiRetry.Text = Locale.Get.retry;
-            tsmiRetry.Image = IconChar.Refresh.ToBitmap(Color.Black);
             tsmiPauseResume.Text = Locale.Get.pause;
-            tsmiPauseResume.Image = IconChar.Pause.ToBitmap(Color.Black);
             tsmiShowInFolder.Text = Locale.Get.show_in_folder;
-            tsmiShowInFolder.Image = IconChar.Folder.ToBitmap(Color.Black);
             tsmiCopyDownloadLink.Text = Locale.Get.copy_download_link;
-            tsmiCopyDownloadLink.Image = IconChar.Link.ToBitmap(Color.Black);
             tsmiDeleteFile.Text = Locale.Get.delete_file;
-            tsmiDeleteFile.Image = IconChar.TrashCan.ToBitmap(Color.Black);
             tsmiRemoveFromList.Text = Locale.Get.remove_from_list;
-            tsmiRemoveFromList.Image = IconChar.Close.ToBitmap(Color.Black);
             tsmiCancel.Text = Locale.Get.cancel;
-            tsmiCancel.Image = IconChar.Close.ToBitmap(Color.Black);
+            InitializeIcons();
             toolTip1.SetToolTip(btnRetry, tsmiRetry.Text);
             toolTip1.SetToolTip(btnRemoveFromList, tsmiRemoveFromList.Text);
             toolTip1.SetToolTip(btnPauseResume, tsmiPauseResume.Text);
@@ -54,6 +56,18 @@ namespace Surfer.Controls.Downloads
             toolTip1.SetToolTip(btnShowInFolder, tsmiShowInFolder.Text);
             toolTip1.SetToolTip(btnDeleteFile, tsmiDeleteFile.Text);
             Invalidate();
+        }
+        public void InitializeIcons()
+        {
+            tsmiOpenFile.Image = IconChar.File.ToBitmap(Theme.Get.ColorText);
+            tsmiRetry.Image = IconChar.Refresh.ToBitmap(Theme.Get.ColorText);
+            tsmiPauseResume.Image = IconChar.Pause.ToBitmap(Theme.Get.ColorText);
+            tsmiShowInFolder.Image = IconChar.Folder.ToBitmap(Theme.Get.ColorText);
+            tsmiCopyDownloadLink.Image = IconChar.Link.ToBitmap(Theme.Get.ColorText);
+            tsmiDeleteFile.Image = IconChar.TrashCan.ToBitmap(Theme.Get.ColorText);
+            tsmiRemoveFromList.Image = IconChar.Close.ToBitmap(Theme.Get.ColorText);
+            tsmiCancel.Image = IconChar.Close.ToBitmap(Theme.Get.ColorText);
+
         }
         public void InitializeItem(DownloadFile downloadFile, IDownloadItemCallback callback, int percentage = -1, bool IsFirstInitialized = false)
         {

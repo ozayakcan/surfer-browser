@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.imgFile = new System.Windows.Forms.PictureBox();
-            this.downloadItemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.downloadItemContextMenu = new Surfer.Controls.SBContextMenuStrip(this.components);
             this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiRetry = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSeperator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -435,7 +435,7 @@
         private SBIconButton btnRetry;
         private SBPanel pnlPbDownload;
         private System.Windows.Forms.Label lblRemainingTime;
-        private System.Windows.Forms.ContextMenuStrip downloadItemContextMenu;
+        private SBContextMenuStrip downloadItemContextMenu;
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowInFolder;
         private System.Windows.Forms.ToolStripMenuItem tsmiRetry;

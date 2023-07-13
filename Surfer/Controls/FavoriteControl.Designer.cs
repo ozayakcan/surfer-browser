@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip1 = new Surfer.Controls.SBContextMenuStrip(this.components);
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.btnFavoriteUrl = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
@@ -80,8 +80,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.Button btnFavoriteUrl;
+        private SBContextMenuStrip contextMenuStrip1;
     }
 }
