@@ -39,8 +39,8 @@ namespace Surfer.Renderers
                 return;
             base.OnRenderMenuItemBackground(e);
         }
-        
-        protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
+
+        /*protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {
             if (e != null)
             {
@@ -71,7 +71,7 @@ namespace Surfer.Renderers
                         });
                 }
             }
-        }
+        }*/
         private class MenuStripColorTable : ProfessionalColorTable
         {
             
