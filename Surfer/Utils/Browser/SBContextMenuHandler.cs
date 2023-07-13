@@ -50,13 +50,15 @@ namespace Surfer.Utils.Browser
             if (IsEditable)
             {
                 if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");
-                MyBrowser.chBrowserContextMenu.Items.Add(
+                ToolStripMenuItem undoItem = new ToolStripMenuItem(
                     Locale.Get.undo,
                     IconChar.Undo.ToBitmap(Theme.Get.ColorText),
                     (s, e) => {
                         MyBrowser.chBrowser.Undo();
                     }
                 );
+                undoItem.ShortcutKeys = (Keys.Control | Keys.Z);
+                MyBrowser.chBrowserContextMenu.Items.Add(undoItem);
                 ToolStripMenuItem cutItem = new ToolStripMenuItem(
                     Locale.Get.cut,
                     IconChar.Cut.ToBitmap(Theme.Get.ColorText),
@@ -64,6 +66,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Cut();
                     }
                 );
+                cutItem.ShortcutKeys = (Keys.Control | Keys.X);
                 MyBrowser.chBrowserContextMenu.Items.Add(cutItem);
                 cutItem.Enabled = !string.IsNullOrEmpty(SelectionText);
             }
@@ -77,6 +80,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Copy();
                     }
                 );
+                copyItem.ShortcutKeys = (Keys.Control | Keys.C);
                 MyBrowser.chBrowserContextMenu.Items.Add(copyItem);
                 copyItem.Enabled = !string.IsNullOrEmpty(SelectionText);
             }
@@ -90,15 +94,18 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Paste();
                     }
                 );
+                pasteItem.ShortcutKeys = (Keys.Control | Keys.V);
                 MyBrowser.chBrowserContextMenu.Items.Add(pasteItem);
                 pasteItem.Enabled = Clipboard.ContainsText();
-                MyBrowser.chBrowserContextMenu.Items.Add(
+                ToolStripMenuItem selectAllItem = new ToolStripMenuItem(
                     Locale.Get.select_all,
                     IconChar.None.ToBitmap(Theme.Get.ColorText),
                     (s, e) => {
                         MyBrowser.chBrowser.SelectAll();
                     }
                 );
+                selectAllItem.ShortcutKeys = (Keys.Control | Keys.A);
+                MyBrowser.chBrowserContextMenu.Items.Add(selectAllItem);
             }
             if (!string.IsNullOrEmpty(SelectionText))
             {
@@ -133,46 +140,56 @@ namespace Surfer.Utils.Browser
                 );
                 MyBrowser.chBrowserContextMenu.Items.Add(forwardItem);
                 forwardItem.Enabled = chromiumWebBrowser.CanGoForward;
-                MyBrowser.chBrowserContextMenu.Items.Add(
+                ToolStripMenuItem reloadItem = new ToolStripMenuItem(
                     Locale.Get.reload,
                     IconChar.Refresh.ToBitmap(Theme.Get.ColorText),
                     (s, e) => {
                         chromiumWebBrowser.Reload();
                     }
                 );
+                reloadItem.ShortcutKeys = Keys.F5;
+                MyBrowser.chBrowserContextMenu.Items.Add(reloadItem);
                 MyBrowser.chBrowserContextMenu.Items.Add("-");
-                MyBrowser.chBrowserContextMenu.Items.Add(
+                ToolStripMenuItem printItem = new ToolStripMenuItem(
                     Locale.Get.print,
                     IconChar.Print.ToBitmap(Theme.Get.ColorText),
                     (s, e) => {
                         chromiumWebBrowser.Print();
                     }
                 );
-                MyBrowser.chBrowserContextMenu.Items.Add(
+                printItem.ShortcutKeys = (Keys.Control | Keys.P);
+                MyBrowser.chBrowserContextMenu.Items.Add(printItem);
+                ToolStripMenuItem saveAsItem = new ToolStripMenuItem(
                     Locale.Get.save_as,
                     IconChar.Save.ToBitmap(Theme.Get.ColorText),
                     (s, e) => {
                         MyBrowser.SaveAs();
                     }
                 );
+                saveAsItem.ShortcutKeys = (Keys.Control | Keys.S);
+                MyBrowser.chBrowserContextMenu.Items.Add(saveAsItem);
             }
             if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");
-            MyBrowser.chBrowserContextMenu.Items.Add(
+            ToolStripMenuItem viewSourceItem = new ToolStripMenuItem(
                 Locale.Get.view_source,
                 IconChar.None.ToBitmap(Theme.Get.ColorText),
                 (s, e) => {
                     MyBrowser.ViewSource();
                 }
             );
+            viewSourceItem.ShortcutKeys = (Keys.Control | Keys.U);
+            MyBrowser.chBrowserContextMenu.Items.Add(viewSourceItem);
             int XCoord = parameters.XCoord;
             int YCoord = parameters.YCoord;
-            MyBrowser.chBrowserContextMenu.Items.Add(
+            ToolStripMenuItem inspectItem = new ToolStripMenuItem(
                 Locale.Get.inspect,
                 IconChar.None.ToBitmap(Theme.Get.ColorText),
                 (s, e) => {
                     MyBrowser.ShowDevTools(XCoord, YCoord);
                 }
             );
+            inspectItem.ShortcutKeys = (Keys.Control | Keys.Alt | Keys.I);
+            MyBrowser.chBrowserContextMenu.Items.Add(inspectItem);
         }
 
 
