@@ -100,6 +100,16 @@ namespace Surfer.Utils.Browser
                     }
                 );
             }
+            if (!string.IsNullOrEmpty(SelectionText))
+            {
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    string.Format(Locale.Get.search_the_web_for, SelectionText),
+                    IconChar.Search.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.OpenInNewTab(SelectionText.GetSearchUrl(), true);
+                    }
+                );
+            }
             if (string.IsNullOrEmpty(LinkUrl) && !IsEditable)
             {
                 if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");

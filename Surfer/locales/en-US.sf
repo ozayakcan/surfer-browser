@@ -37,5 +37,6 @@
   "copy_download_link": "Copy download link",
   "delete_file": "Delete file",
   "remove_from_list": "Remove from list",
-  "delete": "Delete"
+  "delete": "Delete",
+  "search_the_web_for": "Search the web for \"{0}\""
 }

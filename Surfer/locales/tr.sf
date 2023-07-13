@@ -37,5 +37,6 @@
   "copy_download_link": "İndirme bağlantısını kopyala",
   "delete_file": "Dosyayı sil",
   "remove_from_list": "Listeden kaldır",
-  "delete": "Sil"
+  "delete": "Sil",
+  "search_the_web_for": "\"{0}\" terimini webde ara"
 }
