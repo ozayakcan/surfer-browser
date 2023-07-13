@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using FontAwesome.Sharp;
+using Microsoft.Win32;
 using Surfer.Forms;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
@@ -43,7 +45,24 @@ namespace Surfer.Controls
         {
             MyBrowser = browser;
             InitializeComponent();
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            InitializeContextMenu();
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            InitializeIcons();
+        }
+
+        private void InitializeContextMenu()
+        {
             tsmiDelete.Text = Locale.Get.delete;
+            InitializeIcons();
+        }
+
+        private void InitializeIcons()
+        {
+            tsmiDelete.Image = IconChar.TrashCan.ToBitmap(Theme.Get.ColorText);
         }
 
         private void btnFavoriteUrl_Click(object sender, EventArgs e)
