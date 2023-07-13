@@ -32,8 +32,13 @@ namespace Surfer.Forms
         {
             this.components = new System.ComponentModel.Container();
             this.pnlBrowser = new System.Windows.Forms.Panel();
+            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlProgress = new System.Windows.Forms.Panel();
+            this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.pnlChBrowser = new Surfer.Controls.SBPanel();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
+            this.chBrowserContextMenu = new Surfer.Controls.SBContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlFavorites = new Surfer.Controls.SBPanel();
             this.pnlNav = new Surfer.Controls.SBPanel();
             this.pnlUrl = new Surfer.Controls.SBPanel();
@@ -50,17 +55,15 @@ namespace Surfer.Forms
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
             this.btnReload = new Surfer.Controls.MyIconToolStripButton();
             this.btnHome = new Surfer.Controls.MyIconToolStripButton();
-            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
-            this.pnlProgress = new System.Windows.Forms.Panel();
-            this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.pnlBrowser.SuspendLayout();
+            this.pnlProgress.SuspendLayout();
             this.pnlChBrowser.SuspendLayout();
+            this.chBrowserContextMenu.SuspendLayout();
             this.pnlNav.SuspendLayout();
             this.pnlUrl.SuspendLayout();
             this.pnlUrlInner.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.tsNav.SuspendLayout();
-            this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBrowser
@@ -74,6 +77,24 @@ namespace Surfer.Forms
             this.pnlBrowser.Size = new System.Drawing.Size(1005, 484);
             this.pnlBrowser.TabIndex = 0;
             // 
+            // pnlProgress
+            // 
+            this.pnlProgress.Controls.Add(this.pbLoading);
+            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
+            this.pnlProgress.Name = "pnlProgress";
+            this.pnlProgress.Size = new System.Drawing.Size(1005, 5);
+            this.pnlProgress.TabIndex = 2;
+            this.pnlProgress.Visible = false;
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoading.Location = new System.Drawing.Point(0, 0);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(1005, 5);
+            this.pbLoading.TabIndex = 0;
+            // 
             // pnlChBrowser
             // 
             this.pnlChBrowser.Controls.Add(this.chBrowser);
@@ -86,6 +107,7 @@ namespace Surfer.Forms
             // chBrowser
             // 
             this.chBrowser.ActivateBrowserOnCreation = true;
+            this.chBrowser.ContextMenuStrip = this.chBrowserContextMenu;
             this.chBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBrowser.Location = new System.Drawing.Point(0, 0);
             this.chBrowser.Name = "chBrowser";
@@ -94,6 +116,19 @@ namespace Surfer.Forms
             this.chBrowser.LoadError += new System.EventHandler<CefSharp.LoadErrorEventArgs>(this.chBrowser_LoadError);
             this.chBrowser.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chBrowser_LoadingStateChanged);
             this.chBrowser.IsBrowserInitializedChanged += new System.EventHandler(this.chBrowser_IsBrowserInitializedChanged);
+            // 
+            // chBrowserContextMenu
+            // 
+            this.chBrowserContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.chBrowserContextMenu.Name = "chBrowserContextMenu";
+            this.chBrowserContextMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             // 
             // pnlFavorites
             // 
@@ -337,24 +372,6 @@ namespace Surfer.Forms
             this.btnHome.Size = new System.Drawing.Size(30, 30);
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
-            // pnlProgress
-            // 
-            this.pnlProgress.Controls.Add(this.pbLoading);
-            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
-            this.pnlProgress.Name = "pnlProgress";
-            this.pnlProgress.Size = new System.Drawing.Size(1005, 5);
-            this.pnlProgress.TabIndex = 2;
-            this.pnlProgress.Visible = false;
-            // 
-            // pbLoading
-            // 
-            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLoading.Location = new System.Drawing.Point(0, 0);
-            this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(1005, 5);
-            this.pbLoading.TabIndex = 0;
-            // 
             // Browser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,7 +385,9 @@ namespace Surfer.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlBrowser.ResumeLayout(false);
+            this.pnlProgress.ResumeLayout(false);
             this.pnlChBrowser.ResumeLayout(false);
+            this.chBrowserContextMenu.ResumeLayout(false);
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
             this.pnlUrl.ResumeLayout(false);
@@ -377,7 +396,6 @@ namespace Surfer.Forms
             this.pnlButtons.ResumeLayout(false);
             this.tsNav.ResumeLayout(false);
             this.tsNav.PerformLayout();
-            this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -405,5 +423,7 @@ namespace Surfer.Forms
         private Controls.SBIconButton btnDownload;
         private Controls.SBIconButton btnFavorite;
         private Controls.SBPanel pnlFavorites;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        public Controls.SBContextMenuStrip chBrowserContextMenu;
     }
 }

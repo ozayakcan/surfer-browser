@@ -1,4 +1,6 @@
 ﻿using CefSharp;
+using FontAwesome.Sharp;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Surfer.Utils.Browser
@@ -22,86 +24,160 @@ namespace Surfer.Utils.Browser
         }
         public void OnBeforeContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
-            model.Clear();
-            if (!string.IsNullOrEmpty(parameters.LinkUrl))
+            MyBrowser.chBrowserContextMenu.Items.Clear();
+            MyBrowser.chBrowserContextMenu.Hide();
+            string LinkUrl = parameters.LinkUrl;
+            if (!string.IsNullOrEmpty(LinkUrl))
             {
-                model.AddItem((CefMenuCommand)MyCefMenuCommand.OpenLinkInNewTab, Locale.Get.open_link_in_new_tab);
-                model.AddSeparator();
-                model.AddItem((CefMenuCommand)MyCefMenuCommand.CopyLink, Locale.Get.copy_link);
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.open_link_in_new_tab,
+                    IconChar.Table.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.OpenInNewTab(LinkUrl);
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add("-");
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.copy_link,
+                    IconChar.Link.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        Clipboard.SetText(LinkUrl);
+                    }
+                );
+            }
+            bool IsEditable = parameters.IsEditable;
+            string SelectionText = parameters.SelectionText;
+            if (IsEditable)
+            {
+                if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.undo,
+                    IconChar.Undo.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.chBrowser.Undo();
+                    }
+                );
+                ToolStripMenuItem cutItem = new ToolStripMenuItem(
+                    Locale.Get.cut,
+                    IconChar.Cut.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.chBrowser.Cut();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add(cutItem);
+                cutItem.Enabled = !string.IsNullOrEmpty(SelectionText);
+            }
+            if (!string.IsNullOrEmpty(SelectionText) || IsEditable)
+            {
+                if (!IsEditable) MyBrowser.chBrowserContextMenu.Items.Add("-");
+                ToolStripMenuItem copyItem = new ToolStripMenuItem(
+                    Locale.Get.copy,
+                    IconChar.Copy.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.chBrowser.Copy();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add(copyItem);
+                copyItem.Enabled = !string.IsNullOrEmpty(SelectionText);
             }
 
-            if (parameters.IsEditable)
+            if (IsEditable)
             {
-                if (model.Count > 0)
-                    model.AddSeparator();
-                model.AddItem(CefMenuCommand.Undo, Locale.Get.undo);
-                model.AddItem(CefMenuCommand.Cut, Locale.Get.cut);
-                model.SetEnabled(CefMenuCommand.Cut, !string.IsNullOrEmpty(parameters.SelectionText));
+                ToolStripMenuItem pasteItem = new ToolStripMenuItem(
+                     Locale.Get.paste,
+                    IconChar.Paste.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.chBrowser.Paste();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add(pasteItem);
+                pasteItem.Enabled = Clipboard.ContainsText();
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.select_all,
+                    IconChar.None.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.chBrowser.SelectAll();
+                    }
+                );
             }
-            if (!string.IsNullOrEmpty(parameters.SelectionText) || parameters.IsEditable)
+            if (string.IsNullOrEmpty(LinkUrl) && !IsEditable)
             {
-                if (!parameters.IsEditable)
-                    model.AddSeparator();
-                model.AddItem(CefMenuCommand.Copy, Locale.Get.copy);
-                model.SetEnabled(CefMenuCommand.Copy, !string.IsNullOrEmpty(parameters.SelectionText));
+                if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");
+                ToolStripMenuItem backItem = new ToolStripMenuItem(
+                    Locale.Get.back,
+                    IconChar.ArrowLeft.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        if (chromiumWebBrowser.CanGoBack)
+                            chromiumWebBrowser.Back();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add(backItem);
+                backItem.Enabled = chromiumWebBrowser.CanGoBack;
+                ToolStripMenuItem forwardItem = new ToolStripMenuItem(
+                    Locale.Get.forward,
+                    IconChar.ArrowRight.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        if (chromiumWebBrowser.CanGoForward)
+                            chromiumWebBrowser.Forward();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add(forwardItem);
+                forwardItem.Enabled = chromiumWebBrowser.CanGoForward;
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.reload,
+                    IconChar.Refresh.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        chromiumWebBrowser.Reload();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add("-");
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.print,
+                    IconChar.Print.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        chromiumWebBrowser.Print();
+                    }
+                );
+                MyBrowser.chBrowserContextMenu.Items.Add(
+                    Locale.Get.save_as,
+                    IconChar.Save.ToBitmap(Theme.Get.ColorText),
+                    (s, e) => {
+                        MyBrowser.SaveAs();
+                    }
+                );
             }
-            if (parameters.IsEditable)
-            {
-                model.AddItem(CefMenuCommand.Paste, Locale.Get.paste);
-                model.SetEnabled(CefMenuCommand.Paste, Clipboard.ContainsText());
-                model.AddItem(CefMenuCommand.SelectAll, Locale.Get.select_all);
-            }
-            if (string.IsNullOrEmpty(parameters.LinkUrl) && !parameters.IsEditable)
-            {
-                if (model.Count > 0)
-                    model.AddSeparator();
-                model.AddItem(CefMenuCommand.Back, Locale.Get.back);
-                model.SetEnabled(CefMenuCommand.Back, chromiumWebBrowser.CanGoBack);
-                model.AddItem(CefMenuCommand.Forward, Locale.Get.forward);
-                model.SetEnabled(CefMenuCommand.Forward, chromiumWebBrowser.CanGoForward);
-                model.AddItem(CefMenuCommand.Reload, Locale.Get.reload);
-                model.AddSeparator();
-                model.AddItem(CefMenuCommand.Print, Locale.Get.print);
-                model.AddItem((CefMenuCommand)MyCefMenuCommand.SaveAs, Locale.Get.save_as);
-            }
-            if (model.Count > 0)
-                model.AddSeparator();
-            model.AddItem(CefMenuCommand.ViewSource, Locale.Get.view_source);
-            model.AddItem((CefMenuCommand)MyCefMenuCommand.Inspect, Locale.Get.inspect);
+            if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");
+            MyBrowser.chBrowserContextMenu.Items.Add(
+                Locale.Get.view_source,
+                IconChar.None.ToBitmap(Theme.Get.ColorText),
+                (s, e) => {
+                    MyBrowser.ViewSource();
+                }
+            );
+            int XCoord = parameters.XCoord;
+            int YCoord = parameters.YCoord;
+            MyBrowser.chBrowserContextMenu.Items.Add(
+                Locale.Get.inspect,
+                IconChar.None.ToBitmap(Theme.Get.ColorText),
+                (s, e) => {
+                    MyBrowser.ShowDevTools(XCoord, YCoord);
+                }
+            );
         }
 
 
         public bool OnContextMenuCommand(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
         {
-            switch ((MyCefMenuCommand)commandId)
-            {
-                case MyCefMenuCommand.OpenLinkInNewTab:
-                    MyBrowser.OpenInNewTab(parameters.LinkUrl);
-                    return true;
-                case MyCefMenuCommand.CopyLink:
-                    Clipboard.SetText(parameters.LinkUrl);
-                    return true;
-                case MyCefMenuCommand.SaveAs:
-                    MyBrowser.SaveAs();
-                    return true;
-                case MyCefMenuCommand.Inspect:
-                    MyBrowser.ShowDevTools(parameters.XCoord, parameters.YCoord);
-                    return true;
-            }
-            switch (commandId)
-            {
-                case CefMenuCommand.ViewSource:
-                    MyBrowser.ViewSource();
-                    return true;
-            }
             return false;
         }
         public void OnContextMenuDismissed(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame)
         {
+            //MyBrowser.chBrowserContextMenu.Hide();
         }
         public bool RunContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
         {
-            return false;
+            MyBrowser.chBrowserContextMenu.Show(Cursor.Position);
+            return true;
         }
     }
 }
