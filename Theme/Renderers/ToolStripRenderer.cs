@@ -27,7 +27,7 @@ namespace Surfer.Renderers
                 textRect.Height = e.Item.Height - 4; // 4 is the default difference between the item height and the text rectangle height
 
                 e.TextRectangle = textRect;
-                e.TextFormat = TextFormatFlags.VerticalCenter;
+                //e.TextFormat = TextFormatFlags.VerticalCenter;
                 e.TextColor = Theme.Get.ColorText;
             }
             base.OnRenderItemText(e);
@@ -39,7 +39,7 @@ namespace Surfer.Renderers
                 return;
             base.OnRenderMenuItemBackground(e);
         }
-
+        
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {
             if (e != null)
