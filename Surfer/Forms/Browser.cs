@@ -575,39 +575,34 @@ namespace Surfer.Forms
         }*/
         public bool KeyEvents(ChromiumWebBrowser chromiumWebBrowser, CefEventFlags modifiers, Keys key, bool resp = true)
         {
-            if (key == Keys.F2)
+            if (ShortcutKeys.IsFocusUrlBox(modifiers, key))
             {
                 this.InvokeOnUiThreadIfRequired(()=> {
                     tbUrl.Focus();
                 });
                 return true;
             }
-            else if (key == Keys.F3 || (modifiers == CefEventFlags.ControlDown && key == Keys.F) || (key == (Keys.Control | Keys.F)))
+            else if (ShortcutKeys.IsSearch(modifiers, key))
             {
                 ShowSearch();
                 return true;
             }
-            else if ((modifiers == CefEventFlags.ControlDown && key == Keys.F5) || (key == (Keys.Control | Keys.F5)))
+            else if (ShortcutKeys.IsReloadNoCache(modifiers, key))
             {
                 Reload(true);
                 return true;
             }
-            else if (key == Keys.F5)
+            else if (ShortcutKeys.IsReload(modifiers, key))
             {
                 Reload();
                 return true;
             }
-            else if ((modifiers == CefEventFlags.ControlDown && key == Keys.U) || (key == (Keys.Control | Keys.U))
-            )
+            else if (ShortcutKeys.IsViewSource(modifiers, key))
             {
                 ViewSource();
                 return true;
             }
-            else if (
-                key == Keys.F12
-                || (modifiers == (CefEventFlags.ControlDown | CefEventFlags.AltDown) && key == Keys.I)
-                || (key == (Keys.Control | Keys.Alt | Keys.I))
-            )
+            else if (ShortcutKeys.IsInspect(modifiers, key))
             {
                 if (_devToolsEnabled)
                 {
@@ -619,34 +614,22 @@ namespace Surfer.Forms
                 }
                 return true;
             }
-            else if (
-                (modifiers == CefEventFlags.ControlDown && key == Keys.P)
-                || (key == (Keys.Control | Keys.P))
-            )
+            else if (ShortcutKeys.IsPrint(modifiers, key))
             {
                 Print();
                 return true;
             }
-            else if (
-                (modifiers == CefEventFlags.ControlDown && key == Keys.W)
-                || (key == (Keys.Control | Keys.W))
-            )
+            else if (ShortcutKeys.IsCloseTab(modifiers, key))
             {
                 AppContainer.CloseMyTab(Tab);
                 return true;
             }
-            else if (
-                (modifiers == CefEventFlags.ControlDown && key == Keys.S)
-                || (key == (Keys.Control | Keys.S))
-            )
+            else if (ShortcutKeys.IsSaveAs(modifiers, key))
             {
                 SaveAs();
                 return true;
             }
-            else if (
-                (modifiers == (CefEventFlags.ControlDown | CefEventFlags.ShiftDown) && key == Keys.B)
-                || (key == (Keys.Control | Keys.Shift | Keys.B))
-            )
+            else if (ShortcutKeys.IsToggleFavorites(modifiers, key))
             {
                 this.InvokeOnUiThreadIfRequired(() =>
                 {

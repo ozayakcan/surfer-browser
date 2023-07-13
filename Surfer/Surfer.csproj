@@ -205,6 +205,7 @@
     <Compile Include="Utils\SBExtensions.cs" />
     <Compile Include="Utils\Paths.cs" />
     <Compile Include="Utils\Settings.cs" />
+    <Compile Include="Utils\ShortcutKeys.cs" />
     <Compile Include="Utils\SingleInstanceApp.cs" />
     <Compile Include="Utils\StringHandler.cs" />
     <EmbeddedResource Include="Controls\Downloads\SBDownloadItem.resx">
