@@ -72,7 +72,7 @@ namespace Surfer
                     theme.ColorStatusStripGradient = Color.FromArgb(234, 237, 241);
                     theme.ColorButtonSelected = Color.FromArgb(88, 146, 226);
                     theme.ColorButtonPressed = Color.FromArgb(110, 160, 230);
-                    theme.ColorButtonHover = Color.FromArgb(201, 222, 245);
+                    theme.ColorButtonHover = Color.FromArgb(211, 211, 211);
                 }
                 return theme;
             }
