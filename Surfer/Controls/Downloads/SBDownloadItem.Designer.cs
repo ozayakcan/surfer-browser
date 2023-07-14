@@ -173,9 +173,12 @@
             this.btnRetry.BackColor = System.Drawing.Color.Transparent;
             this.btnRetry.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnRetry.FlatAppearance.BorderSize = 0;
+            this.btnRetry.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnRetry.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnRetry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetry.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnRetry.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            this.btnRetry.IconColor = System.Drawing.Color.Black;
+            this.btnRetry.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnRetry.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnRetry.IconSize = 26;
             this.btnRetry.Location = new System.Drawing.Point(194, 0);
@@ -191,9 +194,12 @@
             this.btnRemoveFromList.BackColor = System.Drawing.Color.Transparent;
             this.btnRemoveFromList.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnRemoveFromList.FlatAppearance.BorderSize = 0;
+            this.btnRemoveFromList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnRemoveFromList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnRemoveFromList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveFromList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnRemoveFromList.IconChar = FontAwesome.Sharp.IconChar.Xmark;
-            this.btnRemoveFromList.IconColor = System.Drawing.Color.Black;
+            this.btnRemoveFromList.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnRemoveFromList.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnRemoveFromList.IconSize = 26;
             this.btnRemoveFromList.Location = new System.Drawing.Point(220, 0);
@@ -232,7 +238,9 @@
             // lblRemainingTime
             // 
             this.lblRemainingTime.AutoSize = true;
+            this.lblRemainingTime.BackColor = System.Drawing.Color.Transparent;
             this.lblRemainingTime.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblRemainingTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.lblRemainingTime.Location = new System.Drawing.Point(161, 0);
             this.lblRemainingTime.Name = "lblRemainingTime";
             this.lblRemainingTime.Size = new System.Drawing.Size(24, 13);
@@ -243,7 +251,9 @@
             // lblSpeed
             // 
             this.lblSpeed.AutoSize = true;
+            this.lblSpeed.BackColor = System.Drawing.Color.Transparent;
             this.lblSpeed.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblSpeed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.lblSpeed.Location = new System.Drawing.Point(125, 0);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(36, 13);
@@ -254,7 +264,9 @@
             // lblHyphen
             // 
             this.lblHyphen.AutoSize = true;
+            this.lblHyphen.BackColor = System.Drawing.Color.Transparent;
             this.lblHyphen.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblHyphen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.lblHyphen.Location = new System.Drawing.Point(115, 0);
             this.lblHyphen.Name = "lblHyphen";
             this.lblHyphen.Size = new System.Drawing.Size(10, 13);
@@ -265,7 +277,9 @@
             // lblDownloaded
             // 
             this.lblDownloaded.AutoSize = true;
+            this.lblDownloaded.BackColor = System.Drawing.Color.Transparent;
             this.lblDownloaded.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblDownloaded.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.lblDownloaded.Location = new System.Drawing.Point(50, 0);
             this.lblDownloaded.Name = "lblDownloaded";
             this.lblDownloaded.Size = new System.Drawing.Size(65, 13);
@@ -276,7 +290,10 @@
             // lblOpenFile
             // 
             this.lblOpenFile.AutoSize = true;
+            this.lblOpenFile.BackColor = System.Drawing.Color.Transparent;
             this.lblOpenFile.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblOpenFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(191)))), ((int)(((byte)(235)))));
+            this.lblOpenFile.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(191)))), ((int)(((byte)(235)))));
             this.lblOpenFile.Location = new System.Drawing.Point(0, 0);
             this.lblOpenFile.Name = "lblOpenFile";
             this.lblOpenFile.Size = new System.Drawing.Size(50, 13);
@@ -315,11 +332,13 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblTitle.AutoEllipsis = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(23, 13);
+            this.lblTitle.Size = new System.Drawing.Size(168, 13);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "title";
             // 
@@ -328,9 +347,12 @@
             this.btnPauseResume.BackColor = System.Drawing.Color.Transparent;
             this.btnPauseResume.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnPauseResume.FlatAppearance.BorderSize = 0;
+            this.btnPauseResume.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnPauseResume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnPauseResume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPauseResume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnPauseResume.IconChar = FontAwesome.Sharp.IconChar.Pause;
-            this.btnPauseResume.IconColor = System.Drawing.Color.Black;
+            this.btnPauseResume.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnPauseResume.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPauseResume.IconSize = 26;
             this.btnPauseResume.Location = new System.Drawing.Point(246, 0);
@@ -346,9 +368,12 @@
             this.btnCancel.BackColor = System.Drawing.Color.Transparent;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnCancel.IconChar = FontAwesome.Sharp.IconChar.Xmark;
-            this.btnCancel.IconColor = System.Drawing.Color.Black;
+            this.btnCancel.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCancel.IconSize = 26;
             this.btnCancel.Location = new System.Drawing.Point(272, 0);
@@ -364,9 +389,12 @@
             this.btnShowInFolder.BackColor = System.Drawing.Color.Transparent;
             this.btnShowInFolder.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnShowInFolder.FlatAppearance.BorderSize = 0;
+            this.btnShowInFolder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnShowInFolder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnShowInFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowInFolder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnShowInFolder.IconChar = FontAwesome.Sharp.IconChar.FolderBlank;
-            this.btnShowInFolder.IconColor = System.Drawing.Color.Black;
+            this.btnShowInFolder.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnShowInFolder.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnShowInFolder.IconSize = 26;
             this.btnShowInFolder.Location = new System.Drawing.Point(298, 0);
@@ -382,9 +410,12 @@
             this.btnDeleteFile.BackColor = System.Drawing.Color.Transparent;
             this.btnDeleteFile.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnDeleteFile.FlatAppearance.BorderSize = 0;
+            this.btnDeleteFile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnDeleteFile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnDeleteFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnDeleteFile.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
-            this.btnDeleteFile.IconColor = System.Drawing.Color.Black;
+            this.btnDeleteFile.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnDeleteFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDeleteFile.IconSize = 26;
             this.btnDeleteFile.Location = new System.Drawing.Point(324, 0);
@@ -397,7 +428,7 @@
             // 
             // pnlParent
             // 
-            this.pnlParent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
+            this.pnlParent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.pnlParent.Controls.Add(this.pnlFile);
             this.pnlParent.Controls.Add(this.btnRetry);
             this.pnlParent.Controls.Add(this.btnRemoveFromList);
@@ -427,7 +458,6 @@
             this.pnlFooter.PerformLayout();
             this.pnlPbDownload.ResumeLayout(false);
             this.pnlHeader.ResumeLayout(false);
-            this.pnlHeader.PerformLayout();
             this.pnlParent.ResumeLayout(false);
             this.ResumeLayout(false);
 
