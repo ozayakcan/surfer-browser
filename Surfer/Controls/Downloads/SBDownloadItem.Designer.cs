@@ -42,29 +42,31 @@
             this.tsmiRemoveFromList = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCancel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnRetry = new Surfer.Controls.SBIconButton();
-            this.btnRemoveFromList = new Surfer.Controls.SBIconButton();
+            this.btnRetry = new Surfer.Controls.SBIconButtonDark();
+            this.btnRemoveFromList = new Surfer.Controls.SBIconButtonDark();
             this.pnlFile = new Surfer.Controls.SBPanel();
             this.pnlFooter = new Surfer.Controls.SBPanel();
-            this.lblRemainingTime = new System.Windows.Forms.Label();
-            this.lblSpeed = new System.Windows.Forms.Label();
-            this.lblHyphen = new System.Windows.Forms.Label();
-            this.lblDownloaded = new System.Windows.Forms.Label();
-            this.lblOpenFile = new System.Windows.Forms.LinkLabel();
+            this.lblRemainingTime = new Surfer.Controls.SBLabel();
+            this.lblSpeed = new Surfer.Controls.SBLabel();
+            this.lblHyphen = new Surfer.Controls.SBLabel();
+            this.lblDownloaded = new Surfer.Controls.SBLabel();
+            this.lblOpenFile = new Surfer.Controls.SBLinkLabel();
             this.pnlPbDownload = new Surfer.Controls.SBPanel();
             this.pbDownload = new System.Windows.Forms.ProgressBar();
             this.pnlHeader = new Surfer.Controls.SBPanel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.btnPauseResume = new Surfer.Controls.SBIconButton();
-            this.btnCancel = new Surfer.Controls.SBIconButton();
-            this.btnShowInFolder = new Surfer.Controls.SBIconButton();
-            this.btnDeleteFile = new Surfer.Controls.SBIconButton();
+            this.lblTitle = new Surfer.Controls.SBLabel();
+            this.btnPauseResume = new Surfer.Controls.SBIconButtonDark();
+            this.btnCancel = new Surfer.Controls.SBIconButtonDark();
+            this.btnShowInFolder = new Surfer.Controls.SBIconButtonDark();
+            this.btnDeleteFile = new Surfer.Controls.SBIconButtonDark();
+            this.pnlParent = new Surfer.Controls.SBPanelDark();
             ((System.ComponentModel.ISupportInitialize)(this.imgFile)).BeginInit();
             this.downloadItemContextMenu.SuspendLayout();
             this.pnlFile.SuspendLayout();
             this.pnlFooter.SuspendLayout();
             this.pnlPbDownload.SuspendLayout();
             this.pnlHeader.SuspendLayout();
+            this.pnlParent.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgFile
@@ -204,13 +206,14 @@
             // 
             // pnlFile
             // 
+            this.pnlFile.BackColor = System.Drawing.Color.Transparent;
             this.pnlFile.Controls.Add(this.pnlFooter);
             this.pnlFile.Controls.Add(this.pnlPbDownload);
             this.pnlFile.Controls.Add(this.pnlHeader);
             this.pnlFile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFile.Location = new System.Drawing.Point(26, 0);
             this.pnlFile.Name = "pnlFile";
-            this.pnlFile.Size = new System.Drawing.Size(220, 33);
+            this.pnlFile.Size = new System.Drawing.Size(168, 33);
             this.pnlFile.TabIndex = 3;
             // 
             // pnlFooter
@@ -223,7 +226,7 @@
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFooter.Location = new System.Drawing.Point(0, 20);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(220, 13);
+            this.pnlFooter.Size = new System.Drawing.Size(168, 13);
             this.pnlFooter.TabIndex = 3;
             // 
             // lblRemainingTime
@@ -289,7 +292,7 @@
             this.pnlPbDownload.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPbDownload.Location = new System.Drawing.Point(0, 13);
             this.pnlPbDownload.Name = "pnlPbDownload";
-            this.pnlPbDownload.Size = new System.Drawing.Size(220, 7);
+            this.pnlPbDownload.Size = new System.Drawing.Size(168, 7);
             this.pnlPbDownload.TabIndex = 3;
             this.pnlPbDownload.Visible = false;
             // 
@@ -298,7 +301,7 @@
             this.pbDownload.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbDownload.Location = new System.Drawing.Point(0, 0);
             this.pbDownload.Name = "pbDownload";
-            this.pbDownload.Size = new System.Drawing.Size(220, 7);
+            this.pbDownload.Size = new System.Drawing.Size(168, 7);
             this.pbDownload.TabIndex = 2;
             // 
             // pnlHeader
@@ -307,7 +310,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(220, 13);
+            this.pnlHeader.Size = new System.Drawing.Size(168, 13);
             this.pnlHeader.TabIndex = 2;
             // 
             // lblTitle
@@ -392,19 +395,29 @@
             this.btnDeleteFile.Visible = false;
             this.btnDeleteFile.Click += new System.EventHandler(this.DeleteFile);
             // 
+            // pnlParent
+            // 
+            this.pnlParent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(246)))), ((int)(((byte)(246)))));
+            this.pnlParent.Controls.Add(this.pnlFile);
+            this.pnlParent.Controls.Add(this.btnRetry);
+            this.pnlParent.Controls.Add(this.btnRemoveFromList);
+            this.pnlParent.Controls.Add(this.imgFile);
+            this.pnlParent.Controls.Add(this.btnPauseResume);
+            this.pnlParent.Controls.Add(this.btnCancel);
+            this.pnlParent.Controls.Add(this.btnShowInFolder);
+            this.pnlParent.Controls.Add(this.btnDeleteFile);
+            this.pnlParent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlParent.Location = new System.Drawing.Point(0, 0);
+            this.pnlParent.Name = "pnlParent";
+            this.pnlParent.Size = new System.Drawing.Size(350, 33);
+            this.pnlParent.TabIndex = 1;
+            // 
             // SBDownloadItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.downloadItemContextMenu;
-            this.Controls.Add(this.btnRetry);
-            this.Controls.Add(this.btnRemoveFromList);
-            this.Controls.Add(this.pnlFile);
-            this.Controls.Add(this.imgFile);
-            this.Controls.Add(this.btnPauseResume);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnShowInFolder);
-            this.Controls.Add(this.btnDeleteFile);
+            this.Controls.Add(this.pnlParent);
             this.Name = "SBDownloadItem";
             this.Size = new System.Drawing.Size(350, 33);
             ((System.ComponentModel.ISupportInitialize)(this.imgFile)).EndInit();
@@ -415,26 +428,27 @@
             this.pnlPbDownload.ResumeLayout(false);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            this.pnlParent.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private SBIconButton btnCancel;
+        private SBIconButtonDark btnCancel;
         private SBPanel pnlFile;
-        private System.Windows.Forms.LinkLabel lblOpenFile;
-        private System.Windows.Forms.Label lblTitle;
+        private Surfer.Controls.SBLinkLabel lblOpenFile;
+        private Surfer.Controls.SBLabel lblTitle;
         private System.Windows.Forms.PictureBox imgFile;
         private SBPanel pnlFooter;
         private SBPanel pnlHeader;
         private System.Windows.Forms.ProgressBar pbDownload;
-        private System.Windows.Forms.Label lblDownloaded;
-        private System.Windows.Forms.Label lblHyphen;
-        private System.Windows.Forms.Label lblSpeed;
-        private SBIconButton btnPauseResume;
-        private SBIconButton btnRetry;
+        private Surfer.Controls.SBLabel lblDownloaded;
+        private Surfer.Controls.SBLabel lblHyphen;
+        private Surfer.Controls.SBLabel lblSpeed;
+        private SBIconButtonDark btnPauseResume;
+        private SBIconButtonDark btnRetry;
         private SBPanel pnlPbDownload;
-        private System.Windows.Forms.Label lblRemainingTime;
+        private Surfer.Controls.SBLabel lblRemainingTime;
         private SBContextMenuStrip downloadItemContextMenu;
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowInFolder;
@@ -447,8 +461,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiPauseResume;
         private System.Windows.Forms.ToolStripSeparator tsmiSeperator2;
         private System.Windows.Forms.ToolTip toolTip1;
-        private SBIconButton btnDeleteFile;
-        private SBIconButton btnShowInFolder;
-        private SBIconButton btnRemoveFromList;
+        private SBIconButtonDark btnDeleteFile;
+        private SBIconButtonDark btnShowInFolder;
+        private SBIconButtonDark btnRemoveFromList;
+        private SBPanelDark pnlParent;
     }
 }

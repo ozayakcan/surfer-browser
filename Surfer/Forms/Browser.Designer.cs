@@ -31,10 +31,7 @@ namespace Surfer.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pnlBrowser = new System.Windows.Forms.Panel();
-            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
-            this.pnlProgress = new System.Windows.Forms.Panel();
-            this.pbLoading = new System.Windows.Forms.ProgressBar();
+            this.pnlBrowser = new Surfer.Controls.SBPanelDark();
             this.pnlChBrowser = new Surfer.Controls.SBPanel();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.chBrowserContextMenu = new Surfer.Controls.SBContextMenuStrip(this.components);
@@ -49,14 +46,16 @@ namespace Surfer.Forms
             this.btnFavorite = new Surfer.Controls.SBIconButton();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.pnlButtons = new Surfer.Controls.SBPanel();
-            this.btnDownload = new Surfer.Controls.SBIconButton();
+            this.btnDownload = new Surfer.Controls.SBIconButtonDark();
             this.tsNav = new System.Windows.Forms.ToolStrip();
             this.btnBack = new Surfer.Controls.MyIconToolStripButton();
             this.btnForward = new Surfer.Controls.MyIconToolStripButton();
             this.btnReload = new Surfer.Controls.MyIconToolStripButton();
             this.btnHome = new Surfer.Controls.MyIconToolStripButton();
+            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlProgress = new System.Windows.Forms.Panel();
+            this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.pnlBrowser.SuspendLayout();
-            this.pnlProgress.SuspendLayout();
             this.pnlChBrowser.SuspendLayout();
             this.chBrowserContextMenu.SuspendLayout();
             this.pnlNav.SuspendLayout();
@@ -64,10 +63,12 @@ namespace Surfer.Forms
             this.pnlUrlInner.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.tsNav.SuspendLayout();
+            this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBrowser
             // 
+            this.pnlBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.pnlBrowser.Controls.Add(this.pnlChBrowser);
             this.pnlBrowser.Controls.Add(this.pnlFavorites);
             this.pnlBrowser.Controls.Add(this.pnlNav);
@@ -77,26 +78,9 @@ namespace Surfer.Forms
             this.pnlBrowser.Size = new System.Drawing.Size(1005, 484);
             this.pnlBrowser.TabIndex = 0;
             // 
-            // pnlProgress
-            // 
-            this.pnlProgress.Controls.Add(this.pbLoading);
-            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
-            this.pnlProgress.Name = "pnlProgress";
-            this.pnlProgress.Size = new System.Drawing.Size(1005, 5);
-            this.pnlProgress.TabIndex = 2;
-            this.pnlProgress.Visible = false;
-            // 
-            // pbLoading
-            // 
-            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLoading.Location = new System.Drawing.Point(0, 0);
-            this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(1005, 5);
-            this.pbLoading.TabIndex = 0;
-            // 
             // pnlChBrowser
             // 
+            this.pnlChBrowser.BackColor = System.Drawing.Color.Transparent;
             this.pnlChBrowser.Controls.Add(this.chBrowser);
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChBrowser.Location = new System.Drawing.Point(0, 61);
@@ -122,7 +106,7 @@ namespace Surfer.Forms
             this.chBrowserContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.chBrowserContextMenu.Name = "chBrowserContextMenu";
-            this.chBrowserContextMenu.Size = new System.Drawing.Size(181, 48);
+            this.chBrowserContextMenu.Size = new System.Drawing.Size(181, 26);
             // 
             // toolStripMenuItem1
             // 
@@ -133,6 +117,7 @@ namespace Surfer.Forms
             // pnlFavorites
             // 
             this.pnlFavorites.AllowDrop = true;
+            this.pnlFavorites.BackColor = System.Drawing.Color.Transparent;
             this.pnlFavorites.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFavorites.Location = new System.Drawing.Point(0, 41);
             this.pnlFavorites.Name = "pnlFavorites";
@@ -144,6 +129,7 @@ namespace Surfer.Forms
             // 
             // pnlNav
             // 
+            this.pnlNav.BackColor = System.Drawing.Color.Transparent;
             this.pnlNav.Controls.Add(this.pnlUrl);
             this.pnlNav.Controls.Add(this.pnlNavMarginRight);
             this.pnlNav.Controls.Add(this.pnlButtons);
@@ -206,6 +192,7 @@ namespace Surfer.Forms
             this.btnSecure.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnSecure.FlatAppearance.BorderSize = 0;
             this.btnSecure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSecure.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnSecure.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
             this.btnSecure.IconColor = System.Drawing.Color.Black;
             this.btnSecure.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -229,6 +216,7 @@ namespace Surfer.Forms
             this.btnSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnSearch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnSearch.IconColor = System.Drawing.Color.DeepSkyBlue;
             this.btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -247,6 +235,7 @@ namespace Surfer.Forms
             this.btnFavorite.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnFavorite.FlatAppearance.BorderSize = 0;
             this.btnFavorite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFavorite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnFavorite.IconChar = FontAwesome.Sharp.IconChar.Star;
             this.btnFavorite.IconColor = System.Drawing.Color.Black;
             this.btnFavorite.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -268,6 +257,7 @@ namespace Surfer.Forms
             // 
             // pnlButtons
             // 
+            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
             this.pnlButtons.Controls.Add(this.btnDownload);
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlButtons.Location = new System.Drawing.Point(983, 5);
@@ -282,6 +272,7 @@ namespace Surfer.Forms
             this.btnDownload.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnDownload.FlatAppearance.BorderSize = 0;
             this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDownload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnDownload.IconChar = FontAwesome.Sharp.IconChar.Download;
             this.btnDownload.IconColor = System.Drawing.Color.Black;
             this.btnDownload.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -319,6 +310,7 @@ namespace Surfer.Forms
             this.btnBack.AutoSize = false;
             this.btnBack.BackColor = System.Drawing.Color.Transparent;
             this.btnBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnBack.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
             this.btnBack.IconColor = System.Drawing.Color.Black;
             this.btnBack.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -333,6 +325,7 @@ namespace Surfer.Forms
             this.btnForward.AutoSize = false;
             this.btnForward.BackColor = System.Drawing.Color.Transparent;
             this.btnForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnForward.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnForward.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
             this.btnForward.IconColor = System.Drawing.Color.Black;
             this.btnForward.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -348,6 +341,7 @@ namespace Surfer.Forms
             this.btnReload.AutoSize = false;
             this.btnReload.BackColor = System.Drawing.Color.Transparent;
             this.btnReload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnReload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnReload.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
             this.btnReload.IconColor = System.Drawing.Color.Black;
             this.btnReload.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -363,6 +357,7 @@ namespace Surfer.Forms
             this.btnHome.AutoSize = false;
             this.btnHome.BackColor = System.Drawing.Color.Transparent;
             this.btnHome.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnHome.IconChar = FontAwesome.Sharp.IconChar.House;
             this.btnHome.IconColor = System.Drawing.Color.Black;
             this.btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -371,6 +366,25 @@ namespace Surfer.Forms
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(30, 30);
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // pnlProgress
+            // 
+            this.pnlProgress.BackColor = System.Drawing.Color.Transparent;
+            this.pnlProgress.Controls.Add(this.pbLoading);
+            this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProgress.Location = new System.Drawing.Point(0, 0);
+            this.pnlProgress.Name = "pnlProgress";
+            this.pnlProgress.Size = new System.Drawing.Size(1005, 5);
+            this.pnlProgress.TabIndex = 2;
+            this.pnlProgress.Visible = false;
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoading.Location = new System.Drawing.Point(0, 0);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(1005, 5);
+            this.pbLoading.TabIndex = 0;
             // 
             // Browser
             // 
@@ -385,7 +399,6 @@ namespace Surfer.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlBrowser.ResumeLayout(false);
-            this.pnlProgress.ResumeLayout(false);
             this.pnlChBrowser.ResumeLayout(false);
             this.chBrowserContextMenu.ResumeLayout(false);
             this.pnlNav.ResumeLayout(false);
@@ -396,12 +409,13 @@ namespace Surfer.Forms
             this.pnlButtons.ResumeLayout(false);
             this.tsNav.ResumeLayout(false);
             this.tsNav.PerformLayout();
+            this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel pnlBrowser;
+        private Controls.SBPanelDark pnlBrowser;
         private System.Windows.Forms.ToolTip ttNav;
         private System.Windows.Forms.Panel pnlProgress;
         private System.Windows.Forms.ProgressBar pbLoading;
@@ -420,7 +434,7 @@ namespace Surfer.Forms
         private Controls.SBIconButton btnSecure;
         public System.Windows.Forms.TextBox tbUrl;
         private Controls.SBPanel pnlButtons;
-        private Controls.SBIconButton btnDownload;
+        private Controls.SBIconButtonDark btnDownload;
         private Controls.SBIconButton btnFavorite;
         private Controls.SBPanel pnlFavorites;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;

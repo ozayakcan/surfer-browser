@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.tbSearch = new System.Windows.Forms.TextBox();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblCurrent = new System.Windows.Forms.Label();
-            this.lblCur = new System.Windows.Forms.Label();
-            this.btnFindPrev = new Surfer.Controls.SBIconButton();
-            this.btnFindNext = new Surfer.Controls.SBIconButton();
-            this.btnClose = new Surfer.Controls.SBIconButton();
+            this.lblTotal = new Surfer.Controls.SBLabel();
+            this.lblCurrent = new Surfer.Controls.SBLabel();
+            this.lblCur = new Surfer.Controls.SBLabel();
+            this.btnFindPrev = new Surfer.Controls.SBIconButtonDark();
+            this.btnFindNext = new Surfer.Controls.SBIconButtonDark();
+            this.btnClose = new Surfer.Controls.SBIconButtonDark();
             this.SuspendLayout();
             // 
             // tbSearch
@@ -154,12 +154,12 @@
         }
 
         #endregion
-        private SBIconButton btnClose;
-        private SBIconButton btnFindPrev;
-        private SBIconButton btnFindNext;
-        private System.Windows.Forms.Label lblCurrent;
-        private System.Windows.Forms.Label lblCur;
-        private System.Windows.Forms.Label lblTotal;
+        private SBIconButtonDark btnClose;
+        private SBIconButtonDark btnFindPrev;
+        private SBIconButtonDark btnFindNext;
+        private Surfer.Controls.SBLabel lblCurrent;
+        private Surfer.Controls.SBLabel lblCur;
+        private Surfer.Controls.SBLabel lblTotal;
         public System.Windows.Forms.TextBox tbSearch;
     }
 }

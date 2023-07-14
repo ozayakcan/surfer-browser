@@ -87,7 +87,7 @@ namespace Surfer.Renderers
 
             public override Color CheckSelectedBackground => Theme.Get.ColorBackground;
 
-            public override Color MenuItemSelected => Theme.Get.ColorMenuItemSelected;
+            public override Color MenuItemSelected => Theme.Get.ColorButtonHover;
 
             public override Color ImageMarginGradientBegin => Theme.Get.ColorBackground;
 
@@ -95,7 +95,7 @@ namespace Surfer.Renderers
 
             public override Color ImageMarginGradientEnd => Theme.Get.ColorBackground;
 
-            public override Color MenuItemBorder => Theme.Get.ColorMenuItemSelected;
+            public override Color MenuItemBorder => Theme.Get.ColorButtonHover;
 
             public override Color MenuBorder => Theme.Get.ColorMenuBorder;
 

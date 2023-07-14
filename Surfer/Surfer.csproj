@@ -133,7 +133,19 @@
     <Compile Include="Controls\FavoriteControl.Designer.cs">
       <DependentUpon>FavoriteControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SBButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\SBContextMenuStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SBLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SBLinkLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SBPanelDark.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Browser\DownloadManager.cs" />

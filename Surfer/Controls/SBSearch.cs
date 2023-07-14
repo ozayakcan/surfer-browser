@@ -4,6 +4,7 @@ using Surfer.Forms;
 using CefSharp;
 using System.Drawing;
 using Surfer.Utils;
+using Microsoft.Win32;
 
 namespace Surfer.Controls
 {
@@ -15,15 +16,37 @@ namespace Surfer.Controls
         {
             Browser = browser ?? throw new Exception("Browser can not be null");
             InitializeComponent();
+            InitializeColors();
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            Disposed += SBSearch_Disposed;
             /*tbSearch.BackColor = BackColor;
             Padding = new Padding(5);
             Size = new Size(Size.Width, 23);*/
+        }
+
+        private void SBSearch_Disposed(object sender, EventArgs e)
+        {
+            SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            InitializeColors();
+        }
+
+        private void InitializeColors()
+        {
+            BackColor
+                = tbSearch.BackColor
+                = Theme.IsDark ? Theme.Get.ColorButtonHover : Color.Silver;
+            tbSearch.ForeColor = Theme.Get.ColorText;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Black, ButtonBorderStyle.Solid);
+            InitializeColors();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
