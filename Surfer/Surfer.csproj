@@ -174,7 +174,7 @@
     <Compile Include="Controls\SBPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SBRenderer.cs" />
+    <Compile Include="Controls\SBToolStripRenderer.cs" />
     <Compile Include="Controls\SBToolStripSpringTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

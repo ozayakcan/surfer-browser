@@ -58,7 +58,7 @@ namespace Surfer.Forms
             btnReload.ToolTipText = string.Format(Locale.Get.reload_w_key, "F5");
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
-            tsNav.Renderer = new SBRenderer();
+            tsNav.Renderer = new SBToolStripRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
         }
 

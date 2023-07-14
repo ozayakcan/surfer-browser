@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Surfer.Controls
 {
-    class SBRenderer : ToolStripSystemRenderer
+    public class SBToolStripRenderer : ToolStripSystemRenderer
     {
         protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
         {
@@ -41,7 +41,7 @@ namespace Surfer.Controls
             }
             else
             {
-                DrawNormal(e);
+                DrawHover(e);
                 return;
             }
         }
@@ -51,11 +51,12 @@ namespace Surfer.Controls
             e.Graphics.FillRectangle(Brushes.Transparent, rectangle);
             e.Graphics.DrawRectangle(Pens.Transparent, rectangle);
         }
-        private void DrawNormal(ToolStripItemRenderEventArgs e)
+        private void DrawHover(ToolStripItemRenderEventArgs e)
         {
             Rectangle rectangle = new Rectangle(0, 0, e.Item.Size.Width - 1, e.Item.Size.Height - 1);
-            e.Graphics.FillRectangle(Brushes.LightGray, rectangle);
-            e.Graphics.DrawRectangle(Pens.LightGray, rectangle);
+            SolidBrush hoverBrush = new SolidBrush(Theme.Get.ColorButtonHover);
+            e.Graphics.FillRectangle(hoverBrush, rectangle);
+            e.Graphics.DrawRectangle(new Pen(hoverBrush), rectangle);
         }
     }
 }
