@@ -56,6 +56,8 @@ namespace Surfer.Forms
             ttNav.SetToolTip(btnForward, Locale.Get.forward);
             ttNav.SetToolTip(btnHome, Locale.Get.go_home);
             ttNav.SetToolTip(btnReload, string.Format(Locale.Get.reload_w_key, ShortcutKeys.Reload.ToString()));
+            ttNav.SetToolTip(btnFavorite, string.Format(Locale.Get.add_to_favorites, ShortcutKeys.AddToFavorites.ToString()));
+            ttNav.SetToolTip(btnDownload, Locale.Get.downloads);
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
             tsNav.Renderer = new SBToolStripRenderer();

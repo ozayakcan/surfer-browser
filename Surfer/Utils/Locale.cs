@@ -56,6 +56,7 @@ namespace Surfer.Utils
         public string remove_from_list = "remove_from_list";
         public string delete = "delete";
         public string search_the_web_for = "search_the_web_for";
+        public string add_to_favorites = "add_to_favorites";
 
         public static Locale Get { get; set; } = new Locale();
         public static Locale GetL(string localeCode)

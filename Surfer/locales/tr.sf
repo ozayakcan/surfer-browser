@@ -38,5 +38,6 @@
   "delete_file": "Dosyayı sil",
   "remove_from_list": "Listeden kaldır",
   "delete": "Sil",
-  "search_the_web_for": "\"{0}\" terimini webde ara"
+  "search_the_web_for": "\"{0}\" terimini webde ara",
+  "add_to_favorites": "Bu sayfayı favorilere ekle ({0})"
 }

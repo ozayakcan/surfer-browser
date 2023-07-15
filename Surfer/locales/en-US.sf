@@ -38,5 +38,6 @@
   "delete_file": "Delete file",
   "remove_from_list": "Remove from list",
   "delete": "Delete",
-  "search_the_web_for": "Search the web for \"{0}\""
+  "search_the_web_for": "Search the web for \"{0}\"",
+  "add_to_favorites": "Add this page to favorites ({0})"
 }
