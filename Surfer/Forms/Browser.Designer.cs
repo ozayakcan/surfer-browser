@@ -33,6 +33,7 @@ namespace Surfer.Forms
             this.components = new System.ComponentModel.Container();
             this.pnlBrowser = new Surfer.Controls.SBPanelDark();
             this.pnlChBrowser = new Surfer.Controls.SBPanel();
+            this.tsNav = new System.Windows.Forms.ToolStrip();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.chBrowserContextMenu = new Surfer.Controls.SBContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,14 +45,18 @@ namespace Surfer.Forms
             this.btnSecure = new Surfer.Controls.SBIconButton();
             this.btnSearch = new Surfer.Controls.SBIconButton();
             this.btnFavorite = new Surfer.Controls.SBIconButton();
+            this.pnlNavButtons = new Surfer.Controls.SBPanel();
+            this.btnReloadMargin = new Surfer.Controls.SBPanel();
+            this.btnReload = new Surfer.Controls.SBIconButtonDark();
+            this.btnHomeMargin = new Surfer.Controls.SBPanel();
+            this.btnHome = new Surfer.Controls.SBIconButtonDark();
+            this.btnForwardMargin = new Surfer.Controls.SBPanel();
+            this.btnForward = new Surfer.Controls.SBIconButtonDark();
+            this.btnBackMargin = new Surfer.Controls.SBPanel();
+            this.btnBack = new Surfer.Controls.SBIconButtonDark();
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.pnlButtons = new Surfer.Controls.SBPanel();
             this.btnDownload = new Surfer.Controls.SBIconButtonDark();
-            this.tsNav = new System.Windows.Forms.ToolStrip();
-            this.btnBack = new Surfer.Controls.MyIconToolStripButton();
-            this.btnForward = new Surfer.Controls.MyIconToolStripButton();
-            this.btnReload = new Surfer.Controls.MyIconToolStripButton();
-            this.btnHome = new Surfer.Controls.MyIconToolStripButton();
             this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.pbLoading = new System.Windows.Forms.ProgressBar();
@@ -61,8 +66,8 @@ namespace Surfer.Forms
             this.pnlNav.SuspendLayout();
             this.pnlUrl.SuspendLayout();
             this.pnlUrlInner.SuspendLayout();
+            this.pnlNavButtons.SuspendLayout();
             this.pnlButtons.SuspendLayout();
-            this.tsNav.SuspendLayout();
             this.pnlProgress.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,12 +86,29 @@ namespace Surfer.Forms
             // pnlChBrowser
             // 
             this.pnlChBrowser.BackColor = System.Drawing.Color.Transparent;
+            this.pnlChBrowser.Controls.Add(this.tsNav);
             this.pnlChBrowser.Controls.Add(this.chBrowser);
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChBrowser.Location = new System.Drawing.Point(0, 61);
             this.pnlChBrowser.Name = "pnlChBrowser";
             this.pnlChBrowser.Size = new System.Drawing.Size(1005, 423);
             this.pnlChBrowser.TabIndex = 2;
+            // 
+            // tsNav
+            // 
+            this.tsNav.BackColor = System.Drawing.Color.Transparent;
+            this.tsNav.CanOverflow = false;
+            this.tsNav.Dock = System.Windows.Forms.DockStyle.None;
+            this.tsNav.GripMargin = new System.Windows.Forms.Padding(0);
+            this.tsNav.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsNav.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.tsNav.Location = new System.Drawing.Point(223, 189);
+            this.tsNav.Name = "tsNav";
+            this.tsNav.Padding = new System.Windows.Forms.Padding(0);
+            this.tsNav.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.tsNav.Size = new System.Drawing.Size(0, 0);
+            this.tsNav.Stretch = true;
+            this.tsNav.TabIndex = 0;
             // 
             // chBrowser
             // 
@@ -131,9 +153,9 @@ namespace Surfer.Forms
             // 
             this.pnlNav.BackColor = System.Drawing.Color.Transparent;
             this.pnlNav.Controls.Add(this.pnlUrl);
+            this.pnlNav.Controls.Add(this.pnlNavButtons);
             this.pnlNav.Controls.Add(this.pnlNavMarginRight);
             this.pnlNav.Controls.Add(this.pnlButtons);
-            this.pnlNav.Controls.Add(this.tsNav);
             this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlNav.Location = new System.Drawing.Point(0, 0);
             this.pnlNav.Margin = new System.Windows.Forms.Padding(0);
@@ -150,10 +172,10 @@ namespace Surfer.Forms
             this.pnlUrl.BorderThickness = 3F;
             this.pnlUrl.Controls.Add(this.pnlUrlInner);
             this.pnlUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUrl.Location = new System.Drawing.Point(95, 5);
+            this.pnlUrl.Location = new System.Drawing.Point(93, 5);
             this.pnlUrl.Name = "pnlUrl";
             this.pnlUrl.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.pnlUrl.Size = new System.Drawing.Size(877, 31);
+            this.pnlUrl.Size = new System.Drawing.Size(879, 31);
             this.pnlUrl.TabIndex = 1;
             // 
             // pnlUrlInner
@@ -165,7 +187,7 @@ namespace Surfer.Forms
             this.pnlUrlInner.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUrlInner.Location = new System.Drawing.Point(10, 7);
             this.pnlUrlInner.Name = "pnlUrlInner";
-            this.pnlUrlInner.Size = new System.Drawing.Size(857, 17);
+            this.pnlUrlInner.Size = new System.Drawing.Size(859, 17);
             this.pnlUrlInner.TabIndex = 0;
             // 
             // tbUrl
@@ -178,7 +200,7 @@ namespace Surfer.Forms
             this.tbUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUrl.Location = new System.Drawing.Point(44, 0);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(796, 13);
+            this.tbUrl.Size = new System.Drawing.Size(798, 13);
             this.tbUrl.TabIndex = 2;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
@@ -240,12 +262,148 @@ namespace Surfer.Forms
             this.btnFavorite.IconColor = System.Drawing.Color.Black;
             this.btnFavorite.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnFavorite.IconSize = 17;
-            this.btnFavorite.Location = new System.Drawing.Point(840, 0);
+            this.btnFavorite.Location = new System.Drawing.Point(842, 0);
             this.btnFavorite.Name = "btnFavorite";
             this.btnFavorite.Size = new System.Drawing.Size(17, 17);
             this.btnFavorite.TabIndex = 1;
             this.btnFavorite.UseVisualStyleBackColor = false;
             this.btnFavorite.Click += new System.EventHandler(this.btnFavorite_Click);
+            // 
+            // pnlNavButtons
+            // 
+            this.pnlNavButtons.AutoSize = true;
+            this.pnlNavButtons.Controls.Add(this.btnReloadMargin);
+            this.pnlNavButtons.Controls.Add(this.btnReload);
+            this.pnlNavButtons.Controls.Add(this.btnHomeMargin);
+            this.pnlNavButtons.Controls.Add(this.btnHome);
+            this.pnlNavButtons.Controls.Add(this.btnForwardMargin);
+            this.pnlNavButtons.Controls.Add(this.btnForward);
+            this.pnlNavButtons.Controls.Add(this.btnBackMargin);
+            this.pnlNavButtons.Controls.Add(this.btnBack);
+            this.pnlNavButtons.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlNavButtons.Location = new System.Drawing.Point(5, 5);
+            this.pnlNavButtons.Name = "pnlNavButtons";
+            this.pnlNavButtons.Padding = new System.Windows.Forms.Padding(0, 7, 0, 7);
+            this.pnlNavButtons.Size = new System.Drawing.Size(88, 31);
+            this.pnlNavButtons.TabIndex = 1;
+            // 
+            // btnReloadMargin
+            // 
+            this.btnReloadMargin.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnReloadMargin.Location = new System.Drawing.Point(83, 7);
+            this.btnReloadMargin.Name = "btnReloadMargin";
+            this.btnReloadMargin.Size = new System.Drawing.Size(5, 17);
+            this.btnReloadMargin.TabIndex = 7;
+            // 
+            // btnReload
+            // 
+            this.btnReload.BackColor = System.Drawing.Color.Transparent;
+            this.btnReload.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnReload.FlatAppearance.BorderSize = 0;
+            this.btnReload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnReload.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
+            this.btnReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnReload.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            this.btnReload.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnReload.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnReload.IconSize = 17;
+            this.btnReload.Location = new System.Drawing.Point(66, 7);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(17, 17);
+            this.btnReload.TabIndex = 4;
+            this.btnReload.UseVisualStyleBackColor = false;
+            this.btnReload.VisibleChanged += new System.EventHandler(this.btnReload_VisibleChanged);
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // btnHomeMargin
+            // 
+            this.btnHomeMargin.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHomeMargin.Location = new System.Drawing.Point(61, 7);
+            this.btnHomeMargin.Name = "btnHomeMargin";
+            this.btnHomeMargin.Size = new System.Drawing.Size(5, 17);
+            this.btnHomeMargin.TabIndex = 5;
+            // 
+            // btnHome
+            // 
+            this.btnHome.BackColor = System.Drawing.Color.Transparent;
+            this.btnHome.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnHome.FlatAppearance.BorderSize = 0;
+            this.btnHome.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnHome.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
+            this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnHome.IconChar = FontAwesome.Sharp.IconChar.House;
+            this.btnHome.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnHome.IconSize = 17;
+            this.btnHome.Location = new System.Drawing.Point(44, 7);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(17, 17);
+            this.btnHome.TabIndex = 3;
+            this.btnHome.UseVisualStyleBackColor = false;
+            this.btnHome.VisibleChanged += new System.EventHandler(this.btnHome_VisibleChanged);
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // btnForwardMargin
+            // 
+            this.btnForwardMargin.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnForwardMargin.Location = new System.Drawing.Point(39, 7);
+            this.btnForwardMargin.Name = "btnForwardMargin";
+            this.btnForwardMargin.Size = new System.Drawing.Size(5, 17);
+            this.btnForwardMargin.TabIndex = 6;
+            this.btnForwardMargin.Visible = false;
+            // 
+            // btnForward
+            // 
+            this.btnForward.BackColor = System.Drawing.Color.Transparent;
+            this.btnForward.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnForward.FlatAppearance.BorderSize = 0;
+            this.btnForward.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnForward.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
+            this.btnForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnForward.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnForward.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
+            this.btnForward.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnForward.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnForward.IconSize = 17;
+            this.btnForward.Location = new System.Drawing.Point(22, 7);
+            this.btnForward.Name = "btnForward";
+            this.btnForward.Size = new System.Drawing.Size(17, 17);
+            this.btnForward.TabIndex = 2;
+            this.btnForward.UseVisualStyleBackColor = false;
+            this.btnForward.Visible = false;
+            this.btnForward.VisibleChanged += new System.EventHandler(this.btnForward_VisibleChanged);
+            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
+            // 
+            // btnBackMargin
+            // 
+            this.btnBackMargin.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnBackMargin.Location = new System.Drawing.Point(17, 7);
+            this.btnBackMargin.Name = "btnBackMargin";
+            this.btnBackMargin.Size = new System.Drawing.Size(5, 17);
+            this.btnBackMargin.TabIndex = 1;
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnBack.FlatAppearance.BorderSize = 0;
+            this.btnBack.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnBack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnBack.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
+            this.btnBack.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnBack.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBack.IconSize = 17;
+            this.btnBack.Location = new System.Drawing.Point(0, 7);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(17, 17);
+            this.btnBack.TabIndex = 1;
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.VisibleChanged += new System.EventHandler(this.btnBack_VisibleChanged);
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // pnlNavMarginRight
             // 
@@ -271,10 +429,12 @@ namespace Surfer.Forms
             this.btnDownload.BackColor = System.Drawing.Color.Transparent;
             this.btnDownload.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnDownload.FlatAppearance.BorderSize = 0;
+            this.btnDownload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnDownload.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDownload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnDownload.IconChar = FontAwesome.Sharp.IconChar.Download;
-            this.btnDownload.IconColor = System.Drawing.Color.Black;
+            this.btnDownload.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnDownload.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDownload.IconSize = 17;
             this.btnDownload.Location = new System.Drawing.Point(0, 7);
@@ -283,89 +443,6 @@ namespace Surfer.Forms
             this.btnDownload.TabIndex = 0;
             this.btnDownload.UseVisualStyleBackColor = false;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // tsNav
-            // 
-            this.tsNav.BackColor = System.Drawing.Color.Transparent;
-            this.tsNav.CanOverflow = false;
-            this.tsNav.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tsNav.GripMargin = new System.Windows.Forms.Padding(0);
-            this.tsNav.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.tsNav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnBack,
-            this.btnForward,
-            this.btnReload,
-            this.btnHome});
-            this.tsNav.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.tsNav.Location = new System.Drawing.Point(5, 5);
-            this.tsNav.Name = "tsNav";
-            this.tsNav.Padding = new System.Windows.Forms.Padding(0);
-            this.tsNav.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsNav.Size = new System.Drawing.Size(90, 31);
-            this.tsNav.Stretch = true;
-            this.tsNav.TabIndex = 0;
-            // 
-            // btnBack
-            // 
-            this.btnBack.AutoSize = false;
-            this.btnBack.BackColor = System.Drawing.Color.Transparent;
-            this.btnBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.btnBack.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
-            this.btnBack.IconColor = System.Drawing.Color.Black;
-            this.btnBack.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnBack.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBack.Margin = new System.Windows.Forms.Padding(0);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(30, 30);
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnForward
-            // 
-            this.btnForward.AutoSize = false;
-            this.btnForward.BackColor = System.Drawing.Color.Transparent;
-            this.btnForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnForward.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.btnForward.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
-            this.btnForward.IconColor = System.Drawing.Color.Black;
-            this.btnForward.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnForward.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnForward.Margin = new System.Windows.Forms.Padding(0);
-            this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(30, 30);
-            this.btnForward.Visible = false;
-            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
-            // 
-            // btnReload
-            // 
-            this.btnReload.AutoSize = false;
-            this.btnReload.BackColor = System.Drawing.Color.Transparent;
-            this.btnReload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnReload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.btnReload.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            this.btnReload.IconColor = System.Drawing.Color.Black;
-            this.btnReload.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnReload.IconSize = 60;
-            this.btnReload.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnReload.Margin = new System.Windows.Forms.Padding(0);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(30, 30);
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
-            // 
-            // btnHome
-            // 
-            this.btnHome.AutoSize = false;
-            this.btnHome.BackColor = System.Drawing.Color.Transparent;
-            this.btnHome.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.btnHome.IconChar = FontAwesome.Sharp.IconChar.House;
-            this.btnHome.IconColor = System.Drawing.Color.Black;
-            this.btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnHome.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnHome.Margin = new System.Windows.Forms.Padding(0);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(30, 30);
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // pnlProgress
             // 
@@ -400,15 +477,15 @@ namespace Surfer.Forms
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlBrowser.ResumeLayout(false);
             this.pnlChBrowser.ResumeLayout(false);
+            this.pnlChBrowser.PerformLayout();
             this.chBrowserContextMenu.ResumeLayout(false);
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
             this.pnlUrl.ResumeLayout(false);
             this.pnlUrlInner.ResumeLayout(false);
             this.pnlUrlInner.PerformLayout();
+            this.pnlNavButtons.ResumeLayout(false);
             this.pnlButtons.ResumeLayout(false);
-            this.tsNav.ResumeLayout(false);
-            this.tsNav.PerformLayout();
             this.pnlProgress.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -422,10 +499,6 @@ namespace Surfer.Forms
         private Controls.SBPanel pnlUrl;
         private Controls.SBPanel pnlNav;
         private System.Windows.Forms.ToolStrip tsNav;
-        private Controls.MyIconToolStripButton btnBack;
-        private Controls.MyIconToolStripButton btnForward;
-        private Controls.MyIconToolStripButton btnHome;
-        private Controls.MyIconToolStripButton btnReload;
         private System.Windows.Forms.Panel pnlNavMarginRight;
         public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private Controls.SBPanel pnlChBrowser;
@@ -439,5 +512,14 @@ namespace Surfer.Forms
         private Controls.SBPanel pnlFavorites;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         public Controls.SBContextMenuStrip chBrowserContextMenu;
+        private Controls.SBPanel pnlNavButtons;
+        private Controls.SBIconButtonDark btnBack;
+        private Controls.SBIconButtonDark btnHome;
+        private Controls.SBIconButtonDark btnForward;
+        private Controls.SBIconButtonDark btnReload;
+        private Controls.SBPanel btnBackMargin;
+        private Controls.SBPanel btnForwardMargin;
+        private Controls.SBPanel btnHomeMargin;
+        private Controls.SBPanel btnReloadMargin;
     }
 }

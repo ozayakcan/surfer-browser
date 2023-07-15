@@ -52,10 +52,10 @@ namespace Surfer.Forms
             Name = Locale.Get.new_tab;
             Text = Locale.Get.new_tab;
             ttNav.SetToolTip(btnSecure, Locale.Get.show_site_information);
-            btnBack.ToolTipText = Locale.Get.back;
-            btnForward.ToolTipText = Locale.Get.forward;
-            btnHome.ToolTipText = Locale.Get.go_home;
-            btnReload.ToolTipText = string.Format(Locale.Get.reload_w_key, "F5");
+            ttNav.SetToolTip(btnBack, Locale.Get.back);
+            ttNav.SetToolTip(btnForward, Locale.Get.forward);
+            ttNav.SetToolTip(btnHome, Locale.Get.go_home);
+            ttNav.SetToolTip(btnReload, string.Format(Locale.Get.reload_w_key, ShortcutKeys.Reload.ToString()));
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
             tsNav.Renderer = new SBToolStripRenderer();
@@ -897,6 +897,26 @@ namespace Surfer.Forms
             }
             if (addToFavorite)
                 FavoriteManager.Save(new Favorite(IconReader.BitmapToBytes(icon), title, url));
+        }
+
+        private void btnBack_VisibleChanged(object sender, EventArgs e)
+        {
+            btnBackMargin.Visible = ((Control)sender).Visible;
+        }
+
+        private void btnForward_VisibleChanged(object sender, EventArgs e)
+        {
+            btnForwardMargin.Visible = ((Control)sender).Visible;
+        }
+
+        private void btnHome_VisibleChanged(object sender, EventArgs e)
+        {
+            btnHomeMargin.Visible = ((Control)sender).Visible;
+        }
+
+        private void btnReload_VisibleChanged(object sender, EventArgs e)
+        {
+            btnReloadMargin.Visible = ((Control)sender).Visible;
         }
     }
 }
