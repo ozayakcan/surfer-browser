@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
+using Microsoft.Win32;
 using Surfer.Controls.Downloads;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
@@ -69,6 +70,18 @@ namespace Surfer.Forms
             ExitOnLastTabClose = false;
             TabRenderer = new ChromeTabRenderer(this);
             TabSelected += SBAppContainer_TabSelected;
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            Disposed += SBAppContainer_Disposed;
+        }
+
+        private void SBAppContainer_Disposed(object sender, EventArgs e)
+        {
+            SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            RedrawTabs();
         }
 
         private void SBAppContainer_TabSelected(object sender, TitleBarTabEventArgs e)

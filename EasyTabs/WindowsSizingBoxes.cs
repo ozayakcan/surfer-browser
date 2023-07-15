@@ -1,4 +1,5 @@
-﻿using Svg;
+﻿using Surfer;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,12 +14,15 @@ namespace EasyTabs
     public class WindowsSizingBoxes
     {
         protected TitleBarTabs _parentWindow;
-        protected Image _minimizeImage = null;
-        protected Image _restoreImage = null;
-        protected Image _maximizeImage = null;
-        protected Image _closeImage = null;
+        protected Image _minimizeLightImage = null;
+        protected Image _minimizeDarkImage = null;
+        protected Image _restoreLightImage = null;
+        protected Image _restoreDarkImage = null;
+        protected Image _maximizeLightImage = null;
+        protected Image _maximizeDarkImage = null;
+        protected Image _closeLightImage = null;
+        protected Image _closeDarkImage = null;
         protected Image _closeHighlightImage = null;
-        protected Brush _minimizeMaximizeButtonHighlight = new SolidBrush(Color.FromArgb(27, Color.Black));
         protected Brush _closeButtonHighlight = new SolidBrush(Color.FromArgb(232, 17, 35));
         protected Rectangle _minimizeButtonArea = new Rectangle(0, 0, 45, 29);
         protected Rectangle _maximizeRestoreButtonArea = new Rectangle(45, 0, 45, 29);
@@ -27,10 +31,14 @@ namespace EasyTabs
         public WindowsSizingBoxes(TitleBarTabs parentWindow)
         {
             _parentWindow = parentWindow;
-            _minimizeImage = LoadSvg(Encoding.UTF8.GetString(Resources.Minimize), 10, 10);
-            _restoreImage = LoadSvg(Encoding.UTF8.GetString(Resources.Restore), 10, 10);
-            _maximizeImage = LoadSvg(Encoding.UTF8.GetString(Resources.Maximize), 10, 10);
-            _closeImage = LoadSvg(Encoding.UTF8.GetString(Resources.Close), 10, 10);
+            _minimizeLightImage = LoadSvg(Encoding.UTF8.GetString(Resources.MinimizeLight), 10, 10);
+            _minimizeDarkImage = LoadSvg(Encoding.UTF8.GetString(Resources.MinimizeDark), 10, 10);
+            _restoreLightImage = LoadSvg(Encoding.UTF8.GetString(Resources.RestoreLight), 10, 10);
+            _restoreDarkImage = LoadSvg(Encoding.UTF8.GetString(Resources.RestoreDark), 10, 10);
+            _maximizeLightImage = LoadSvg(Encoding.UTF8.GetString(Resources.MaximizeLight), 10, 10);
+            _maximizeDarkImage = LoadSvg(Encoding.UTF8.GetString(Resources.MaximizeDark), 10, 10);
+            _closeLightImage = LoadSvg(Encoding.UTF8.GetString(Resources.CloseLight), 10, 10);
+            _closeDarkImage = LoadSvg(Encoding.UTF8.GetString(Resources.CloseDark), 10, 10);
             _closeHighlightImage = LoadSvg(Encoding.UTF8.GetString(Resources.CloseHighlight), 10, 10);
         }
 
@@ -66,12 +74,12 @@ namespace EasyTabs
 
             if (_minimizeButtonArea.Contains(cursor))
             {
-                graphicsContext.FillRectangle(_minimizeMaximizeButtonHighlight, _minimizeButtonArea);
+                graphicsContext.FillRectangle(new SolidBrush(Theme.Get.ColorButtonHover), _minimizeButtonArea);
             }
 
             else if (_maximizeRestoreButtonArea.Contains(cursor))
             {
-                graphicsContext.FillRectangle(_minimizeMaximizeButtonHighlight, _maximizeRestoreButtonArea);
+                graphicsContext.FillRectangle(new SolidBrush(Theme.Get.ColorButtonHover), _maximizeRestoreButtonArea);
             }
 
             else if (_closeButtonArea.Contains(cursor))
@@ -80,9 +88,9 @@ namespace EasyTabs
                 closeButtonHighlighted = true;
             }
 
-            graphicsContext.DrawImage(closeButtonHighlighted ? _closeHighlightImage : _closeImage, _closeButtonArea.X + 17, _closeButtonArea.Y + 9);
-            graphicsContext.DrawImage(_parentWindow.WindowState == FormWindowState.Maximized ? _restoreImage : _maximizeImage, _maximizeRestoreButtonArea.X + 17, _maximizeRestoreButtonArea.Y + 9);
-            graphicsContext.DrawImage(_minimizeImage, _minimizeButtonArea.X + 17, _minimizeButtonArea.Y + 9);
+            graphicsContext.DrawImage(closeButtonHighlighted ? _closeHighlightImage : Theme.IsDark ? _closeDarkImage : _closeLightImage, _closeButtonArea.X + 17, _closeButtonArea.Y + 9);
+            graphicsContext.DrawImage(_parentWindow.WindowState == FormWindowState.Maximized ? (Theme.IsDark ? _restoreDarkImage : _restoreLightImage) : (Theme.IsDark ? _maximizeDarkImage : _maximizeLightImage), _maximizeRestoreButtonArea.X + 17, _maximizeRestoreButtonArea.Y + 9);
+            graphicsContext.DrawImage(Theme.IsDark ? _minimizeDarkImage : _minimizeLightImage, _minimizeButtonArea.X + 17, _minimizeButtonArea.Y + 9);
         }
 
         public HT NonClientHitTest(Point cursor)

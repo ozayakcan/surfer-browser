@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -39,12 +40,18 @@ namespace EasyTabs
 		/// <summary>Thumbnail of the tab we are dragging.</summary>
 		protected Bitmap _tabThumbnail;
 
-		/// <summary>Constructor; initializes the window and constructs the tab thumbnail image to use when dragging.</summary>
-		/// <param name="tab">Tab that was torn out of its parent window.</param>
-		/// <param name="tabRenderer">Renderer instance to use when drawing the actual tab.</param>
-		public TornTabForm(TitleBarTab tab, BaseTabRenderer tabRenderer)
+        BaseTabRenderer _tabRenderer;
+        TitleBarTab _tab;
+        Graphics _tabGraphics;
+        /// <summary>Constructor; initializes the window and constructs the tab thumbnail image to use when dragging.</summary>
+        /// <param name="tab">Tab that was torn out of its parent window.</param>
+        /// <param name="tabRenderer">Renderer instance to use when drawing the actual tab.</param>
+        public TornTabForm(TitleBarTab tab, BaseTabRenderer tabRenderer)
 		{
-			_layeredWindow = new LayeredWindow();
+            _tab = tab;
+            _tabRenderer = tabRenderer;
+
+            _layeredWindow = new LayeredWindow();
 			_initialized = false;
 
 			// Set drawing styles
@@ -63,21 +70,23 @@ namespace EasyTabs
 			Disposed += TornTabForm_Disposed;
 
 			// Get the tab thumbnail (full size) and then draw the actual representation of the tab onto it as well
-			Bitmap tabContents = tab.GetImage();
-			Bitmap contentsAndTab = new Bitmap(tabContents.Width, tabContents.Height + tabRenderer.TabHeight, tabContents.PixelFormat);
-			Graphics tabGraphics = Graphics.FromImage(contentsAndTab);
+			Bitmap tabContents = _tab.GetImage();
+			Bitmap contentsAndTab = new Bitmap(tabContents.Width, tabContents.Height + _tabRenderer.TabHeight, tabContents.PixelFormat);
+            _tabGraphics = Graphics.FromImage(contentsAndTab);
 
-			tabGraphics.DrawImage(tabContents, 0, tabRenderer.TabHeight);
+			_tabGraphics.DrawImage(tabContents, 0, _tabRenderer.TabHeight);
 
-			bool oldShowAddButton = tabRenderer.ShowAddButton;
+			bool oldShowAddButton = _tabRenderer.ShowAddButton;
 
-			tabRenderer.ShowAddButton = false;
-			tabRenderer.Render(
+            _tabRenderer.ShowAddButton = false;
+            _tabRenderer.Render(
 				new List<TitleBarTab>
 				{
-					tab
-				}, tabGraphics, new Point(0, 0), new Point(0, 0), true);
-			tabRenderer.ShowAddButton = oldShowAddButton;
+					_tab
+				}, _tabGraphics, new Point(0, 0), new Point(0, 0), true);
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            Disposed += TornTabForm_Disposed1;
+            _tabRenderer.ShowAddButton = oldShowAddButton;
 
 			// Scale the thumbnail down to half size
 			_tabThumbnail = new Bitmap(contentsAndTab.Width / 2, contentsAndTab.Height / 2, contentsAndTab.PixelFormat);
@@ -91,18 +100,32 @@ namespace EasyTabs
 			Width = _tabThumbnail.Width - 1;
 			Height = _tabThumbnail.Height - 1;
 
-			_cursorOffset = new Point(tabRenderer.TabContentWidth / 4, tabRenderer.TabHeight / 4);
+			_cursorOffset = new Point(_tabRenderer.TabContentWidth / 4, _tabRenderer.TabHeight / 4);
 
 			SetWindowPosition(Cursor.Position);
 		}
 
-		/// <summary>
-		/// Event handler that's called from <see cref="IDisposable.Dispose" />; calls <see cref="User32.UnhookWindowsHookEx" /> to unsubscribe from the mouse
-		/// hook.
-		/// </summary>
-		/// <param name="sender">Object from which this event originated.</param>
-		/// <param name="e">Arguments associated with this event.</param>
-		private void TornTabForm_Disposed(object sender, EventArgs e)
+        private void TornTabForm_Disposed1(object sender, EventArgs e)
+        {
+            SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            _tabRenderer.Render(
+                new List<TitleBarTab>
+                {
+                    _tab
+                }, _tabGraphics, new Point(0, 0), new Point(0, 0), true);
+        }
+
+        /// <summary>
+        /// Event handler that's called from <see cref="IDisposable.Dispose" />; calls <see cref="User32.UnhookWindowsHookEx" /> to unsubscribe from the mouse
+        /// hook.
+        /// </summary>
+        /// <param name="sender">Object from which this event originated.</param>
+        /// <param name="e">Arguments associated with this event.</param>
+        private void TornTabForm_Disposed(object sender, EventArgs e)
 		{
 			User32.UnhookWindowsHookEx(_hookId);
 		}

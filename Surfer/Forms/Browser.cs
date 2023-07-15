@@ -4,6 +4,7 @@ using EasyTabs;
 using Etier.IconHelper;
 using FontAwesome.Sharp;
 using IWshRuntimeLibrary;
+using Microsoft.Win32;
 using Surfer.Controls;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
@@ -33,9 +34,13 @@ namespace Surfer.Forms
                     SBSiteInformationButtonStatus(false);
             }
         }
-        public System.Drawing.Icon OriginalIcon
+        public System.Drawing.Icon OriginalIconLight
         {
-            get => System.Drawing.Icon.FromHandle(IconChar.Table.ToBitmap(Color.Black).GetHicon());
+            get => System.Drawing.Icon.FromHandle(IconChar.Table.ToBitmap(Theme.of(false).ColorText).GetHicon());
+        }
+        public System.Drawing.Icon OriginalIconDark
+        {
+            get => System.Drawing.Icon.FromHandle(IconChar.Table.ToBitmap(Theme.of(true).ColorText).GetHicon());
         }
         public System.Drawing.Icon SiteIcon;
         public SBAppContainer AppContainer { get; set; }
@@ -62,6 +67,24 @@ namespace Surfer.Forms
             pnlUrlBorderColor = pnlUrl.BorderColor;
             tsNav.Renderer = new SBToolStripRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            Disposed += Browser_Disposed;
+        }
+
+        private void Browser_Disposed(object sender, EventArgs e)
+        {
+            SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            InitializeColors();
+        }
+
+        public void InitializeColors(bool isFirst = false)
+        {
+            if (Icon == OriginalIconLight || Icon == OriginalIconDark || isFirst)
+                SetIcon(Theme.IsDark ? OriginalIconDark : OriginalIconLight, Properties.Resources.icon);
         }
 
         private void btnGo_Click(object sender, EventArgs e)
@@ -78,7 +101,7 @@ namespace Surfer.Forms
         private void Browser_Load(object sender, EventArgs e)
         {
             // Browser
-            SetIcon(OriginalIcon, Properties.Resources.icon);
+            InitializeColors(true);
             chBrowser.DisplayHandler = new SBDisplayHandler(this);
             chBrowser.RequestHandler = new SBRequestHandler(this);
             chBrowser.FindHandler = new SBFindHandler(this);
@@ -219,12 +242,12 @@ namespace Surfer.Forms
                 }
                 catch
                 {
-                    SetIcon(OriginalIcon, Properties.Resources.icon);
+                    SetIcon(Theme.IsDark ? OriginalIconDark : OriginalIconLight, Properties.Resources.icon);
                 }
             }
             else
             {
-                SetIcon(OriginalIcon, Properties.Resources.icon);
+                SetIcon(Theme.IsDark ? OriginalIconDark : OriginalIconLight, Properties.Resources.icon);
             }
         }
         private void SetIcon(System.Drawing.Icon tabIcon, System.Drawing.Icon thumbnailIcon)
@@ -243,7 +266,7 @@ namespace Surfer.Forms
         {
             this.InvokeOnUiThreadIfRequired(() =>
             {
-                pnlProgress.Visible = true;
+                pnlLoading.Visible = true;
                 pbLoading.Value = progress;
                 SetRefreshButtonStatus(false);
             });
@@ -255,7 +278,7 @@ namespace Surfer.Forms
             {
                 SetRefreshButtonStatus(true);
                 pbLoading.Value = 0;
-                pnlProgress.Visible = true;
+                pnlLoading.Visible = true;
             });
         }
         private void chBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -720,7 +743,7 @@ namespace Surfer.Forms
                 {
                     var html = taskHtml.Result;
                     Thread thread = new Thread(() =>{
-                        SaveFileDialog saveFileDialog = new SaveFileDialog();
+                        System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
                         saveFileDialog.InitialDirectory = DownloadManager.Location;
                         saveFileDialog.Title = "Save text Files";
                         saveFileDialog.DefaultExt = "html";

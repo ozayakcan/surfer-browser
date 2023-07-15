@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using Surfer;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Win32Interop.Enums;
@@ -16,19 +19,10 @@ namespace EasyTabs
 		public ChromeTabRenderer(TitleBarTabs parentWindow)
 			: base(parentWindow)
 		{
-			// Initialize the various images to use during rendering
-			_activeLeftSideImage = Resources.ChromeLeft;
-			_activeRightSideImage = Resources.ChromeRight;
-			_activeCenterImage = Resources.ChromeCenter;
-			_inactiveLeftSideImage = Resources.ChromeInactiveLeft;
-			_inactiveRightSideImage = Resources.ChromeInactiveRight;
-			_inactiveCenterImage = Resources.ChromeInactiveCenter;
-			_closeButtonImage = Resources.ChromeClose;
-			_closeButtonHoverImage = Resources.ChromeCloseHover;
-			_background = IsWindows10 ? Resources.ChromeBackground : null;
-			_addButtonImage = new Bitmap(Resources.ChromeAdd);
-			_addButtonHoverImage = new Bitmap(Resources.ChromeAddHover);
-
+            // Initialize the various images to use during rendering
+            InitializeColors();
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            parentWindow.Disposed += ParentWindow_Disposed;
 			// Set the various positioning properties
 			CloseButtonMarginTop = 9;
 			CloseButtonMarginLeft = 2;
@@ -48,6 +42,32 @@ namespace EasyTabs
             {
                 _captionFont = new Font(SystemFonts.CaptionFont.Name, 9);
             }
+        }
+
+        private void ParentWindow_Disposed(object sender, EventArgs e)
+        {
+            SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            InitializeColors();
+        }
+
+        private void InitializeColors()
+        {
+            ForeColor = Theme.Get.ColorText;
+            _activeLeftSideImage = Theme.IsDark ? Resources.ChromeLeftDark : Resources.ChromeLeftLight;
+            _activeRightSideImage = Theme.IsDark ? Resources.ChromeRightDark : Resources.ChromeRightLight;
+            _activeCenterImage = Theme.IsDark ? Resources.ChromeCenterDark : Resources.ChromeCenterLight;
+            _inactiveLeftSideImage = Theme.IsDark ? Resources.ChromeInactiveLeftDark : Resources.ChromeInactiveLeftLight;
+            _inactiveRightSideImage = Theme.IsDark ? Resources.ChromeInactiveRightDark : Resources.ChromeInactiveRightLight;
+            _inactiveCenterImage = Theme.IsDark ? Resources.ChromeInactiveCenterDark : Resources.ChromeInactiveCenterLight;
+            _closeButtonImage = Theme.IsDark ? Resources.ChromeCloseDark : Resources.ChromeCloseLight;
+            _closeButtonHoverImage = Theme.IsDark ? Resources.ChromeCloseDarkHover : Resources.ChromeCloseLightHover;
+            _background = IsWindows10 ? (Theme.IsDark ? Resources.ChromeBackgroundDark : Resources.ChromeBackgroundLight) : null;
+            _addButtonImage = new Bitmap(Theme.IsDark ? Resources.ChromeAddDark : Resources.ChromeAddLight);
+            _addButtonHoverImage = new Bitmap(Theme.IsDark ? Resources.ChromeAddDarkHover : Resources.ChromeAddLightHover);
         }
 
         public override Font CaptionFont
@@ -116,7 +136,8 @@ namespace EasyTabs
         {
             if (!IsWindows10 && !tab.Active && index == _parentWindow.Tabs.Count - 1)
             {
-                tabRightImage = Resources.ChromeInactiveRightNoDivider;
+                tabRightImage = Theme.IsDark ?
+                    Resources.ChromeInactiveRightNoDividerDark : Resources.ChromeInactiveRightNoDividerLight;
             }
 
             base.Render(graphicsContext, tab, index, area, cursor, tabLeftImage, tabCenterImage, tabRightImage);

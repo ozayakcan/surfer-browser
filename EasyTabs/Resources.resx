@@ -118,55 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ChromeAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeAddDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\AddDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeAddHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\AddHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeAddDarkHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\AddDarkHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeAddLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\AddLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\Center.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeAddLightHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\AddLightHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeBackgroundDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\BackgroundDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeCloseHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\CloseHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeBackgroundLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\BackgroundLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeInactiveCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\InactiveCenter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeCenterDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\CenterDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeInactiveLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\InactiveLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeCenterLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\CenterLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeInactiveRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\InactiveRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeCloseDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\CloseDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeInactiveRightNoDivider" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\InactiveRightNoDivider.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeCloseDarkHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\CloseDarkHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeCloseLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\CloseLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChromeRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Chrome\Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ChromeCloseLightHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\CloseLightHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Windows10\close.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ChromeInactiveCenterDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveCenterDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveCenterLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveCenterLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveLeftDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveLeftDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveLeftLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveLeftLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveRightDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveRightDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveRightLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveRightLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveRightNoDividerDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveRightNoDividerDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeInactiveRightNoDividerLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\InactiveRightNoDividerLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeLeftDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\LeftDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeLeftLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\LeftLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeRightDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\RightDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChromeRightLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chrome\RightLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\CloseDark.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="CloseHighlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Windows10\closehighlight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Resources\Windows10\CloseHighlight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Maximize" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Windows10\maximize.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="CloseLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\CloseLight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Minimize" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Windows10\minimize.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="MaximizeDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\MaximizeDark.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Windows10\restore.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="MaximizeLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\MaximizeLight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MinimizeDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\MinimizeDark.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MinimizeLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\MinimizeLight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RestoreDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\RestoreDark.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RestoreLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Windows10\RestoreLight.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
