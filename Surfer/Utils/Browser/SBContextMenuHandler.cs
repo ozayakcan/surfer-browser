@@ -57,7 +57,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Undo();
                     }
                 );
-                undoItem.ShortcutKeys = ShortcutKeys.Undo;
+                undoItem.ShortcutKeys = SBShortcutKeys.Undo.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(undoItem);
                 ToolStripMenuItem cutItem = new ToolStripMenuItem(
                     Locale.Get.cut,
@@ -66,7 +66,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Cut();
                     }
                 );
-                cutItem.ShortcutKeys = ShortcutKeys.Cut;
+                cutItem.ShortcutKeys = SBShortcutKeys.Cut.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(cutItem);
                 cutItem.Enabled = !string.IsNullOrEmpty(SelectionText);
             }
@@ -80,7 +80,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Copy();
                     }
                 );
-                copyItem.ShortcutKeys = ShortcutKeys.Copy;
+                copyItem.ShortcutKeys = SBShortcutKeys.Copy.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(copyItem);
                 copyItem.Enabled = !string.IsNullOrEmpty(SelectionText);
             }
@@ -94,7 +94,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.Paste();
                     }
                 );
-                pasteItem.ShortcutKeys = ShortcutKeys.Paste;
+                pasteItem.ShortcutKeys = SBShortcutKeys.Paste.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(pasteItem);
                 pasteItem.Enabled = Clipboard.ContainsText();
                 ToolStripMenuItem selectAllItem = new ToolStripMenuItem(
@@ -104,7 +104,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.chBrowser.SelectAll();
                     }
                 );
-                selectAllItem.ShortcutKeys = ShortcutKeys.SelectAll;
+                selectAllItem.ShortcutKeys = SBShortcutKeys.SelectAll.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(selectAllItem);
             }
             if (!string.IsNullOrEmpty(SelectionText))
@@ -147,7 +147,7 @@ namespace Surfer.Utils.Browser
                         chromiumWebBrowser.Reload();
                     }
                 );
-                reloadItem.ShortcutKeys = ShortcutKeys.Reload;
+                reloadItem.ShortcutKeys = SBShortcutKeys.Reload.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(reloadItem);
                 MyBrowser.chBrowserContextMenu.Items.Add("-");
                 ToolStripMenuItem printItem = new ToolStripMenuItem(
@@ -157,7 +157,7 @@ namespace Surfer.Utils.Browser
                         chromiumWebBrowser.Print();
                     }
                 );
-                printItem.ShortcutKeys = ShortcutKeys.Print;
+                printItem.ShortcutKeys = SBShortcutKeys.Print.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(printItem);
                 ToolStripMenuItem saveAsItem = new ToolStripMenuItem(
                     Locale.Get.save_as,
@@ -166,7 +166,7 @@ namespace Surfer.Utils.Browser
                         MyBrowser.SaveAs();
                     }
                 );
-                saveAsItem.ShortcutKeys = ShortcutKeys.SaveAs;
+                saveAsItem.ShortcutKeys = SBShortcutKeys.SaveAs.ToKey();
                 MyBrowser.chBrowserContextMenu.Items.Add(saveAsItem);
             }
             if (MyBrowser.chBrowserContextMenu.Items.Count > 0) MyBrowser.chBrowserContextMenu.Items.Add("-");
@@ -177,7 +177,7 @@ namespace Surfer.Utils.Browser
                     MyBrowser.ViewSource();
                 }
             );
-            viewSourceItem.ShortcutKeys = ShortcutKeys.ViewSource;
+            viewSourceItem.ShortcutKeys = SBShortcutKeys.ViewSource.ToKey();
             MyBrowser.chBrowserContextMenu.Items.Add(viewSourceItem);
             int XCoord = parameters.XCoord;
             int YCoord = parameters.YCoord;
@@ -188,7 +188,7 @@ namespace Surfer.Utils.Browser
                     MyBrowser.ShowDevTools(XCoord, YCoord);
                 }
             );
-            inspectItem.ShortcutKeys = ShortcutKeys.Inspect2;
+            inspectItem.ShortcutKeys = SBShortcutKeys.Inspect2.ToKey();
             MyBrowser.chBrowserContextMenu.Items.Add(inspectItem);
         }
 

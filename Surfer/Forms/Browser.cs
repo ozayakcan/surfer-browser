@@ -55,8 +55,8 @@ namespace Surfer.Forms
             ttNav.SetToolTip(btnBack, Locale.Get.back);
             ttNav.SetToolTip(btnForward, Locale.Get.forward);
             ttNav.SetToolTip(btnHome, Locale.Get.go_home);
-            ttNav.SetToolTip(btnReload, string.Format(Locale.Get.reload_w_key, ShortcutKeys.Reload.ToString()));
-            ttNav.SetToolTip(btnFavorite, string.Format(Locale.Get.add_to_favorites, ShortcutKeys.AddToFavorites.ToString()));
+            ttNav.SetToolTip(btnReload, string.Format(Locale.Get.reload_w_key, SBShortcutKeys.Reload.ToText()));
+            ttNav.SetToolTip(btnFavorite, string.Format(Locale.Get.add_to_favorites, SBShortcutKeys.AddToFavorites.ToText()));
             ttNav.SetToolTip(btnDownload, Locale.Get.downloads);
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
@@ -577,34 +577,34 @@ namespace Surfer.Forms
         }*/
         public bool KeyEvents(ChromiumWebBrowser chromiumWebBrowser, CefEventFlags modifiers, Keys key, bool resp = true)
         {
-            if (ShortcutKeys.IsFocusUrlBox(modifiers, key))
+            if (SBShortcutKeys.FocusUrlBox.IsPressed(modifiers, key))
             {
                 this.InvokeOnUiThreadIfRequired(()=> {
                     tbUrl.Focus();
                 });
                 return true;
             }
-            else if (ShortcutKeys.IsSearch(modifiers, key))
+            else if (SBShortcutKeys.Search1.IsPressed(modifiers, key) || SBShortcutKeys.Search2.IsPressed(modifiers, key))
             {
                 ShowSearch();
                 return true;
             }
-            else if (ShortcutKeys.IsReloadNoCache(modifiers, key))
+            else if (SBShortcutKeys.ReloadNoCache.IsPressed(modifiers, key))
             {
                 Reload(true);
                 return true;
             }
-            else if (ShortcutKeys.IsReload(modifiers, key))
+            else if (SBShortcutKeys.Reload.IsPressed(modifiers, key))
             {
                 Reload();
                 return true;
             }
-            else if (ShortcutKeys.IsViewSource(modifiers, key))
+            else if (SBShortcutKeys.ViewSource.IsPressed(modifiers, key))
             {
                 ViewSource();
                 return true;
             }
-            else if (ShortcutKeys.IsInspect(modifiers, key))
+            else if (SBShortcutKeys.Inspect1.IsPressed(modifiers, key) || SBShortcutKeys.Inspect2.IsPressed(modifiers, key))
             {
                 if (_devToolsEnabled)
                 {
@@ -616,22 +616,22 @@ namespace Surfer.Forms
                 }
                 return true;
             }
-            else if (ShortcutKeys.IsPrint(modifiers, key))
+            else if (SBShortcutKeys.Print.IsPressed(modifiers, key))
             {
                 Print();
                 return true;
             }
-            else if (ShortcutKeys.IsCloseTab(modifiers, key))
+            else if (SBShortcutKeys.CloseTab.IsPressed(modifiers, key))
             {
                 AppContainer.CloseMyTab(Tab);
                 return true;
             }
-            else if (ShortcutKeys.IsSaveAs(modifiers, key))
+            else if (SBShortcutKeys.SaveAs.IsPressed(modifiers, key))
             {
                 SaveAs();
                 return true;
             }
-            else if (ShortcutKeys.IsToggleFavorites(modifiers, key))
+            else if (SBShortcutKeys.ToggleFavorites.IsPressed(modifiers, key))
             {
                 this.InvokeOnUiThreadIfRequired(() =>
                 {
@@ -643,7 +643,7 @@ namespace Surfer.Forms
                 });
                 return true;
             }
-            else if (ShortcutKeys.IsAddToFavorites(modifiers, key))
+            else if (SBShortcutKeys.AddToFavorites.IsPressed(modifiers, key))
             {
                 this.InvokeOnUiThreadIfRequired(() =>
                 {
