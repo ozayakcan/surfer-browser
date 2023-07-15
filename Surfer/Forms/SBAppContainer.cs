@@ -90,15 +90,18 @@ namespace Surfer.Forms
             };
             return titlebarTab;
         }
-        public void CloseMyTab(TitleBarTab titleBarTab)
+        public void CloseSelectedTab()
         {
             this.InvokeOnUiThreadIfRequired(() =>
             {
-                if (Tabs.Count == 1)
-                    Close();
-                else
-                    base.CloseTab(titleBarTab);
+                CloseTab(SelectedTab);
             });
+        }
+        protected override void CloseTab(TitleBarTab closingTab)
+        {
+            base.CloseTab(closingTab);
+            if (Tabs.Count == 0)
+                Close();
         }
         bool mRepeating;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

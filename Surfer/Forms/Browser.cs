@@ -623,7 +623,7 @@ namespace Surfer.Forms
             }
             else if (SBShortcutKeys.CloseTab.IsPressed(modifiers, key))
             {
-                AppContainer.CloseMyTab(Tab);
+                AppContainer.CloseSelectedTab();
                 return true;
             }
             else if (SBShortcutKeys.SaveAs.IsPressed(modifiers, key))
