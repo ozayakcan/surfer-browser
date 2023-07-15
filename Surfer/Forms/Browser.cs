@@ -641,6 +641,14 @@ namespace Surfer.Forms
                 });
                 return true;
             }
+            else if (ShortcutKeys.IsAddToFavorites(modifiers, key))
+            {
+                this.InvokeOnUiThreadIfRequired(() =>
+                {
+                    SaveFavorite();
+                });
+                return true;
+            }
             /*else if (key == Keys.Escape)
             {
                 if (Fullscreen)
@@ -802,8 +810,12 @@ namespace Surfer.Forms
         }
         private void btnFavorite_Click(object sender, EventArgs e)
         {
+            SaveFavorite();
+        }
+        private void SaveFavorite()
+        {
             FavoriteManager.Save(new Favorite(IconReader.BitmapToBytes(Icon.ToBitmap()), Text, chBrowser.Address), () => {
-                foreach(var tab in AppContainer.Tabs)
+                foreach (var tab in AppContainer.Tabs)
                 {
                     Browser br = (Browser)tab.Content;
                     br.InitializeFavorites();

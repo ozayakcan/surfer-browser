@@ -74,6 +74,12 @@ namespace Surfer.Utils
             return (modifiers == (CefEventFlags.ControlDown | CefEventFlags.ShiftDown) && key == Keys.B)
                 || key == ToggleFavorites;
         }
+        public static Keys AddToFavorites = (Keys.Control | Keys.D);
+        public static bool IsAddToFavorites(CefEventFlags modifiers, Keys key)
+        {
+            return (modifiers == CefEventFlags.ControlDown && key == Keys.D)
+                || key == AddToFavorites;
+        }
 
         public static Keys Undo = (Keys.Control | Keys.Z);
         public static Keys Cut = (Keys.Control | Keys.X);
