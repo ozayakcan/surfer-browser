@@ -148,6 +148,12 @@
     <Compile Include="Controls\SBPanelDark.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\SBProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SBProgressBar.Designer.cs">
+      <DependentUpon>SBProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Browser\DownloadManager.cs" />
     <Compile Include="Utils\Browser\ErrorTexts.cs" />
     <Compile Include="Utils\Browser\FavoriteManager.cs" />
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FavoriteControl.resx">
       <DependentUpon>FavoriteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SBProgressBar.resx">
+      <DependentUpon>SBProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SBSearch.resx">
       <DependentUpon>SBSearch.cs</DependentUpon>

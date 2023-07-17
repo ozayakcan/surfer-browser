@@ -65,7 +65,6 @@ namespace Surfer.Forms
             ttNav.SetToolTip(btnDownload, Locale.Get.downloads);
             Icon = Properties.Resources.icon;
             pnlUrlBorderColor = pnlUrl.BorderColor;
-            tsNav.Renderer = new SBToolStripRenderer();
             AppContainer.LocationChanged += new EventHandler(AppContainer_LocationChanged);
             SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             Disposed += Browser_Disposed;

@@ -31,9 +31,9 @@ namespace Surfer.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlBrowser = new Surfer.Controls.SBPanelDark();
             this.pnlChBrowser = new Surfer.Controls.SBPanel();
-            this.tsNav = new System.Windows.Forms.ToolStrip();
             this.chBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.chBrowserContextMenu = new Surfer.Controls.SBContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,9 +57,8 @@ namespace Surfer.Forms
             this.pnlNavMarginRight = new System.Windows.Forms.Panel();
             this.pnlButtons = new Surfer.Controls.SBPanel();
             this.btnDownload = new Surfer.Controls.SBIconButtonDark();
-            this.ttNav = new System.Windows.Forms.ToolTip(this.components);
             this.pnlLoading = new System.Windows.Forms.Panel();
-            this.pbLoading = new System.Windows.Forms.ProgressBar();
+            this.pbLoading = new Surfer.Controls.SBProgressBar();
             this.pnlBrowser.SuspendLayout();
             this.pnlChBrowser.SuspendLayout();
             this.chBrowserContextMenu.SuspendLayout();
@@ -77,38 +76,22 @@ namespace Surfer.Forms
             this.pnlBrowser.Controls.Add(this.pnlChBrowser);
             this.pnlBrowser.Controls.Add(this.pnlFavorites);
             this.pnlBrowser.Controls.Add(this.pnlNav);
+            this.pnlBrowser.Controls.Add(this.pnlLoading);
             this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBrowser.Location = new System.Drawing.Point(0, 5);
+            this.pnlBrowser.Location = new System.Drawing.Point(0, 0);
             this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(1005, 484);
+            this.pnlBrowser.Size = new System.Drawing.Size(1005, 489);
             this.pnlBrowser.TabIndex = 0;
             // 
             // pnlChBrowser
             // 
             this.pnlChBrowser.BackColor = System.Drawing.Color.Transparent;
-            this.pnlChBrowser.Controls.Add(this.tsNav);
             this.pnlChBrowser.Controls.Add(this.chBrowser);
             this.pnlChBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChBrowser.Location = new System.Drawing.Point(0, 61);
+            this.pnlChBrowser.Location = new System.Drawing.Point(0, 66);
             this.pnlChBrowser.Name = "pnlChBrowser";
             this.pnlChBrowser.Size = new System.Drawing.Size(1005, 423);
             this.pnlChBrowser.TabIndex = 2;
-            // 
-            // tsNav
-            // 
-            this.tsNav.BackColor = System.Drawing.Color.Transparent;
-            this.tsNav.CanOverflow = false;
-            this.tsNav.Dock = System.Windows.Forms.DockStyle.None;
-            this.tsNav.GripMargin = new System.Windows.Forms.Padding(0);
-            this.tsNav.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.tsNav.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.tsNav.Location = new System.Drawing.Point(223, 189);
-            this.tsNav.Name = "tsNav";
-            this.tsNav.Padding = new System.Windows.Forms.Padding(0);
-            this.tsNav.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsNav.Size = new System.Drawing.Size(0, 0);
-            this.tsNav.Stretch = true;
-            this.tsNav.TabIndex = 0;
             // 
             // chBrowser
             // 
@@ -141,7 +124,7 @@ namespace Surfer.Forms
             this.pnlFavorites.AllowDrop = true;
             this.pnlFavorites.BackColor = System.Drawing.Color.Transparent;
             this.pnlFavorites.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlFavorites.Location = new System.Drawing.Point(0, 41);
+            this.pnlFavorites.Location = new System.Drawing.Point(0, 46);
             this.pnlFavorites.Name = "pnlFavorites";
             this.pnlFavorites.Size = new System.Drawing.Size(1005, 20);
             this.pnlFavorites.TabIndex = 3;
@@ -157,7 +140,7 @@ namespace Surfer.Forms
             this.pnlNav.Controls.Add(this.pnlNavMarginRight);
             this.pnlNav.Controls.Add(this.pnlButtons);
             this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlNav.Location = new System.Drawing.Point(0, 0);
+            this.pnlNav.Location = new System.Drawing.Point(0, 5);
             this.pnlNav.Margin = new System.Windows.Forms.Padding(0);
             this.pnlNav.Name = "pnlNav";
             this.pnlNav.Padding = new System.Windows.Forms.Padding(5);
@@ -458,6 +441,7 @@ namespace Surfer.Forms
             // pbLoading
             // 
             this.pbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLoading.ForeColor = System.Drawing.Color.SkyBlue;
             this.pbLoading.Location = new System.Drawing.Point(0, 0);
             this.pbLoading.Name = "pbLoading";
             this.pbLoading.Size = new System.Drawing.Size(1005, 5);
@@ -469,7 +453,6 @@ namespace Surfer.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 489);
             this.Controls.Add(this.pnlBrowser);
-            this.Controls.Add(this.pnlLoading);
             this.Icon = global::Surfer.Properties.Resources.icon;
             this.MinimumSize = new System.Drawing.Size(256, 256);
             this.Name = "Browser";
@@ -477,7 +460,6 @@ namespace Surfer.Forms
             this.Load += new System.EventHandler(this.Browser_Load);
             this.pnlBrowser.ResumeLayout(false);
             this.pnlChBrowser.ResumeLayout(false);
-            this.pnlChBrowser.PerformLayout();
             this.chBrowserContextMenu.ResumeLayout(false);
             this.pnlNav.ResumeLayout(false);
             this.pnlNav.PerformLayout();
@@ -495,10 +477,9 @@ namespace Surfer.Forms
         private Controls.SBPanelDark pnlBrowser;
         private System.Windows.Forms.ToolTip ttNav;
         private System.Windows.Forms.Panel pnlLoading;
-        private System.Windows.Forms.ProgressBar pbLoading;
+        private Surfer.Controls.SBProgressBar pbLoading;
         private Controls.SBPanel pnlUrl;
         private Controls.SBPanel pnlNav;
-        private System.Windows.Forms.ToolStrip tsNav;
         private System.Windows.Forms.Panel pnlNavMarginRight;
         public CefSharp.WinForms.ChromiumWebBrowser chBrowser;
         private Controls.SBPanel pnlChBrowser;
