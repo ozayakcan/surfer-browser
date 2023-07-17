@@ -446,6 +446,8 @@ namespace Surfer.Forms
             this.pbLoading.Name = "pbLoading";
             this.pbLoading.Size = new System.Drawing.Size(1005, 5);
             this.pbLoading.TabIndex = 0;
+            this.pbLoading.ValueMax = 100;
+            this.pbLoading.ValueMin = 0;
             // 
             // Browser
             // 

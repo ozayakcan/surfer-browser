@@ -9,6 +9,7 @@ using Surfer.Controls;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -855,11 +856,14 @@ namespace Surfer.Forms
             bool dropEnabled = true;
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
-                if (e.Data.GetDataPresent(DataFormats.FileDrop, true) &&
-                    e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths &&
-                    filePaths.Any(filePath => Path.GetExtension(filePath)?.ToLowerInvariant() != ".url"))
+                string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
+                foreach(var filePath in filePaths)
                 {
-                    dropEnabled = false;
+                    if (Path.GetExtension(filePath).ToLowerInvariant() != ".url")
+                    {
+                        dropEnabled = false;
+                        break;
+                    }
                 }
             }
             else
