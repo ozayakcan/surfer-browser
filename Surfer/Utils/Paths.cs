@@ -15,13 +15,6 @@ namespace Surfer.Utils
                 return FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
             }
         }
-        public static string AppDataPath {
-            get
-            {
-                
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), VersionInfo.CompanyName, VersionInfo.ProductName);
-            }
-        }
         public static string Executable
         {
             get
@@ -29,13 +22,26 @@ namespace Surfer.Utils
                 return Application.ExecutablePath;
             }
         }
+        public static string AppDataPath
+        {
+            get
+            {
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), VersionInfo.CompanyName, VersionInfo.ProductName);
+                CreateDirectory(path);
+                return path;
+            }
+        }
         public static string App(string file = "")
         {
-            return Path.Combine(Path.GetDirectoryName(Executable), file);
+            string path = Path.Combine(Path.GetDirectoryName(Executable), file);
+            CreateDirectory(path);
+            return path;
         }
         public static string AppData(string file = "")
         {
-            return (string.IsNullOrEmpty(file) || string.IsNullOrWhiteSpace(file)) ? AppDataPath : Path.Combine(AppDataPath, file);
+            string path = (string.IsNullOrEmpty(file) || string.IsNullOrWhiteSpace(file)) ? AppDataPath : Path.Combine(AppDataPath, file);
+            CreateDirectory(path);
+            return path;
         }
         public static string GetNameFromUrl(string url)
         {
@@ -43,7 +49,19 @@ namespace Surfer.Utils
         }
         public static string BrowserCache(string file = "")
         {
-            return Path.Combine(AppData("Cache"), file);
+            string path = Path.Combine(AppData("Cache"), file);
+            CreateDirectory(path);
+            return path;
+        }
+        public static void CreateDirectory(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+                throw new Exception("file path can not be null or empty");
+            else
+            {
+                if (!Directory.Exists(Path.GetDirectoryName(file)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(file));
+            }
         }
     }
 }
