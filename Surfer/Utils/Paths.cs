@@ -53,6 +53,12 @@ namespace Surfer.Utils
             CreateDirectory(path);
             return path;
         }
+        public static string ShortcutUrl(string name = "")
+        {
+            string path = BrowserCache("Shortcuts/" + name + ".url");
+            CreateDirectory(path);
+            return path;
+        }
         public static void CreateDirectory(string file)
         {
             if (string.IsNullOrEmpty(file))

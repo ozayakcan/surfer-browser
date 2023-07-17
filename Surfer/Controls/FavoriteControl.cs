@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
+using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using Surfer.Forms;
 using Surfer.Utils;
@@ -79,6 +81,35 @@ namespace Surfer.Controls
             {
                 MyBrowser.DeleteFavoriteInAllTabs(Url);
             });
+        }
+
+        private bool _holding = false;
+        private void btnFavoriteUrl_MouseDown(object sender, MouseEventArgs e)
+        {
+            _holding = true;
+        }
+
+        private void btnFavoriteUrl_MouseUp(object sender, MouseEventArgs e)
+        {
+            _holding = false;
+        }
+
+        private readonly WshShell shell = new WshShell();
+        private void btnFavoriteUrl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_holding)
+            {
+                string path = Paths.ShortcutUrl(Title);
+                var shortcut = shell.CreateShortcut(path);
+                shortcut.TargetPath = Url;
+                shortcut.Save();
+                string[] filesToDrag =
+                {
+                    path
+                };
+                btnFavoriteUrl.DoDragDrop(new DataObject(DataFormats.FileDrop, filesToDrag), DragDropEffects.Move);
+                _holding = false;
+            }
         }
     }
 }

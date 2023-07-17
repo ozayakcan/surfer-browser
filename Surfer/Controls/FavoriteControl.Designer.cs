@@ -58,7 +58,10 @@
             this.btnFavoriteUrl.ContextMenuStrip = this.contextMenuStrip1;
             this.btnFavoriteUrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFavoriteUrl.FlatAppearance.BorderSize = 0;
+            this.btnFavoriteUrl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(160)))), ((int)(((byte)(230)))));
+            this.btnFavoriteUrl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(77)))));
             this.btnFavoriteUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFavoriteUrl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.btnFavoriteUrl.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnFavoriteUrl.Location = new System.Drawing.Point(0, 0);
             this.btnFavoriteUrl.Name = "btnFavoriteUrl";
@@ -69,6 +72,9 @@
             this.btnFavoriteUrl.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFavoriteUrl.UseVisualStyleBackColor = false;
             this.btnFavoriteUrl.Click += new System.EventHandler(this.btnFavoriteUrl_Click);
+            this.btnFavoriteUrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFavoriteUrl_MouseDown);
+            this.btnFavoriteUrl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnFavoriteUrl_MouseMove);
+            this.btnFavoriteUrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnFavoriteUrl_MouseUp);
             // 
             // pnlParent
             // 
