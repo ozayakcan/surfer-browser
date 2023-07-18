@@ -77,6 +77,9 @@
             this.imgFile.Size = new System.Drawing.Size(26, 33);
             this.imgFile.TabIndex = 0;
             this.imgFile.TabStop = false;
+            this.imgFile.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseDown);
+            this.imgFile.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseMove);
+            this.imgFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseUp);
             // 
             // downloadItemContextMenu
             // 
@@ -221,6 +224,9 @@
             this.pnlFile.Name = "pnlFile";
             this.pnlFile.Size = new System.Drawing.Size(168, 33);
             this.pnlFile.TabIndex = 3;
+            this.pnlFile.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseDown);
+            this.pnlFile.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseMove);
+            this.pnlFile.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseUp);
             // 
             // pnlFooter
             // 
@@ -234,6 +240,9 @@
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(168, 13);
             this.pnlFooter.TabIndex = 3;
+            this.pnlFooter.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseDown);
+            this.pnlFooter.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseMove);
+            this.pnlFooter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseUp);
             // 
             // lblRemainingTime
             // 
@@ -329,6 +338,9 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(168, 13);
             this.pnlHeader.TabIndex = 2;
+            this.pnlHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseDown);
+            this.pnlHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseMove);
+            this.pnlHeader.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseUp);
             // 
             // lblTitle
             // 
@@ -341,6 +353,9 @@
             this.lblTitle.Size = new System.Drawing.Size(168, 13);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "title";
+            this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseDown);
+            this.lblTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseMove);
+            this.lblTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SBDownloadItem_MouseUp);
             // 
             // btnPauseResume
             // 

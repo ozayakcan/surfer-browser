@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using CefSharp;
 using Etier.IconHelper;
 using FontAwesome.Sharp;
+using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
@@ -75,8 +76,8 @@ namespace Surfer.Controls.Downloads
             this.downloadFile = downloadFile;
             imgFile.Image = IconReader.GetFileIcon(downloadFile.FileName, IconReader.IconSize.Small, false).ToBitmap();
             lblTitle.Text = downloadFile.FileName;
-            tsmiShowInFolder.Visible = File.Exists(downloadFile.Location);
-            if (IsFirstInitialized && (!downloadFile.Completed || !File.Exists(downloadFile.Location)))
+            tsmiShowInFolder.Visible = System.IO.File.Exists(downloadFile.Location);
+            if (IsFirstInitialized && (!downloadFile.Completed || !System.IO.File.Exists(downloadFile.Location)))
                 SetRetry();
             else if (downloadFile.Completed)
                 SetCompleted();
@@ -108,8 +109,8 @@ namespace Surfer.Controls.Downloads
                 = tsmiPauseResume.Visible
                 = tsmiCancel.Visible
                 = false;
-            if (callback != null && downloadFile.Completed && File.Exists(downloadFile.TempLocation))
-                File.Move(downloadFile.TempLocation, downloadFile.Location);
+            if (callback != null && downloadFile.Completed && System.IO.File.Exists(downloadFile.TempLocation))
+                System.IO.File.Move(downloadFile.TempLocation, downloadFile.Location);
         }
         private void SetRetry()
         {
@@ -200,7 +201,7 @@ namespace Surfer.Controls.Downloads
         }
         private void OpenFile()
         {
-            if (File.Exists(downloadFile.Location))
+            if (System.IO.File.Exists(downloadFile.Location))
                 Process.Start(downloadFile.Location);
         }
 
@@ -237,7 +238,7 @@ namespace Surfer.Controls.Downloads
 
         private void ShowInFolder(object sender, EventArgs e)
         {
-            if (!File.Exists(downloadFile.Location))
+            if (!System.IO.File.Exists(downloadFile.Location))
             {
                 return;
             }
@@ -253,8 +254,8 @@ namespace Surfer.Controls.Downloads
 
         private void DeleteFile(object sender, EventArgs e)
         {
-            if (File.Exists(downloadFile.Location))
-                File.Delete(downloadFile.Location);
+            if (System.IO.File.Exists(downloadFile.Location))
+                System.IO.File.Delete(downloadFile.Location);
             SetRetry();
         }
 
@@ -271,6 +272,32 @@ namespace Surfer.Controls.Downloads
                     callback.Cancel();
             }
             RemoveFromList(sender, e);
+        }
+
+        bool _holding = false;
+        private void SBDownloadItem_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(downloadFile.Completed && System.IO.File.Exists(downloadFile.Location))
+                _holding = true;
+        }
+
+        private void SBDownloadItem_MouseUp(object sender, MouseEventArgs e)
+        {
+            _holding = false;
+        }
+
+        private readonly WshShell shell = new WshShell();
+        private void SBDownloadItem_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_holding)
+            {
+                string[] filesToDrag =
+                {
+                    downloadFile.Location
+                };
+                DoDragDrop(new DataObject(DataFormats.FileDrop, filesToDrag), DragDropEffects.Copy);
+                _holding = false;
+            }
         }
     }
 }
