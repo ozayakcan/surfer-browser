@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTabs", "EasyTabs\EasyTa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theme", "Theme\Theme.csproj", "{1574136D-B777-4B06-8ABB-A5A5BC982E4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{A7B24E86-C562-45EB-8442-17EBB1C97973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -62,6 +64,18 @@ Global
 		{1574136D-B777-4B06-8ABB-A5A5BC982E4B}.Release|x64.Build.0 = Release|x64
 		{1574136D-B777-4B06-8ABB-A5A5BC982E4B}.Release|x86.ActiveCfg = Release|x86
 		{1574136D-B777-4B06-8ABB-A5A5BC982E4B}.Release|x86.Build.0 = Release|x86
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Debug|x64.ActiveCfg = Debug|x64
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Debug|x64.Build.0 = Debug|x64
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Debug|x86.ActiveCfg = Debug|x86
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Debug|x86.Build.0 = Debug|x86
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.DefaultBuild|x64.ActiveCfg = Debug|x64
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.DefaultBuild|x64.Build.0 = Debug|x64
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.DefaultBuild|x86.ActiveCfg = Debug|x86
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.DefaultBuild|x86.Build.0 = Debug|x86
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Release|x64.ActiveCfg = Release|x64
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Release|x64.Build.0 = Release|x64
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Release|x86.ActiveCfg = Release|x86
+		{A7B24E86-C562-45EB-8442-17EBB1C97973}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

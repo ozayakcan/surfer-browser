@@ -215,7 +215,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Browser\SBBrowserSettings.cs" />
     <Compile Include="Utils\Args.cs" />
-    <Compile Include="Utils\DragDropHandler.cs" />
     <Compile Include="Utils\FileHandler.cs" />
     <Compile Include="Utils\Icons\IconHelper.cs" />
     <Compile Include="Utils\Icons\IconListManager.cs" />
@@ -296,6 +295,10 @@
     <ProjectReference Include="..\Theme\Theme.csproj">
       <Project>{1574136d-b777-4b06-8abb-a5a5bc982e4b}</Project>
       <Name>Theme</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{a7b24e86-c562-45eb-8442-17ebb1c97973}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

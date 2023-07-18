@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using Surfer.Utils;
 using Win32Interop.Enums;
 using Win32Interop.Methods;
 using Win32Interop.Structs;
@@ -85,10 +86,10 @@ namespace EasyTabs
 			};
 
 			ShowTooltips = true;
-		}
+        }
 
-		/// <summary>Flag indicating whether composition is enabled on the desktop.</summary>
-		internal bool IsCompositionEnabled
+        /// <summary>Flag indicating whether composition is enabled on the desktop.</summary>
+        internal bool IsCompositionEnabled
 		{
 			get
 			{
@@ -333,8 +334,10 @@ namespace EasyTabs
 		{
 			base.OnLoad(e);
 			_overlay = TitleBarTabsOverlay.GetInstance(this);
-
-			if (TabRenderer != null)
+            _overlay.AllowDrop = true;
+            _overlay.DragOver += TitleBarTabs_DragOver;
+            _overlay.DragDrop += TitleBarTabs_DragDrop;
+            if (TabRenderer != null)
 			{
 				_overlay.MouseMove += TabRenderer.Overlay_MouseMove;
 				_overlay.MouseUp += TabRenderer.Overlay_MouseUp;
@@ -342,11 +345,31 @@ namespace EasyTabs
 			}
 		}
 
-		/// <summary>
-		/// When the window's state (maximized, minimized, or restored) changes, this sets the size of the non-client area at the top of the window properly so
-		/// that the tabs can be displayed.
-		/// </summary>
-		protected void SetFrameSize()
+        private void TitleBarTabs_DragOver(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+            Point relativeCursorPosition2 = _overlay.GetRelativeCursorPosition(Cursor.Position);
+            if (_tabRenderer.IsOverAddButton(relativeCursorPosition2) && DragDropHandler.IsValidFile(e))
+            {
+                e.Effect = System.Windows.Forms.DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = System.Windows.Forms.DragDropEffects.None;
+            }
+        }
+        private void TitleBarTabs_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+            var filePaths = DragDropHandler.GetFileList(e);
+            foreach (var filePath in filePaths)
+            {
+                AddNewTab(filePath.TargetPath);
+            }
+        }
+        /// <summary>
+        /// When the window's state (maximized, minimized, or restored) changes, this sets the size of the non-client area at the top of the window properly so
+        /// that the tabs can be displayed.
+        /// </summary>
+        protected void SetFrameSize()
 		{
 			if (TabRenderer == null || WindowState == FormWindowState.Minimized)
 			{
@@ -427,10 +450,11 @@ namespace EasyTabs
 		/// </summary>
 		/// <returns>A newly created tab.</returns>
 		public abstract TitleBarTab CreateTab();
+		public abstract TitleBarTab CreateTab(string url);
 
-		/// <summary>Callback for the <see cref="TabClicked" /> event.</summary>
-		/// <param name="e">Arguments associated with the event.</param>
-		protected internal void OnTabClicked(TitleBarTabEventArgs e)
+        /// <summary>Callback for the <see cref="TabClicked" /> event.</summary>
+        /// <param name="e">Arguments associated with the event.</param>
+        protected internal void OnTabClicked(TitleBarTabEventArgs e)
 		{
 			if (TabClicked != null)
 			{
@@ -844,20 +868,29 @@ namespace EasyTabs
 			}
 		}
 
-		/// <summary>Calls <see cref="CreateTab" />, adds the resulting tab to the <see cref="Tabs" /> collection, and activates it.</summary>
-		public virtual void AddNewTab()
+        /// <summary>Calls <see cref="CreateTab()" />, adds the resulting tab to the <see cref="Tabs" /> collection, and activates it.</summary>
+        public virtual void AddNewTab()
 		{
-			TitleBarTab newTab = CreateTab();
-
-			Tabs.Add(newTab);
-			ResizeTabContents(newTab);
-
-			SelectedTabIndex = _tabs.Count - 1;
+            AddNewTab(CreateTab());
 		}
 
-		/// <summary>Removes <paramref name="closingTab" /> from <see cref="Tabs" /> and selects the next applicable tab in the list.</summary>
-		/// <param name="closingTab">Tab that is being closed.</param>
-		protected virtual void CloseTab(TitleBarTab closingTab)
+        /// <summary>Calls <see cref="CreateTab(string)" />, adds the resulting tab to the <see cref="Tabs" /> collection, and activates it.</summary>
+        public virtual void AddNewTab(string url)
+        {
+            AddNewTab(CreateTab(url));
+        }
+        /// <summary>Adds tab to the <see cref="Tabs" /> collection, and activates it.</summary>
+        public virtual void AddNewTab(TitleBarTab newTab)
+        {
+            Tabs.Add(newTab);
+            ResizeTabContents(newTab);
+
+            SelectedTabIndex = _tabs.Count - 1;
+        }
+
+        /// <summary>Removes <paramref name="closingTab" /> from <see cref="Tabs" /> and selects the next applicable tab in the list.</summary>
+        /// <param name="closingTab">Tab that is being closed.</param>
+        protected virtual void CloseTab(TitleBarTab closingTab)
 		{
 			int removeIndex = Tabs.IndexOf(closingTab);
 			int selectedTabIndex = SelectedTabIndex;

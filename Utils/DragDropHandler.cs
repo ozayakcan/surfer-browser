@@ -1,5 +1,6 @@
 ﻿using IWshRuntimeLibrary;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Surfer.Utils
@@ -11,6 +12,10 @@ namespace Surfer.Utils
             bool dropEnabled = false;
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true) && e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths)
             {
+                foreach (var filePath in filePaths)
+                {
+                    Debug.WriteLine("IsValidFile: " + filePath);
+                }
                 dropEnabled = true;
             }
             return dropEnabled;
@@ -24,6 +29,7 @@ namespace Surfer.Utils
             {
                foreach(var filePath in filePaths)
                 {
+                    Debug.WriteLine("GetFileList: " + filePath);
                     try
                     {
                         var wshShell = shell.CreateShortcut(filePath);

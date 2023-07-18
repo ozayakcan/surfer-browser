@@ -96,10 +96,18 @@ namespace Surfer.Forms
 
         public override TitleBarTab CreateTab()
         {
+            return GetTab(SBBrowserSettings.HomePage);
+        }
+        public override TitleBarTab CreateTab(string url)
+        {
+            return GetTab(url);
+        }
+        public TitleBarTab GetTab(string url)
+        {
             TitleBarTab titlebarTab = new TitleBarTab(this);
             titlebarTab.Content = new Browser(this, titlebarTab)
             {
-                StartUrl = SBBrowserSettings.HomePage,
+                StartUrl = url,
             };
             return titlebarTab;
         }

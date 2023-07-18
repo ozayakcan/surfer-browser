@@ -208,6 +208,10 @@
       <Project>{1574136d-b777-4b06-8abb-a5a5bc982e4b}</Project>
       <Name>Theme</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{A7B24E86-C562-45EB-8442-17EBB1C97973}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
