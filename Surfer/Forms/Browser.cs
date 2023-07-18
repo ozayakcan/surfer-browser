@@ -847,12 +847,10 @@ namespace Surfer.Forms
                 }
             });
         }
-        private readonly WshShell shell = new WshShell();
-
 
         private void tbUrl_DragOver(object sender, DragEventArgs e)
         {
-            if (DragDropHandler.IsValidUrl(e, true))
+            if (DragDropHandler.IsValidFile(e))
             {
                 tbUrl.Focus();
                 e.Effect = DragDropEffects.Copy;
@@ -861,24 +859,20 @@ namespace Surfer.Forms
 
         private void tbUrl_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
-                e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths)
+            var fileList = DragDropHandler.GetFileList(e);
+
+            foreach(var file in fileList)
             {
-                var link = shell.CreateShortcut(filePaths[filePaths.Length - 1]);
-                if (link != null)
-                {
-                    tbUrl.Text = link.TargetPath;
-                    tbUrl.SelectAll();
-                }
-                else
-                {
-                    Debug.WriteLine("tbUrl_DragDrop: Error Shortcut");
-                }
+                tbUrl.Text = file.TargetPath;
+            }
+            if(fileList.Length > 0)
+            {
+                tbUrl.SelectAll();
             }
         }
         private void pnlFavorites_DragOver(object sender, DragEventArgs e)
         {
-            if (DragDropHandler.IsValidUrl(e))
+            if (DragDropHandler.IsValidFile(e))
             {
                 e.Effect = DragDropEffects.Copy;
             }
@@ -886,32 +880,21 @@ namespace Surfer.Forms
 
         private void pnlFavorites_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
-                e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths)
+            var fileList = DragDropHandler.GetFileList(e);
+
+            foreach (var file in fileList)
             {
-                // Print out the path and target of each shortcut file dropped on
-                foreach (string filePath in filePaths)
-                {
-                    var link = shell.CreateShortcut(filePath);
-                    if (link != null)
-                    {
-                        FavoriteControl favoriteControl = null;
-                        int controlIndex = GetFavoriteControlIndex(link.TargetPath);
-                        if (controlIndex >= 0)
-                            favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
-                        AddToFavorite(
-                            Properties.Resources.icon.ToBitmap(),
-                            Path.GetFileNameWithoutExtension(link.FullName),
-                            link.TargetPath,
-                            favoriteControl,
-                            true
-                        );
-                    }
-                    else
-                    {
-                        Debug.WriteLine("pnlFavorites_DragDrop: Error Shortcut");
-                    }
-                }
+                FavoriteControl favoriteControl = null;
+                int controlIndex = GetFavoriteControlIndex(file.TargetPath);
+                if (controlIndex >= 0)
+                    favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
+                AddToFavorite(
+                    Properties.Resources.icon.ToBitmap(),
+                    Path.GetFileNameWithoutExtension(file.FullName),
+                    file.TargetPath,
+                    favoriteControl,
+                    true
+                );
             }
         }
         private int GetFavoriteControlIndex(string url)
