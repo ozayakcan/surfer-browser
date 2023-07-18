@@ -848,32 +848,38 @@ namespace Surfer.Forms
             });
         }
         private readonly WshShell shell = new WshShell();
-        private void pnlFavorites_DragOver(object sender, DragEventArgs e)
+
+
+        private void tbUrl_DragOver(object sender, DragEventArgs e)
         {
-            // This checks that each file being dragged over is a .lnk file.
-            // If it is not, it will show the invalid cursor thanks to some
-            // e.Effect being set to none by default.
-            bool dropEnabled = true;
-            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            if (DragDropHandler.IsValidUrl(e, true))
             {
-                string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
-                foreach(var filePath in filePaths)
+                tbUrl.Focus();
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void tbUrl_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
+                e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths)
+            {
+                var link = shell.CreateShortcut(filePaths[filePaths.Length - 1]);
+                if (link != null)
                 {
-                    if (Path.GetExtension(filePath).ToLowerInvariant() != ".url")
-                    {
-                        dropEnabled = false;
-                        break;
-                    }
+                    tbUrl.Text = link.TargetPath;
+                    tbUrl.SelectAll();
+                }
+                else
+                {
+                    Debug.WriteLine("tbUrl_DragDrop: Error Shortcut");
                 }
             }
-            else
+        }
+        private void pnlFavorites_DragOver(object sender, DragEventArgs e)
+        {
+            if (DragDropHandler.IsValidUrl(e))
             {
-                dropEnabled = false;
-            }
-
-            if (dropEnabled)
-            {
-                // Set the effect to copy so we can drop the item
                 e.Effect = DragDropEffects.Copy;
             }
         }
@@ -886,7 +892,6 @@ namespace Surfer.Forms
                 // Print out the path and target of each shortcut file dropped on
                 foreach (string filePath in filePaths)
                 {
-                    Console.WriteLine(filePath);
                     var link = shell.CreateShortcut(filePath);
                     if (link != null)
                     {
@@ -904,7 +909,7 @@ namespace Surfer.Forms
                     }
                     else
                     {
-                        Console.WriteLine("Error Shortcut");
+                        Debug.WriteLine("pnlFavorites_DragDrop: Error Shortcut");
                     }
                 }
             }

@@ -175,6 +175,7 @@ namespace Surfer.Forms
             // 
             // tbUrl
             // 
+            this.tbUrl.AllowDrop = true;
             this.tbUrl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.tbUrl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbUrl.BackColor = System.Drawing.Color.White;
@@ -187,6 +188,8 @@ namespace Surfer.Forms
             this.tbUrl.TabIndex = 2;
             this.tbUrl.Click += new System.EventHandler(this.tbUrl_Click);
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
+            this.tbUrl.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbUrl_DragDrop);
+            this.tbUrl.DragOver += new System.Windows.Forms.DragEventHandler(this.tbUrl_DragOver);
             this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
             this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
             this.tbUrl.Leave += new System.EventHandler(this.tbUrl_Leave);
