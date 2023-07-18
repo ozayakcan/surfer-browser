@@ -360,7 +360,7 @@ namespace EasyTabs
         private void TitleBarTabs_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
             var filePaths = DragDropHandler.GetFileList(e);
-            foreach (var filePath in filePaths)
+            foreach (DragDropItem filePath in filePaths)
             {
                 AddNewTab(filePath.TargetPath);
             }

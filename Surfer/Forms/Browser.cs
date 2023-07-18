@@ -861,11 +861,11 @@ namespace Surfer.Forms
         {
             var fileList = DragDropHandler.GetFileList(e);
 
-            foreach(var file in fileList)
+            foreach(DragDropItem item in fileList)
             {
-                tbUrl.Text = file.TargetPath;
+                tbUrl.Text = item.TargetPath;
             }
-            if(fileList.Length > 0)
+            if(fileList.Count > 0)
             {
                 tbUrl.SelectAll();
             }
@@ -882,16 +882,16 @@ namespace Surfer.Forms
         {
             var fileList = DragDropHandler.GetFileList(e);
 
-            foreach (var file in fileList)
+            foreach (DragDropItem item in fileList)
             {
                 FavoriteControl favoriteControl = null;
-                int controlIndex = GetFavoriteControlIndex(file.TargetPath);
+                int controlIndex = GetFavoriteControlIndex(item.TargetPath);
                 if (controlIndex >= 0)
                     favoriteControl = (FavoriteControl)pnlFavorites.Controls[controlIndex];
                 AddToFavorite(
                     Properties.Resources.icon.ToBitmap(),
-                    Path.GetFileNameWithoutExtension(file.FullName),
-                    file.TargetPath,
+                    item.Name,
+                    item.TargetPath,
                     favoriteControl,
                     true
                 );

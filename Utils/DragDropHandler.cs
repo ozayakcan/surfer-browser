@@ -1,6 +1,7 @@
 ﻿using IWshRuntimeLibrary;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Surfer.Utils
@@ -21,9 +22,9 @@ namespace Surfer.Utils
             return dropEnabled;
         }
         private static readonly WshShell shell = new WshShell();
-        public static dynamic[] GetFileList(DragEventArgs e)
+        public static List<DragDropItem> GetFileList(DragEventArgs e)
         {
-            List<dynamic> fileList = new List<dynamic>();
+            List<DragDropItem> fileList = new List<DragDropItem>();
             if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
                  e.Data.GetData(DataFormats.FileDrop, true) is string[] filePaths)
             {
@@ -35,13 +36,41 @@ namespace Surfer.Utils
                         var wshShell = shell.CreateShortcut(filePath);
                         if(wshShell != null)
                         {
-                            fileList.Add(wshShell);
+                            DragDropItem dragDropItem = new DragDropItem();
+                            if (wshShell.TargetPath != null)
+                                dragDropItem.TargetPath = wshShell.TargetPath;
+                            if (wshShell.FullName != null)
+                                dragDropItem.FullName = wshShell.FullName;
+                            fileList.Add(dragDropItem);
                         }
                     }
-                    catch { }
+                    catch {
+                        DragDropItem dragDropItem = new DragDropItem();
+                        dragDropItem.TargetPath = filePath;
+                        dragDropItem.FullName = filePath;
+                        fileList.Add(dragDropItem);
+                    }
                 }
             }
-            return fileList.ToArray();
+            return fileList;
+        }
+    }
+    public class DragDropItem
+    {
+        public string TargetPath = "";
+        private string _fullName = "";
+        public string FullName {
+            get => _fullName;
+            set
+            {
+                _fullName = value;
+                Name = Path.GetFileNameWithoutExtension(value);
+            }
+        }
+        public string Name = "";
+        public DragDropItem()
+        {
+
         }
     }
 }
