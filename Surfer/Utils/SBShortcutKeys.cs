@@ -21,6 +21,7 @@ namespace Surfer.Utils
         ToggleFavorites,
         AddToFavorites,
         Undo,
+        Redo,
         Cut,
         Copy,
         Paste,
@@ -61,6 +62,8 @@ namespace Surfer.Utils
                     return (Keys.Control | Keys.D);
                 case SBShortcutKeys.Undo:
                     return (Keys.Control | Keys.Z);
+                case SBShortcutKeys.Redo:
+                    return (Keys.Control | Keys.Y);
                 case SBShortcutKeys.Cut:
                     return (Keys.Control | Keys.X);
                 case SBShortcutKeys.Copy:

@@ -3,12 +3,12 @@ using CefSharp.WinForms;
 using EasyTabs;
 using Etier.IconHelper;
 using FontAwesome.Sharp;
-using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using Surfer.Controls;
 using Surfer.Utils;
 using Surfer.Utils.Browser;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -55,6 +55,17 @@ namespace Surfer.Forms
             AppContainer = appContainer;
             Tab = titlebarTab;
             InitializeComponent();
+            tbUrl.CanAddUndoRedo = (text) =>
+            {
+                try
+                {
+                    return text.StartsWith(new Uri(text).Host);
+                }
+                catch
+                {
+                    return true;
+                }
+            };
             Name = Locale.Get.new_tab;
             Text = Locale.Get.new_tab;
             ttNav.SetToolTip(btnSecure, Locale.Get.show_site_information);
@@ -79,6 +90,7 @@ namespace Surfer.Forms
         private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
             InitializeColors();
+            InitializeTBUrlContextMenu();
         }
 
         public void InitializeColors(bool isFirst = false)
@@ -87,6 +99,31 @@ namespace Surfer.Forms
                 SetIcon(Theme.IsDark ? OriginalIconDark : OriginalIconLight, Properties.Resources.icon);
         }
 
+        private void InitializeTBUrlContextMenu(bool isFirst = false)
+        {
+            if (isFirst)
+            {
+                tsmiUndo.Text = Locale.Get.undo;
+                tsmiUndo.ShortcutKeys = SBShortcutKeys.Undo.ToKey();
+                tsmiRedo.Text = Locale.Get.redo;
+                tsmiRedo.ShortcutKeys = SBShortcutKeys.Redo.ToKey();
+                tsmiCut.Text = Locale.Get.cut;
+                tsmiCut.ShortcutKeys = SBShortcutKeys.Cut.ToKey();
+                tsmiCopy.Text = Locale.Get.copy;
+                tsmiCopy.ShortcutKeys = SBShortcutKeys.Copy.ToKey();
+                tsmiPaste.Text = Locale.Get.paste;
+                tsmiPaste.ShortcutKeys = SBShortcutKeys.Paste.ToKey();
+                tsmiDelete.Text = Locale.Get.delete;
+                tsmiSelectAll.Text = Locale.Get.select_all;
+                tsmiSelectAll.ShortcutKeys = SBShortcutKeys.SelectAll.ToKey();
+            }
+            tsmiUndo.Image = IconChar.Undo.ToBitmap(Theme.Get.ColorText);
+            tsmiRedo.Image = IconChar.Redo.ToBitmap(Theme.Get.ColorText);
+            tsmiCut.Image = IconChar.Cut.ToBitmap(Theme.Get.ColorText);
+            tsmiCopy.Image = IconChar.Copy.ToBitmap(Theme.Get.ColorText);
+            tsmiPaste.Image = IconChar.Paste.ToBitmap(Theme.Get.ColorText);
+            tsmiDelete.Image = IconChar.TrashCan.ToBitmap(Theme.Get.ColorText);
+        }
         private void btnGo_Click(object sender, EventArgs e)
         {
             LoadUrl(tbUrl.Text);
@@ -102,6 +139,7 @@ namespace Surfer.Forms
         {
             // Browser
             InitializeColors(true);
+            InitializeTBUrlContextMenu(true);
             chBrowser.DisplayHandler = new SBDisplayHandler(this);
             chBrowser.RequestHandler = new SBRequestHandler(this);
             chBrowser.FindHandler = new SBFindHandler(this);
@@ -116,6 +154,7 @@ namespace Surfer.Forms
             InitializeFavorites();
             if (!string.IsNullOrEmpty(StartUrl) && !string.IsNullOrWhiteSpace(StartUrl))
                 LoadUrl(StartUrl);
+            InitializeTBUrlContextMenuButtonStatus();
         }
 
         private void chBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
@@ -399,7 +438,6 @@ namespace Surfer.Forms
             if (pnlUrlBorderColor != null)
                 pnlUrl.BorderColor = pnlUrlBorderColor;
         }
-
         private void tbUrl_TextChanged(object sender, EventArgs e)
         {
             string text = tbUrl.Text;
@@ -416,6 +454,7 @@ namespace Surfer.Forms
             {
 
             }
+            InitializeTBUrlContextMenuButtonStatus();
         }
         private void tbUrl_Click(object sender, EventArgs e)
         {
@@ -945,6 +984,84 @@ namespace Surfer.Forms
         private void btnReload_VisibleChanged(object sender, EventArgs e)
         {
             btnReloadMargin.Visible = ((Control)sender).Visible;
+        }
+
+        private void tbUrlContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!tbUrlEntered)
+                tbUrl.Focus();
+            InitializeTBUrlContextMenuButtonStatus();
+        }
+
+        private void InitializeTBUrlContextMenuButtonStatus()
+        {
+            tsmiUndo.Enabled = tbUrl.CanUndo;
+            tsmiRedo.Enabled = tbUrl.CanRedo;
+            tsmiCut.Enabled = CanCut();
+            tsmiCopy.Enabled = CanCopy();
+            tsmiPaste.Enabled = CanPaste();
+            tsmiDelete.Enabled = CanDelete();
+            tsmiSelectAll.Enabled = CanSelectAll();
+        }
+        private void tsmiUndo_Click(object sender, EventArgs e)
+        {
+            if (tbUrl.CanUndo)
+                tbUrl.Undo();
+        }
+        private void tsmiRedo_Click(object sender, EventArgs e)
+        {
+            if (tbUrl.CanRedo)
+                tbUrl.Redo();
+        }
+        private bool CanCut()
+        {
+            return !tbUrl.ReadOnly && tbUrl.SelectionLength > 0;
+        }
+        private void tsmiCut_Click(object sender, EventArgs e)
+        {
+            if(CanCut())
+                tbUrl.Cut();
+        }
+        private bool CanCopy()
+        {
+            return tbUrl.SelectionLength > 0;
+        }
+        private void tsmiCopy_Click(object sender, EventArgs e)
+        {
+            if (CanCopy())
+                tbUrl.Copy();
+        }
+        private bool CanPaste()
+        {
+            return Clipboard.GetText().Length > 0;
+        }
+        private void tsmiPaste_Click(object sender, EventArgs e)
+        {
+            if (CanPaste())
+                tbUrl.Paste();
+        }
+        private bool CanDelete()
+        {
+            return tbUrl.SelectionLength > 0;
+        }
+        private void tsmiDelete_Click(object sender, EventArgs e)
+        {
+            if (CanDelete())
+            {
+                int selectionStart = tbUrl.SelectionStart;
+                tbUrl.Text = tbUrl.Text.Remove(selectionStart, tbUrl.SelectionLength);
+                tbUrl.SelectionStart = selectionStart;
+            }
+        }
+
+        private bool CanSelectAll()
+        {
+            return tbUrl.SelectionLength < tbUrl.Text.Length;
+        }
+        private void tsmiSelectAll_Click(object sender, EventArgs e)
+        {
+            if (CanSelectAll())
+                tbUrl.SelectAll();
         }
     }
 }

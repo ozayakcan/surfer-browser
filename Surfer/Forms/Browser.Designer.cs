@@ -41,7 +41,17 @@ namespace Surfer.Forms
             this.pnlNav = new Surfer.Controls.SBPanel();
             this.pnlUrl = new Surfer.Controls.SBPanel();
             this.pnlUrlInner = new Surfer.Controls.SBPanel();
-            this.tbUrl = new System.Windows.Forms.TextBox();
+            this.tbUrl = new Surfer.Controls.SBTextBox();
+            this.tbUrlContextMenu = new Surfer.Controls.SBContextMenuStrip(this.components);
+            this.tsmiUndo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRedo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbUrlContextMenuSeperator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbUrlContextMenuSeperator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSecure = new Surfer.Controls.SBIconButton();
             this.btnSearch = new Surfer.Controls.SBIconButton();
             this.btnFavorite = new Surfer.Controls.SBIconButton();
@@ -65,6 +75,7 @@ namespace Surfer.Forms
             this.pnlNav.SuspendLayout();
             this.pnlUrl.SuspendLayout();
             this.pnlUrlInner.SuspendLayout();
+            this.tbUrlContextMenu.SuspendLayout();
             this.pnlNavButtons.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.pnlLoading.SuspendLayout();
@@ -180,6 +191,7 @@ namespace Surfer.Forms
             this.tbUrl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbUrl.BackColor = System.Drawing.Color.White;
             this.tbUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbUrl.ContextMenuStrip = this.tbUrlContextMenu;
             this.tbUrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUrl.Location = new System.Drawing.Point(44, 0);
@@ -193,6 +205,88 @@ namespace Surfer.Forms
             this.tbUrl.Enter += new System.EventHandler(this.tbUrl_Enter);
             this.tbUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbUrl_KeyUp);
             this.tbUrl.Leave += new System.EventHandler(this.tbUrl_Leave);
+            // 
+            // tbUrlContextMenu
+            // 
+            this.tbUrlContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiUndo,
+            this.tsmiRedo,
+            this.tbUrlContextMenuSeperator1,
+            this.tsmiCut,
+            this.tsmiCopy,
+            this.tsmiPaste,
+            this.tsmiDelete,
+            this.tbUrlContextMenuSeperator2,
+            this.tsmiSelectAll});
+            this.tbUrlContextMenu.Name = "tbUrlContextMenu";
+            this.tbUrlContextMenu.Size = new System.Drawing.Size(122, 170);
+            this.tbUrlContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.tbUrlContextMenu_Opening);
+            // 
+            // tsmiUndo
+            // 
+            this.tsmiUndo.Enabled = false;
+            this.tsmiUndo.Name = "tsmiUndo";
+            this.tsmiUndo.Size = new System.Drawing.Size(121, 22);
+            this.tsmiUndo.Text = "undo";
+            this.tsmiUndo.Click += new System.EventHandler(this.tsmiUndo_Click);
+            // 
+            // tsmiRedo
+            // 
+            this.tsmiRedo.Enabled = false;
+            this.tsmiRedo.Name = "tsmiRedo";
+            this.tsmiRedo.Size = new System.Drawing.Size(121, 22);
+            this.tsmiRedo.Text = "redo";
+            this.tsmiRedo.Click += new System.EventHandler(this.tsmiRedo_Click);
+            // 
+            // tbUrlContextMenuSeperator1
+            // 
+            this.tbUrlContextMenuSeperator1.Name = "tbUrlContextMenuSeperator1";
+            this.tbUrlContextMenuSeperator1.Size = new System.Drawing.Size(118, 6);
+            // 
+            // tsmiCut
+            // 
+            this.tsmiCut.Enabled = false;
+            this.tsmiCut.Name = "tsmiCut";
+            this.tsmiCut.Size = new System.Drawing.Size(121, 22);
+            this.tsmiCut.Text = "cut";
+            this.tsmiCut.Click += new System.EventHandler(this.tsmiCut_Click);
+            // 
+            // tsmiCopy
+            // 
+            this.tsmiCopy.Enabled = false;
+            this.tsmiCopy.Name = "tsmiCopy";
+            this.tsmiCopy.Size = new System.Drawing.Size(121, 22);
+            this.tsmiCopy.Text = "copy";
+            this.tsmiCopy.Click += new System.EventHandler(this.tsmiCopy_Click);
+            // 
+            // tsmiPaste
+            // 
+            this.tsmiPaste.Enabled = false;
+            this.tsmiPaste.Name = "tsmiPaste";
+            this.tsmiPaste.Size = new System.Drawing.Size(121, 22);
+            this.tsmiPaste.Text = "paste";
+            this.tsmiPaste.Click += new System.EventHandler(this.tsmiPaste_Click);
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Enabled = false;
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(121, 22);
+            this.tsmiDelete.Text = "delete";
+            this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
+            // 
+            // tbUrlContextMenuSeperator2
+            // 
+            this.tbUrlContextMenuSeperator2.Name = "tbUrlContextMenuSeperator2";
+            this.tbUrlContextMenuSeperator2.Size = new System.Drawing.Size(118, 6);
+            // 
+            // tsmiSelectAll
+            // 
+            this.tsmiSelectAll.Enabled = false;
+            this.tsmiSelectAll.Name = "tsmiSelectAll";
+            this.tsmiSelectAll.Size = new System.Drawing.Size(121, 22);
+            this.tsmiSelectAll.Text = "select_all";
+            this.tsmiSelectAll.Click += new System.EventHandler(this.tsmiSelectAll_Click);
             // 
             // btnSecure
             // 
@@ -471,6 +565,7 @@ namespace Surfer.Forms
             this.pnlUrl.ResumeLayout(false);
             this.pnlUrlInner.ResumeLayout(false);
             this.pnlUrlInner.PerformLayout();
+            this.tbUrlContextMenu.ResumeLayout(false);
             this.pnlNavButtons.ResumeLayout(false);
             this.pnlButtons.ResumeLayout(false);
             this.pnlLoading.ResumeLayout(false);
@@ -491,7 +586,7 @@ namespace Surfer.Forms
         private Controls.SBPanel pnlUrlInner;
         private Controls.SBIconButton btnSearch;
         private Controls.SBIconButton btnSecure;
-        public System.Windows.Forms.TextBox tbUrl;
+        public Controls.SBTextBox tbUrl;
         private Controls.SBPanel pnlButtons;
         private Controls.SBIconButtonDark btnDownload;
         private Controls.SBIconButton btnFavorite;
@@ -507,5 +602,15 @@ namespace Surfer.Forms
         private Controls.SBPanel btnForwardMargin;
         private Controls.SBPanel btnHomeMargin;
         private Controls.SBPanel btnReloadMargin;
+        private Controls.SBContextMenuStrip tbUrlContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUndo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRedo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCut;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
+        private System.Windows.Forms.ToolStripSeparator tbUrlContextMenuSeperator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
+        private System.Windows.Forms.ToolStripSeparator tbUrlContextMenuSeperator2;
     }
 }
