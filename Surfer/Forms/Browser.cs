@@ -1056,7 +1056,9 @@ namespace Surfer.Forms
         private void tsmiPaste_Click(object sender, EventArgs e)
         {
             if (CanPaste())
+            {
                 tbUrl.Paste();
+            }
         }
 
         private void tsmiPasteAndGo_Click(object sender, EventArgs e)

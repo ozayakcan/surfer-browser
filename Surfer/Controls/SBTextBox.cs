@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Surfer.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -28,6 +29,21 @@ namespace Surfer.Controls
                 else
                     _canAddUndoRedoEvent = value;
             }
+        }
+
+        public bool TrimPaste
+        {
+            get;
+            set;
+        } = false;
+
+        private bool ShouldSerializeTrimPaste()
+        {
+            return TrimPaste;
+        }
+        private void ResetVisualTrimPaste()
+        {
+            TrimPaste = true;
         }
 
         private bool _isUndoRedo = false;
@@ -136,6 +152,15 @@ namespace Surfer.Controls
                 if (_undoRedoList[0] != "")
                     _undoRedoList.Insert(0, "");
             }
+        }
+        public new void Paste()
+        {
+            string originalText = Clipboard.GetText();
+            if (TrimPaste)
+                Clipboard.SetText(originalText.TrimAdvanced());
+            base.Paste();
+            if(TrimPaste)
+                Clipboard.SetText(originalText);
         }
     }
 }
