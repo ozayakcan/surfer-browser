@@ -1005,7 +1005,7 @@ namespace Surfer.Forms
             tsmiPasteAndGo.Enabled = CanPaste();
             if (CanPaste())
             {
-                string cbText = Clipboard.GetText().TrimAdvanced();
+                string cbText = Clipboard.GetText().TrimAdvanced().Shorten(45);
                 tsmiPasteAndGo.Text = string.Format(cbText.IsUrl() ? _pasteAndGoText : _pasteAndSearchText, cbText);
             }
             else

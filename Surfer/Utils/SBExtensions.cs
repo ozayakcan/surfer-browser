@@ -129,6 +129,13 @@ namespace Surfer.Utils
             Regex regex = new Regex("[ ]{2,}", options);
             return regex.Replace(text.Replace("\n", "").Replace("\r", ""), " ").Trim();
         }
+        public static string Shorten(this string text, int length)
+        {
+            if (length < text.Length)
+                return text.Substring(0, length).TrimAdvanced() + "...";
+            else
+                return text;
+        }
         public static SBDevTools ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Action<SBDevTools> addParentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
             if (!chromiumWebBrowser.IsDisposed && addParentControl != null)
