@@ -22,6 +22,8 @@ namespace Surfer.Utils
         public string cut = "cut";
         public string copy = "copy";
         public string paste = "paste";
+        public string paste_and_search = "paste_and_search";
+        public string paste_and_go = "paste_and_go";
         public string select_all = "select_all";
         public string back = "back";
         public string forward = "forward";

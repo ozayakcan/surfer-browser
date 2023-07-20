@@ -25,6 +25,7 @@ namespace Surfer.Utils
         Cut,
         Copy,
         Paste,
+        PasteAndGo,
         SelectAll,
     }
     public static class SBShortcutKeysExtensions
@@ -70,6 +71,8 @@ namespace Surfer.Utils
                     return (Keys.Control | Keys.C);
                 case SBShortcutKeys.Paste:
                     return (Keys.Control | Keys.V);
+                case SBShortcutKeys.PasteAndGo:
+                    return (Keys.Control | Keys.Shift | Keys.L);
                 case SBShortcutKeys.SelectAll:
                     return (Keys.Control | Keys.A);
                 default:
@@ -106,6 +109,9 @@ namespace Surfer.Utils
                         || key == sbShortcutKeys.ToKey();
                 case SBShortcutKeys.AddToFavorites:
                     return (modifiers == CefEventFlags.ControlDown && key == Keys.D)
+                        || key == sbShortcutKeys.ToKey();
+                case SBShortcutKeys.PasteAndGo:
+                    return (modifiers == (CefEventFlags.ControlDown | CefEventFlags.ShiftDown) && key == Keys.L)
                         || key == sbShortcutKeys.ToKey();
                 default:
                     return key == sbShortcutKeys.ToKey();

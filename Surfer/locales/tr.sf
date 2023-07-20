@@ -7,6 +7,8 @@
   "cut": "Kes",
   "copy": "Kopyala",
   "paste": "Yapıştır",
+  "paste_and_search": "Yapıstır ve ara \"{0}\"",
+  "paste_and_go": "Yapıştır ve \"{0}\" adresine git",
   "select_all": "Hepsini Seç",
   "back": "Geri",
   "forward": "İleri",

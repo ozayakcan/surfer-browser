@@ -98,7 +98,8 @@ namespace Surfer.Forms
             if (Icon == OriginalIconLight || Icon == OriginalIconDark || isFirst)
                 SetIcon(Theme.IsDark ? OriginalIconDark : OriginalIconLight, Properties.Resources.icon);
         }
-
+        string _pasteAndGoText = Locale.Get.paste_and_go;
+        string _pasteAndSearchText = Locale.Get.paste_and_search;
         private void InitializeTBUrlContextMenu(bool isFirst = false)
         {
             if (isFirst)
@@ -113,6 +114,8 @@ namespace Surfer.Forms
                 tsmiCopy.ShortcutKeys = SBShortcutKeys.Copy.ToKey();
                 tsmiPaste.Text = Locale.Get.paste;
                 tsmiPaste.ShortcutKeys = SBShortcutKeys.Paste.ToKey();
+                ResetPasteAndGoTSMI();
+                tsmiPasteAndGo.ShortcutKeys = SBShortcutKeys.PasteAndGo.ToKey();
                 tsmiDelete.Text = Locale.Get.delete;
                 tsmiSelectAll.Text = Locale.Get.select_all;
                 tsmiSelectAll.ShortcutKeys = SBShortcutKeys.SelectAll.ToKey();
@@ -122,6 +125,7 @@ namespace Surfer.Forms
             tsmiCut.Image = IconChar.Cut.ToBitmap(Theme.Get.ColorText);
             tsmiCopy.Image = IconChar.Copy.ToBitmap(Theme.Get.ColorText);
             tsmiPaste.Image = IconChar.Paste.ToBitmap(Theme.Get.ColorText);
+            tsmiPasteAndGo.Image = IconChar.Clipboard.ToBitmap(Theme.Get.ColorText);
             tsmiDelete.Image = IconChar.TrashCan.ToBitmap(Theme.Get.ColorText);
         }
         private void btnGo_Click(object sender, EventArgs e)
@@ -470,17 +474,7 @@ namespace Surfer.Forms
             SBSiteInformationButtonStatus(false);
             if (e.KeyCode == Keys.Enter)
             {
-                string url = tbUrl.Text;
-                Uri uriResult;
-                bool result = Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uriResult);
-                if(uriResult == null)
-                {
-                    LoadUrl(tbUrl.Text.GetSearchUrl());
-                }
-                else
-                {
-                    LoadUrl(tbUrl.Text);
-                }
+                LoadUrl(tbUrl.Text.ToUrl());
             }
         }
         private void SBSiteInformationButtonStatus(bool enabled, bool locked = false)
@@ -710,6 +704,14 @@ namespace Surfer.Forms
                 this.InvokeOnUiThreadIfRequired(() =>
                 {
                     SaveFavorite();
+                });
+                return true;
+            }
+            else if (SBShortcutKeys.PasteAndGo.IsPressed(modifiers, key))
+            {
+                this.InvokeOnUiThreadIfRequired(() =>
+                {
+                    PasteAndGo();
                 });
                 return true;
             }
@@ -1000,9 +1002,25 @@ namespace Surfer.Forms
             tsmiCut.Enabled = CanCut();
             tsmiCopy.Enabled = CanCopy();
             tsmiPaste.Enabled = CanPaste();
+            tsmiPasteAndGo.Enabled = CanPaste();
+            if (CanPaste())
+            {
+                string cbText = Clipboard.GetText();
+                tsmiPasteAndGo.Text = string.Format(cbText.IsUrl() ? _pasteAndGoText : _pasteAndSearchText, cbText);
+            }
+            else
+            {
+                ResetPasteAndGoTSMI();
+            }
             tsmiDelete.Enabled = CanDelete();
             tsmiSelectAll.Enabled = CanSelectAll();
         }
+
+        private void ResetPasteAndGoTSMI()
+        {
+            tsmiPasteAndGo.Text = string.Format(_pasteAndGoText, " ");
+        }
+
         private void tsmiUndo_Click(object sender, EventArgs e)
         {
             if (tbUrl.CanUndo)
@@ -1040,6 +1058,20 @@ namespace Surfer.Forms
             if (CanPaste())
                 tbUrl.Paste();
         }
+
+        private void tsmiPasteAndGo_Click(object sender, EventArgs e)
+        {
+            PasteAndGo();
+        }
+
+        private void PasteAndGo()
+        {
+            if (CanPaste())
+            {
+                LoadUrl(Clipboard.GetText().ToUrl());
+            }
+        }
+
         private bool CanDelete()
         {
             return tbUrl.SelectionLength > 0;

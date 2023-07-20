@@ -107,6 +107,21 @@ namespace Surfer.Utils
         {
             return "https://www.google.com/search?q=" + text;
         }
+        public static string ToUrl(this string text)
+        {
+            if (!text.IsUrl())
+            {
+                return text.GetSearchUrl();
+            }
+            else
+            {
+                return text;
+            }
+        }
+        public static bool IsUrl(this string text)
+        {
+            return Uri.IsWellFormedUriString(text, UriKind.RelativeOrAbsolute);
+        }
         public static SBDevTools ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Action<SBDevTools> addParentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
             if (!chromiumWebBrowser.IsDisposed && addParentControl != null)
