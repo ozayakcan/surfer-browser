@@ -5,6 +5,7 @@ using Surfer.Controls;
 using Surfer.Utils.Browser;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Surfer.Utils
@@ -121,6 +122,12 @@ namespace Surfer.Utils
         public static bool IsUrl(this string text)
         {
             return Uri.IsWellFormedUriString(text, UriKind.RelativeOrAbsolute);
+        }
+        public static string TrimAdvanced(this string text)
+        {
+            RegexOptions options = RegexOptions.None;
+            Regex regex = new Regex("[ ]{2,}", options);
+            return regex.Replace(text.Replace("\n", "").Replace("\r", ""), " ").Trim();
         }
         public static SBDevTools ShowDevToolsDockedCustom(this IChromiumWebBrowserBase chromiumWebBrowser, Action<SBDevTools> addParentControl, string controlName = "ChromiumHostControlDevTools", DockStyle dockStyle = DockStyle.Fill, int inspectElementAtX = 0, int inspectElementAtY = 0)
         {
