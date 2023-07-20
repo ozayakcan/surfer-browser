@@ -157,6 +157,9 @@
     <Compile Include="Controls\SBProgressBar.Designer.cs">
       <DependentUpon>SBProgressBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SBTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\Browser\DownloadManager.cs" />
     <Compile Include="Utils\Browser\ErrorTexts.cs" />
     <Compile Include="Utils\Browser\FavoriteManager.cs" />
